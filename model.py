@@ -14,7 +14,7 @@ class User(db.Model):
     __tablename__ = "users"
 
     user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    email = db.Column(db.String(64), nullable=False)
+    email = db.Column(db.String(64), unique=True, nullable=False)
     password = db.Column(db.String(64), nullable=False)
     first_name = db.Column(db.Unicode(25), nullable=False)
     last_name = db.Column(db.Unicode(25), nullable=False)
@@ -71,18 +71,18 @@ class Popos(db.Model):
     popos_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     name = db.Column(db.Unicode(100), nullable=False)
     address = db.Column(db.String(100), nullable=False)
+    location = db.Column(db.String(100), nullable=True)
     popos_type = db.Column(db.String(50), nullable=True)
     hours = db.Column(db.String(100), nullable=True)
     landscaping = db.Column(db.String(100), nullable=True)
-    art = db.Column(db.String(3), nullable=True)
-    food = db.Column(db.String(1), nullable=True)
-    seating = db.Column(db.String(1), nullable=True)
-    restroom = db.Column(db.String(1), nullable=True)
+    art = db.Column(db.String(4), nullable=True)
+    food = db.Column(db.String(4), nullable=True)
+    seating = db.Column(db.String(4), nullable=True)
+    restrooms = db.Column(db.String(4), nullable=True)
     description = db.Column(db.Unicode(500), nullable=True)
     year = db.Column(db.Integer, nullable=True)
-    lat = db.Column(db.String(50), nullable=False)[coordinates][0]
-    lon = db.Column(db.String(50), nullable=False)[coordinates][1]
-
+    lat = db.Column(db.String(50), nullable=False)
+    lon = db.Column(db.String(50), nullable=False)
 
     def __repr__(self):
         """Provide helpful representation when printed."""
@@ -121,8 +121,8 @@ class Art(db.Model):
     medium = db.Column(db.String(50), nullable=True)
     location = db.Column(db.Unicode(100), nullable=True)
     artist_link = db.Column(db.String(200), nullable=True)
-    lat = db.Column(db.String(50), nullable=False)[coordinates][0]
-    lon = db.Column(db.String(50), nullable=False)[coordinates][1]
+    lat = db.Column(db.String(50), nullable=False)
+    lon = db.Column(db.String(50), nullable=False)
 
     def __repr__(self):
         """Provide helpful representation when printed."""
@@ -147,3 +147,24 @@ class FavArt(db.Model):
 
         return "<FavArt fav_art_id={} user_id={} art_id={}>".format(
                self.fav_art_id, self.user_id, self.art_id)
+
+
+
+##############################################################################
+# Helper functions
+
+def connect_to_db(app):
+    """Connect the database to our Flask app."""
+
+    # Configure to use our PostgreSQL database
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///outerspaces'
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    db.app = app
+    db.init_app(app)
+
+
+if __name__ == "__main__":
+
+    from server import app
+    connect_to_db(app)
+    print "Connected to DB."
