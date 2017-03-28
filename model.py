@@ -80,14 +80,9 @@ class Popos(db.Model):
     restroom = db.Column(db.String(1), nullable=True)
     description = db.Column(db.Unicode(500), nullable=True)
     year = db.Column(db.Integer, nullable=True)
+    lat = db.Column(db.String(50), nullable=False)[coordinates][0]
+    lon = db.Column(db.String(50), nullable=False)[coordinates][1]
 
-    #TODO BELOW #########################################################
-
-    #http://stackoverflow.com/questions/37233116/point-type-in-sqlalchemy
-    #pg 20: https://media.readthedocs.org/pdf/flask-admin-chinese/latest/flask-admin-chinese.pdf
-    the_geom = db.Column(db.Float, nullable=False)
-
-    #TODO ABOVE #########################################################
 
     def __repr__(self):
         """Provide helpful representation when printed."""
@@ -126,14 +121,8 @@ class Art(db.Model):
     medium = db.Column(db.String(50), nullable=True)
     location = db.Column(db.Unicode(100), nullable=True)
     artist_link = db.Column(db.String(200), nullable=True)
-
-    #TODO BELOW #########################################################
-
-    #http://stackoverflow.com/questions/37233116/point-type-in-sqlalchemy
-    #pg 20: https://media.readthedocs.org/pdf/flask-admin-chinese/latest/flask-admin-chinese.pdf
-    the_geom = db.Column(db.Float, nullable=False)
-
-    #TODO ABOVE #########################################################
+    lat = db.Column(db.String(50), nullable=False)[coordinates][0]
+    lon = db.Column(db.String(50), nullable=False)[coordinates][1]
 
     def __repr__(self):
         """Provide helpful representation when printed."""
