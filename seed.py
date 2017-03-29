@@ -1,9 +1,14 @@
-import model
+from model import User, Truck, Popos, Art, db, connect_to_db
 
 def example_data():
     """Create some sample data."""
 
-    swell = model.Truck(truck_id=931094,
+    jane = User(email="abc@abc.com",
+                      password="abc",
+                      first_name="Jane",
+                      last_name="Doe")
+
+    swell = Truck(truck_id=931094,
                         name="Swell Cream & Coffee",
                         address="2450 TARAVAL ST",
                         cuisine="Ice cream: coffee: pastries",
@@ -11,7 +16,7 @@ def example_data():
                         lon="-122.492677082215")
     
 
-    mission = model.Popos(name="555 Mission St",
+    mission = Popos(name="555 Mission St",
                           address="555 Mission St",
                           location="Western side of Building, street level.",
                           popos_type="Plaza",
@@ -27,7 +32,7 @@ def example_data():
                           lon="37.7884")
 
 
-    sansome = model.Art(address="343 Sansome",
+    sansome = Art(address="343 Sansome",
                         title="'\"Four Seasons\"' by Joan Brown",
                         art_type="obelisk",
                         medium="tile",
@@ -37,19 +42,14 @@ def example_data():
                         lon="37.793616")
 
 
-    jane = model.User(email="abc@abc.com",
-                      password="abc",
-                      first_name="Jane",
-                      last_name="Doe")
-
-    model.db.session.add_all([swell, mission, sansome, jane])
-    model.db.session.commit()
+    db.session.add_all([swell, mission, sansome, jane])
+    db.session.commit()
 
 
 if __name__ == "__main__":
 
     from server import app
-    model.connect_to_db(app)
+    connect_to_db(app)
     print "Connected to DB."
 
     example_data()
