@@ -8,8 +8,6 @@ from flask_debugtoolbar import DebugToolbarExtension
 from model import (User, Truck, FavTruck, Popos, FavPopos, 
                    Art, FavArt, db, connect_to_db)
 
-import requests    # HTTP requests to Socrata API endpoints
-
 
 
 app = Flask(__name__)

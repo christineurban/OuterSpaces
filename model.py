@@ -36,7 +36,7 @@ class Truck(db.Model):
     address = db.Column(db.String(100), nullable=True)
     cuisine = db.Column(db.Unicode(500), nullable=True)
     lat = db.Column(db.String(20), nullable=False)
-    lon = db.Column(db.String(20), nullable=False)
+    lng = db.Column(db.String(20), nullable=False)
 
     def __repr__(self):
         """Provide helpful representation when printed."""
@@ -82,7 +82,7 @@ class Popos(db.Model):
     description = db.Column(db.Unicode(500), nullable=True)
     year = db.Column(db.Integer, nullable=True)
     lat = db.Column(db.String(50), nullable=False)
-    lon = db.Column(db.String(50), nullable=False)
+    lng = db.Column(db.String(50), nullable=False)
 
     def __repr__(self):
         """Provide helpful representation when printed."""
@@ -122,7 +122,7 @@ class Art(db.Model):
     location = db.Column(db.Unicode(100), nullable=True)
     artist_link = db.Column(db.String(200), nullable=True)
     lat = db.Column(db.String(50), nullable=False)
-    lon = db.Column(db.String(50), nullable=False)
+    lng = db.Column(db.String(50), nullable=False)
 
     def __repr__(self):
         """Provide helpful representation when printed."""

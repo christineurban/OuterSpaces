@@ -1,4 +1,13 @@
 from model import User, Truck, Popos, Art, db, connect_to_db
+import requests    # HTTP requests to Socrata API endpoints
+
+url = "https://data.sfgov.org/resource/6a9r-agq8.json"
+
+response = requests.get(url)
+if response.status_code == 200:
+    data = response.json()
+print data
+
 
 def example_data():
     """Create some sample data."""
@@ -13,7 +22,7 @@ def example_data():
                         address="2450 TARAVAL ST",
                         cuisine="Ice cream: coffee: pastries",
                         lat="37.7425503735592",
-                        lon="-122.492677082215")
+                        lng="-122.492677082215")
     
 
     mission = Popos(name="555 Mission St",
@@ -29,7 +38,7 @@ def example_data():
                           description="This large plaza has several art and landscaping features. It is located in front of 555 Mission Streets and runs along the west side of the building. There are several distinct sitting areas with different styles of seating.",
                           year="2008",
                           lat="-122.39891",
-                          lon="37.7884")
+                          lng="37.7884")
 
 
     sansome = Art(address="343 Sansome",
@@ -39,7 +48,7 @@ def example_data():
                         location="roof garden",
                         artist_link="http://en.wikipedia.org/wiki/Joan_Brown",
                         lat="-122.401572",
-                        lon="37.793616")
+                        lng="37.793616")
 
 
     db.session.add_all([swell, mission, sansome, jane])
@@ -52,7 +61,7 @@ if __name__ == "__main__":
     connect_to_db(app)
     print "Connected to DB."
 
-    example_data()
+    # example_data()
 
 
 # Unicode warning can be ignored
