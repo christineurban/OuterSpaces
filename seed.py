@@ -1,12 +1,4 @@
 from model import User, Truck, Popos, Art, db, connect_to_db
-import requests    # HTTP requests to Socrata API endpoints
-
-url = "https://data.sfgov.org/resource/6a9r-agq8.json"
-
-response = requests.get(url)
-if response.status_code == 200:
-    data = response.json()
-print data
 
 
 def example_data():

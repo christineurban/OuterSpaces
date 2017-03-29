@@ -1,5 +1,5 @@
 from flask import (Flask, render_template, redirect, request, 
-                   flash, session)
+                   flash, session, jsonify)
 
 from jinja2 import StrictUndefined
 
@@ -7,6 +7,8 @@ from flask_debugtoolbar import DebugToolbarExtension
 
 from model import (User, Truck, FavTruck, Popos, FavPopos, 
                    Art, FavArt, db, connect_to_db)
+
+import requests    # HTTP requests to Socrata API endpoints
 
 
 
@@ -47,14 +49,40 @@ def view_profile():
     return render_template("profile.html")
 
 
-# @app.route('/data/art')
-# def hello_world():
-#     url = request.args.get('url')
-#     response = requests.get(url)
-#     if response.status_code == 200:
-#         data = response.json()
-#     return data
+@app.route("/data/trucks.json")
+def get_trucks():
+    """Get food truck data from API as JSON."""
 
+    url = "https://data.sfgov.org/resource/6a9r-agq8.json?$$app_token=ZdU790C4h4Zuose6A2U3DGjld"
+    response = requests.get(url)
+    print response.status_code
+    if response.status_code == 200:
+        data = response.json()
+    return jsonify(data)
+
+
+@app.route("/data/popos.json")
+def get_popos():
+    """Get POPOS data from API as JSON."""
+
+    url = "https://data.sfgov.org/resource/3ub7-d4yy.json?$$app_token=ZdU790C4h4Zuose6A2U3DGjld"
+    response = requests.get(url)
+    print response.status_code
+    if response.status_code == 200:
+        data = response.json()
+    return jsonify(data)
+
+
+@app.route("/data/art.json")
+def get_art():
+    """Get public art data from API as JSON."""
+
+    url = "https://data.sfgov.org/resource/8fe8-yww8.json?$$app_token=ZdU790C4h4Zuose6A2U3DGjld"
+    response = requests.get(url)
+    print response.status_code
+    if response.status_code == 200:
+        data = response.json()
+    return jsonify(data)
 
 
 if __name__ == "__main__":
