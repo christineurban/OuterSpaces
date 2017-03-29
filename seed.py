@@ -53,3 +53,7 @@ if __name__ == "__main__":
     print "Connected to DB."
 
     example_data()
+
+
+# Unicode warning can be ignored
+# https://github.com/privacyidea/privacyidea/issues/200
