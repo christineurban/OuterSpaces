@@ -21,6 +21,7 @@ function initMap() {
             position: latLng,
             map: map,
             title: title,
+            // http://stackoverflow.com/questions/11162740/where-i-can-find-the-little-red-dot-image-used-in-google-map
             icon: "https://storage.googleapis.com/support-kms-prod/SNP_2752129_en_v0"
           });
         }
@@ -73,4 +74,3 @@ function initMap() {
 
 }
 
-// http://stackoverflow.com/questions/11162740/where-i-can-find-the-little-red-dot-image-used-in-google-map

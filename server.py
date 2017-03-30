@@ -8,16 +8,17 @@ from flask_debugtoolbar import DebugToolbarExtension
 from model import (User, Truck, FavTruck, Popos, FavPopos, 
                    Art, FavArt, db, connect_to_db)
 
-import requests    # HTTP requests to Socrata API endpoints
+import os           # Access OS environment variables
+import requests     # HTTP requests to Socrata API endpoints
 
 
 
 app = Flask(__name__)
 
-app.secret_key = "ABC"
+app.secret_key = os.environ["FLASK_SECRET_KEY"]
 
-app.jinja_env.undefined = StrictUndefined
 # raise an error if variable is undefined
+app.jinja_env.undefined = StrictUndefined
 
 
 
@@ -32,7 +33,11 @@ def splash():
 def view_map():
     """Google Map of food trucks, POPOS, and public art"""
 
-    return render_template("map.html")
+    # get Google Maps key
+    key = os.environ["GOOGLE_MAPS_API_KEY"]
+                           
+    return render_template("map.html",
+                           key=key)
 
 
 @app.route("/account")
@@ -49,15 +54,22 @@ def view_profile():
     return render_template("profile.html")
 
 
+# get SF DATA app token 
+sf_data = os.environ["SF_DATA_APP_TOKEN"]
+
+
 @app.route("/data/trucks.json")
 def get_trucks():
     """Get food truck data from API as JSON."""
 
-    url = "https://data.sfgov.org/resource/6a9r-agq8.json?$$app_token=ZdU790C4h4Zuose6A2U3DGjld"
+    url = "https://data.sfgov.org/resource/6a9r-agq8.json?$$app_token=" + sf_data
     response = requests.get(url)
-    print response.status_code
     if response.status_code == 200:
         data = response.json()
+    else:
+        status = response.status.code
+        raise AssertionError("Route /data/trucks.json status code: {}".format(
+                             status))
     return jsonify(data)
 
 
@@ -65,11 +77,14 @@ def get_trucks():
 def get_popos():
     """Get POPOS data from API as JSON."""
 
-    url = "https://data.sfgov.org/resource/3ub7-d4yy.json?$$app_token=ZdU790C4h4Zuose6A2U3DGjld"
+    url = "https://data.sfgov.org/resource/3ub7-d4yy.json?$$app_token=" + sf_data
     response = requests.get(url)
-    print response.status_code
     if response.status_code == 200:
         data = response.json()
+    else:
+        status = response.status.code
+        raise AssertionError("Route /data/popos.json status code: {}".format(
+                             status))
     return jsonify(data)
 
 
@@ -77,11 +92,14 @@ def get_popos():
 def get_art():
     """Get public art data from API as JSON."""
 
-    url = "https://data.sfgov.org/resource/8fe8-yww8.json?$$app_token=ZdU790C4h4Zuose6A2U3DGjld"
+    url = "https://data.sfgov.org/resource/8fe8-yww8.json?$$app_token=" + sf_data
     response = requests.get(url)
-    print response.status_code
     if response.status_code == 200:
         data = response.json()
+    else:
+        status = response.status.code
+        raise AssertionError("Route /data/art.json status code: {}".format(
+                             status))
     return jsonify(data)
 
 
