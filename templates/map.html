@@ -4,15 +4,18 @@
 
 {% block body %}
 
-<!-- <div class="container">
-    <div class="row">
-        <div class="jumbotron">
-            <h1 class="display-3">Map</h1>
-        </div>
-    </div>
-</div> -->
+<h1>Map</h1>
+
+<form>
+  <input type="checkbox" name="place" value="truck" id="truckMap" checked>Food Trucks
+  <input type="checkbox" name="place" value="popos" id="poposMap" checked>Popos
+  <input type="checkbox" name="place" value="art" id="artMap" checked>Public Art
+</form>
 
 <div id="map"></div>
 
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key={{ key }}&callback=initMap">
+</script>
 
 {% endblock %}

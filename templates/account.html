@@ -4,21 +4,28 @@
 
 {% block body %}
 
-<div class="container">
-    <div class="row">
-        <div class="jumbotron">
-            <h1 class="display-3">Log In Or Sign Up</h1>
-        </div>
-    </div>
-</div>
+ <h1>Log In Or Sign Up</h1>
 
-
-<form action="">
-    
-    
+<!--============-->
+<!-- LOGIN FORM -->
+<!--============-->
+<form action="" method="POST" id="login">
+    <label>Email:</label><input type="text" name="email"><br>
+    <label>Password:</label><input type="text" name="password"><br>
+    <input type="submit">
 </form>
 
 
+<!--=============-->
+<!-- SIGNUP FORM -->
+<!--=============-->
+<form action="" method="POST" id="signup">
+    <label>First Name:</label><input type="text" name="first_name"><br>
+    <label>Last Name:</label><input type="text" name="last_name"><br>
+    <label>Email:</label><input type="text" name="email"><br>
+    <label>Password:</label><input type="text" name="password"><br>
+    <input type="submit">
+</form>
 
 
 {% endblock %}
