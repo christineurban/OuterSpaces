@@ -1,21 +1,29 @@
 {% extends "base.html" %}
-
-{% block title %} Map &mdash; OuterSpaces {% endblock %}
-
+{% block title %} Map | OuterSpaces {% endblock %}
+{% block script %}<script src="../static/scripts/myMapJS.js"></script>{% endblock %}
 {% block body %}
 
-<h1>Map</h1>
+<div class="container">
+  <div class="row">
 
-<form>
-  <input type="checkbox" name="place" value="truck" id="truckMap" checked>Food Trucks
-  <input type="checkbox" name="place" value="popos" id="poposMap" checked>Popos
-  <input type="checkbox" name="place" value="art" id="artMap" checked>Public Art
-</form>
+    <h1>Map</h1>
 
-<div id="map"></div>
+    <form>
+      <label for="truckMap">Food Trucks </label>
+      <input type="checkbox" name="place" value="truck" id="truckMap" checked>
+      <label for="poposMap">POPOS </label>
+      <input type="checkbox" name="place" value="popos" id="poposMap" checked>
+      <label for="artMap">Public Art </label>
+      <input type="checkbox" name="place" value="art" id="artMap" checked>
+    </form>
 
-<script async defer
-src="https://maps.googleapis.com/maps/api/js?key={{ key }}&callback=initMap">
-</script>
+    <div id="map"></div>
+
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key={{ key }}&callback=initMap">
+    </script>
+
+  </div>
+</div>
 
 {% endblock %}

@@ -1,31 +1,47 @@
 {% extends "base.html" %}
-
-{% block title %} Account &mdash; OuterSpaces {% endblock %}
-
+{% block title %} Account | OuterSpaces {% endblock %}
+{% block script %}<script src="../static/scripts/myJS.js"></script>{% endblock %}
 {% block body %}
 
- <h1>Log In Or Sign Up</h1>
+<div class="container">
+  <div class="row">
 
-<!--============-->
-<!-- LOGIN FORM -->
-<!--============-->
-<form action="" method="POST" id="login">
-    <label>Email:</label><input type="text" name="email"><br>
-    <label>Password:</label><input type="text" name="password"><br>
-    <input type="submit">
-</form>
+    <h1>Log In Or Sign Up</h1>
+
+    <button id="logInBtn" disabled>Log In</button>&nbsp;
+    <button id="signUpBtn">Sign Up</button>
+    <br><br>
+
+    <!--============-->
+    <!-- LOGIN FORM -->
+    <!--============-->
+    <form action="" method="POST" id="logInForm">
+      <input type="text" placeholder="Email" name="emailLogIn" id="emailLogIn">
+      <br><br>
+      <input type="text" placeholder="Password" name="pwLogIn" id="pwLogIn">
+      <br><br>
+      <input type="submit" value="Log In" id="submitLogIn">
+    </form>
 
 
-<!--=============-->
-<!-- SIGNUP FORM -->
-<!--=============-->
-<form action="" method="POST" id="signup">
-    <label>First Name:</label><input type="text" name="first_name"><br>
-    <label>Last Name:</label><input type="text" name="last_name"><br>
-    <label>Email:</label><input type="text" name="email"><br>
-    <label>Password:</label><input type="text" name="password"><br>
-    <input type="submit">
-</form>
+    <!--=============-->
+    <!-- SIGNUP FORM -->
+    <!--=============-->
+    <div id="hideSignUpForm">
+      <form action="" method="POST" id="signUpForm">
+        <input type="hidden" placeholder="First Name" name="fNameSignUp" id="fNameSignUp">
+        <br><br>
+        <input type="hidden" placeholder="Last Name" name="lNameSignUp" id="lNameSignUp">
+        <br><br>
+        <input type="hidden" placeholder="Email" name="emailSignUp" id="emailSignUp">
+        <br><br>
+        <input type="hidden" placeholder="Password" name="pwSignUp" id="pwSignUp">
+        <br><br>
+        <input type="hidden" value="Sign Up" id="submitSignUp">
+      </form>
+    </div>
 
+  </div>
+</div>
 
 {% endblock %}
