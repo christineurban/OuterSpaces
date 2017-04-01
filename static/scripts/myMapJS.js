@@ -261,18 +261,18 @@ $(document).ready(function() {
 
 
   /////////////////////////////////////////////
-  // On checkbox click, call toggle function //
+  // On checkbox change, call toggle function //
   /////////////////////////////////////////////
 
-  $("#truckMap").on("click", function() {
+  $("#truckMap").on("change", function() {
       toggleTruckMarkers();
   });
 
-  $("#poposMap").on("click", function() {
+  $("#poposMap").on("change", function() {
       togglePoposMarkers();
   });
 
-  $("#artMap").on("click", function() {
+  $("#artMap").on("change", function() {
       toggleArtMarkers();
   });
 
@@ -329,7 +329,7 @@ $(document).ready(function() {
   function submitSearch(evt) {
       evt.preventDefault();
 
-      var search = $('#search').val();
+      var search = $("#search").val();
       var allMarkers = truckMarkers.concat((poposMarkers.concat(artMarkers)));
 
       for (var marker of allMarkers) {
@@ -343,6 +343,20 @@ $(document).ready(function() {
   }
 
   $("#searchForm").on("submit", submitSearch);
+
+
+  ///////////////
+  // Reset map //
+  ///////////////
+
+
+
+  function resetMap(evt) {
+    $("#search").val("");
+    $("#truckMap, #poposMap, #artMap").prop("checked", true);
+  }
+
+  $("#resetMap").on("click", resetMap);
 
 
 });
