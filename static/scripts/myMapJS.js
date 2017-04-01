@@ -116,12 +116,13 @@ $(document).ready(function() {
     var contentString = "<div id='content'>" +
         "<p>FOOD TRUCK</p>" +
         "<h3>" + title + "</h3>" + 
-        "<p>" + address + "</p>" +
-        "<p>" + schedule + "</p>" +
-        "<p>" + cuisine + "</p>" +
-        "<button id='addToFavTrucks'>Add to Favorites</button> " +
-        "<button id='nearbyPoposTrucks'>Nearby POPOS</button> " +
-        "<button id='nearbyArtTrucks'>Nearby Art</button>" +
+        "<p><button id='addToFavTrucks'>Add to Favorites</button></p>" +
+        "<p><strong>Address:</strong> " + address + "</p>" +
+        "<p><strong>Hours:</strong> " + schedule + "</p>" +
+        "<p><strong>Cuisine:</strong> " + cuisine + "</p>" +
+        "<button id='nearbyTrucksFromTruck'>Nearby Food Trucks</button> " +
+        "<button id='nearbyPoposFromTruck'>Nearby POPOS</button> " +
+        "<button id='nearbyArtFromTruck'>Nearby Art</button>" +
         "</div>";
 
     // create marker
@@ -154,28 +155,22 @@ $(document).ready(function() {
     var schedule = data.hours;
     var location = data.location;
     var type = data.type;
-    var desc = data.descriptio; 
-    var seating = data.seating_no;
-    var food = data.food_servi;
-    var landscaping = data.landscapin;
-    var art = data.art;
-    var restrooms = data.restrooms;
+    var desc = data.descriptio;
 
     // custom info window string
     var contentString = "<div id='content'>" +
-        "<p>POPOS</p>" +
-        "<h3>" + title + "</h3>" + 
-        "<p>" + type + "</p>" +
-        "<p>" + address + "</p>" +
-        "<p>" + schedule + "</p>" +
-        "<p>" + location + "</p>" +
+        "<p><strong>POPOS</strong></p>" +
+        "<h3>" + title + "</h3>" +
+        "<p><button id='addToFavPopos'>Add to Favorites</button></p>" +
+        
+        "<p><strong>Address:</strong> " + address + "</p>" +
+        "<p><strong>Hours:</strong> " + schedule + "</p>" +
+        "<p><strong>Type:</strong> " + type + "</p>" +
+        "<p><strong>Location:</strong> " + location + "</p>" +
         "<p>" + desc + "</p>" +
-        // "<p>Seating: " + seating + " | Food: " + food + 
-        // " | Landscaping: " + landscaping + " | Art: " + art + 
-        // " | Restrooms: " + restrooms + "</p>" +
-        "<button id='addToFavPopos'>Add to Favorites</button> " +
-        "<button id='nearbyTrucksPopos'>Nearby Food Trucks</button> " +
-        "<button id='nearbyArtPopos'>Nearby Art</button>" +
+        "<button id='nearbyTrucksFromPopos'>Nearby Food Trucks</button> " +
+        "<button id='nearbyPoposFromPopos'>Nearby Popos</button> " +
+        "<button id='nearbyArtFromPopos'>Nearby Art</button>" +
         "</div>";
 
     // create marker
@@ -207,23 +202,21 @@ $(document).ready(function() {
     var location = data.location;
     var type = data.type;
     var medium = data.medium;
-    var desc = data.descriptio;
     var link = data.artistlink;
 
     // custom info window string
     var contentString = "<div id='content'>" +
-        "<p>PUBLIC ART</p>" +
+        "<p><strong>PUBLIC ART</strong></p>" +
         "<h3>" + title + "</h3>" +
-        "<p>" + address + "</p>" +
-        "<p>" + name + "</p>" +
-        "<p>" + location + "</p>" +
-        "<p>" + type + "</p>" +
-        "<p>" + medium + "</p>" +
-        "<p>" + desc + "</p>" +
+        "<p><button id='addToFavArt'>Add to Favorites</button></p>" +
+        "<p><strong>Address:</strong> " + address + "</p>" +
+        "<p><strong>Location:</strong> " + location + "</p>" +
+        "<p><strong>Type:</strong> " + type + "</p>" +
+        "<p><strong>Medium:</strong> " + medium + "</p>" +
         "<p><a target='_blank' href='" + link + "'>" + link + "</a></p>" +
-        "<button id='addToFavArt'>Add to Favorites</button> " +
-        "<button id='nearbyTrucksArt'>Nearby Food Trucks</button> " +
-        "<button id='nearbyPoposArt'>Nearby POPOS</button>" +
+        "<button id='nearbyTrucksFromArt'>Nearby Food Trucks</button> " +
+        "<button id='nearbyPoposFromArt'>Nearby POPOS</button> " +
+        "<button id='nearbyArtFromArt'>Nearby Art</button>" +
         "</div>";
 
     // create marker
