@@ -1,9 +1,46 @@
-from unittest import TestCase
+import unittest
 from server import app
 from model import db, connect_to_db
 from seed import example_data
 
-class OuterSpacesTestsDatabase(TestCase):
+
+class OuterSpacesTests(unittest.TestCase):
+    """Flask tests on routes."""
+
+    def setUp(self):
+        self.client = app.test_client()
+        app.config['TESTING'] = True
+
+
+    def test_homepage(self):
+        result = self.client.get("/")
+        self.assertEqual(result.status_code, 200)
+        self.assertIn("Find an OuterSpace", result.data)
+
+
+    def test_account(self):
+        result = self.client.get("/account")
+        self.assertEqual(result.status_code, 200)
+        self.assertIn('<div id="hideSignUpForm">', result.data)
+
+
+    # TODO when database is set up
+
+    # def test_profile(self):
+    #     result = self.client.post("/profile")
+    #     self.assertEqual(result.status_code, 200)
+    #     self.assertIn("<h1>Profile</h1>", result.data)
+
+
+    def test_map(self):
+        """Test profile page."""
+
+        result = self.client.get("/map")
+        self.assertEqual(result.status_code, 200)
+        self.assertIn('<label for="truckMap">Food Trucks </label>', result.data)
+
+
+class OuterSpacesTestsDatabase(unittest.TestCase):
     """Flask tests that use the database."""
 
     def setUp(self):
@@ -22,20 +59,14 @@ class OuterSpacesTestsDatabase(TestCase):
         db.create_all()
         example_data()
 
+
     def tearDown(self):
         """Do at end of every test."""
 
         db.session.close()
         db.drop_all()
 
-#TODO BELOW ####################################################################
-
-    def test_games(self):
-        """Test departments page."""
-
-        result = self.client.get("/games")
-
-        self.assertIn("Power Grid", result.data)
 
 
-
+if __name__ == "__main__":
+    unittest.main()

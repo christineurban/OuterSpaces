@@ -9,7 +9,7 @@ var infoWindow;
 
 function initMap() {
   var info = new google.maps.InfoWindow( {
-    maxWidth: 300
+    maxWidth: 350
   });
   var sanFrancisco = {lat: 37.7599, lng: -122.440558};
   var mapOptions = new google.maps.Map(document.getElementById("map"), {
@@ -18,8 +18,36 @@ function initMap() {
   });
   map = mapOptions;
   infoWindow = info;
+
+
+  // Try HTML5 geolocation.
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+      var marker = new google.maps.Marker({
+        position: pos,
+        map: map
+      });
+      map.setCenter(pos);
+    }, function() {
+      handleLocationError(true, infoWindow, map.getCenter());
+    });
+  } else {
+    // Browser doesn't support Geolocation
+    handleLocationError(false, infoWindow, map.getCenter());
+  }
+
 }
 
+function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+                              'Error: The Geolocation service failed.' :
+                              'Error: Your browser doesn\'t support geolocation.');
+      }
 
 
 $(document).ready(function() {
@@ -86,10 +114,14 @@ $(document).ready(function() {
 
     // custom info window string
     var contentString = "<div id='content'>" +
-        "<h2>" + title + "</h2>" + 
+        "<p>FOOD TRUCK</p>" +
+        "<h3>" + title + "</h3>" + 
         "<p>" + address + "</p>" +
         "<p>" + schedule + "</p>" +
         "<p>" + cuisine + "</p>" +
+        "<button id='addToFavTrucks'>Add to Favorites</button> " +
+        "<button id='nearbyPoposTrucks'>Nearby POPOS</button> " +
+        "<button id='nearbyArtTrucks'>Nearby Art</button>" +
         "</div>";
 
     // create marker
@@ -97,8 +129,6 @@ $(document).ready(function() {
       position: latLng,
       map: map,
       title: title,
-      contentString: contentString,
-      info: infoWindow,
       // http://stackoverflow.com/questions/11162740/where-i-can-find-the-little-red-dot-image-used-in-google-map
       icon: "https://storage.googleapis.com/support-kms-prod/SNP_2752129_en_v0"
       });
@@ -133,14 +163,19 @@ $(document).ready(function() {
 
     // custom info window string
     var contentString = "<div id='content'>" +
-        "<h2>" + title + "</h2>" + 
+        "<p>POPOS</p>" +
+        "<h3>" + title + "</h3>" + 
+        "<p>" + type + "</p>" +
         "<p>" + address + "</p>" +
         "<p>" + schedule + "</p>" +
         "<p>" + location + "</p>" +
         "<p>" + desc + "</p>" +
-        "<p>Seating: " + seating + " | Food: " + food + 
-        " | Landscaping: " + landscaping + " | Art: " + art + 
-        " | Restrooms: " + restrooms + "</p>" +
+        // "<p>Seating: " + seating + " | Food: " + food + 
+        // " | Landscaping: " + landscaping + " | Art: " + art + 
+        // " | Restrooms: " + restrooms + "</p>" +
+        "<button id='addToFavPopos'>Add to Favorites</button> " +
+        "<button id='nearbyTrucksPopos'>Nearby Food Trucks</button> " +
+        "<button id='nearbyArtPopos'>Nearby Art</button>" +
         "</div>";
 
     // create marker
@@ -148,8 +183,6 @@ $(document).ready(function() {
       position: latLng,
       map: map,
       title: title,
-      contentString: contentString,
-      info: infoWindow,
       icon: "https://maps.gstatic.com/intl/en_us/mapfiles/markers2/measle_blue.png"
     });
 
@@ -179,13 +212,18 @@ $(document).ready(function() {
 
     // custom info window string
     var contentString = "<div id='content'>" +
-        "<h2>" + title + "</h2>" +
+        "<p>PUBLIC ART</p>" +
+        "<h3>" + title + "</h3>" +
+        "<p>" + address + "</p>" +
         "<p>" + name + "</p>" +
         "<p>" + location + "</p>" +
         "<p>" + type + "</p>" +
         "<p>" + medium + "</p>" +
         "<p>" + desc + "</p>" +
-        "<p>" + link + "</p>" +
+        "<p><a target='_blank' href='" + link + "'>" + link + "</a></p>" +
+        "<button id='addToFavArt'>Add to Favorites</button> " +
+        "<button id='nearbyTrucksArt'>Nearby Food Trucks</button> " +
+        "<button id='nearbyPoposArt'>Nearby POPOS</button>" +
         "</div>";
 
     // create marker
