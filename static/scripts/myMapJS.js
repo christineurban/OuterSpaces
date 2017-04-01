@@ -111,18 +111,20 @@ $(document).ready(function() {
     var address = data.address;
     var schedule = data.dayshours;
     var cuisine = data.fooditems;
+    var searchDetails = title + address + cuisine;
 
     // custom info window string
     var contentString = "<div id='content'>" +
         "<p>FOOD TRUCK</p>" +
         "<h3>" + title + "</h3>" + 
-        "<p><button id='addToFavTrucks'>Add to Favorites</button></p>" +
+        "<p><button id='addToFavTrucks'>Add to Favorites</button> " +
+        "<button id='directionsTruck'>Directions</button></p>" +
         "<p><strong>Address:</strong> " + address + "</p>" +
         "<p><strong>Hours:</strong> " + schedule + "</p>" +
         "<p><strong>Cuisine:</strong> " + cuisine + "</p>" +
-        "<button id='nearbyTrucksFromTruck'>Nearby Food Trucks</button> " +
+        "<p><button id='nearbyTrucksFromTruck'>Nearby Food Trucks</button> " +
         "<button id='nearbyPoposFromTruck'>Nearby POPOS</button> " +
-        "<button id='nearbyArtFromTruck'>Nearby Art</button>" +
+        "<button id='nearbyArtFromTruck'>Nearby Art</button></p>" +
         "</div>";
 
     // create marker
@@ -130,6 +132,10 @@ $(document).ready(function() {
       position: latLng,
       map: map,
       title: title,
+      address: address,
+      schedule: schedule,
+      cuisine: cuisine,
+      searchDetails: searchDetails,
       // http://stackoverflow.com/questions/11162740/where-i-can-find-the-little-red-dot-image-used-in-google-map
       icon: "https://storage.googleapis.com/support-kms-prod/SNP_2752129_en_v0"
       });
@@ -156,21 +162,22 @@ $(document).ready(function() {
     var location = data.location;
     var type = data.type;
     var desc = data.descriptio;
+    var searchDetails = title + address + location + type + desc;
 
     // custom info window string
     var contentString = "<div id='content'>" +
         "<p><strong>POPOS</strong></p>" +
         "<h3>" + title + "</h3>" +
-        "<p><button id='addToFavPopos'>Add to Favorites</button></p>" +
-        
+        "<p><button id='addToFavPopos'>Add to Favorites</button> " +
+        "<button id='directionsPopos'>Directions</button></p>" +
         "<p><strong>Address:</strong> " + address + "</p>" +
         "<p><strong>Hours:</strong> " + schedule + "</p>" +
         "<p><strong>Type:</strong> " + type + "</p>" +
         "<p><strong>Location:</strong> " + location + "</p>" +
         "<p>" + desc + "</p>" +
-        "<button id='nearbyTrucksFromPopos'>Nearby Food Trucks</button> " +
+        "<p><button id='nearbyTrucksFromPopos'>Nearby Food Trucks</button> " +
         "<button id='nearbyPoposFromPopos'>Nearby Popos</button> " +
-        "<button id='nearbyArtFromPopos'>Nearby Art</button>" +
+        "<button id='nearbyArtFromPopos'>Nearby Art</button></p>" +
         "</div>";
 
     // create marker
@@ -178,6 +185,11 @@ $(document).ready(function() {
       position: latLng,
       map: map,
       title: title,
+      address: address,
+      location: location,
+      type: type,
+      desc: desc,
+      searchDetails: searchDetails,
       icon: "https://maps.gstatic.com/intl/en_us/mapfiles/markers2/measle_blue.png"
     });
 
@@ -203,20 +215,22 @@ $(document).ready(function() {
     var type = data.type;
     var medium = data.medium;
     var link = data.artistlink;
+    var searchDetails = title + address + location + type + medium + link;
 
     // custom info window string
     var contentString = "<div id='content'>" +
         "<p><strong>PUBLIC ART</strong></p>" +
         "<h3>" + title + "</h3>" +
-        "<p><button id='addToFavArt'>Add to Favorites</button></p>" +
+        "<p><button id='addToFavArt'>Add to Favorites</button> " +
+        "<button id='directionsArt'>Directions</button></p>" +
         "<p><strong>Address:</strong> " + address + "</p>" +
         "<p><strong>Location:</strong> " + location + "</p>" +
         "<p><strong>Type:</strong> " + type + "</p>" +
         "<p><strong>Medium:</strong> " + medium + "</p>" +
         "<p><a target='_blank' href='" + link + "'>" + link + "</a></p>" +
-        "<button id='nearbyTrucksFromArt'>Nearby Food Trucks</button> " +
+        "<p><button id='nearbyTrucksFromArt'>Nearby Food Trucks</button> " +
         "<button id='nearbyPoposFromArt'>Nearby POPOS</button> " +
-        "<button id='nearbyArtFromArt'>Nearby Art</button>" +
+        "<button id='nearbyArtFromArt'>Nearby Art</button></p>" +
         "</div>";
 
     // create marker
@@ -224,6 +238,12 @@ $(document).ready(function() {
       position: latLng,
       map: map,
       title: title,
+      searchDetails: searchDetails,
+      // address: address,
+      // location: location,
+      // type: type,
+      // medium: medium,
+      // link: link,
       icon: "https://storage.googleapis.com/support-kms-prod/SNP_2752264_en_v0"
     });
 
@@ -299,5 +319,30 @@ $(document).ready(function() {
       }
     }
   }
+
+
+
+  ////////////////
+  // Search box //
+  ////////////////
+
+  function submitSearch(evt) {
+      evt.preventDefault();
+
+      var search = $('#search').val();
+      var allMarkers = truckMarkers.concat((poposMarkers.concat(artMarkers)));
+
+      for (var marker of allMarkers) {
+        if (String(marker.searchDetails).includes(search)) {
+          marker.setVisible(true);
+        } else {
+          marker.setVisible(false);
+        }
+      }
+      
+  }
+
+  $("#searchForm").on("submit", submitSearch);
+
 
 });
