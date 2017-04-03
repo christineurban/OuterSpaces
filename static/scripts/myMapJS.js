@@ -21,6 +21,7 @@ function initMap() {
   directionsDisplay.setPanel(document.getElementById("textDirections"));
 
 
+
   ///////////////////////////
   // Try HTML5 geolocation //
   ///////////////////////////
@@ -52,9 +53,6 @@ function initMap() {
                                 'Error: Your browser doesn\'t support geolocation.');
   }
 
-
-// TODO (Directions)
-// http://www.geocodezip.com/v3_simplemap_marker2markerdirections.html
 
 
   ////////////////
@@ -154,7 +152,7 @@ function initMap() {
     var address = data.address;
     var schedule = data.dayshours;
     var cuisine = data.fooditems;
-    var searchDetails = title + address + cuisine;
+    var searchDetails = (title + address + cuisine).toLowerCase();
 
     // custom info window string
     var contentString = "<div id='content'>" +
@@ -205,7 +203,8 @@ function initMap() {
     var location = data.location;
     var type = data.type;
     var desc = data.descriptio;
-    var searchDetails = title + address + location + type + desc;
+    var searchDetails = (title + address + 
+      location + type + desc).toLowerCase();
 
     // custom info window string
     var contentString = "<div id='content'>" +
@@ -258,7 +257,8 @@ function initMap() {
     var type = data.type;
     var medium = data.medium;
     var link = data.artistlink;
-    var searchDetails = title + address + location + type + medium + link;
+    var searchDetails = (title + address + location + 
+      type + medium + link).toLowerCase();
 
     // custom info window string
     var contentString = "<div id='content'>" +
@@ -366,7 +366,7 @@ function initMap() {
   function submitSearch(evt) {
       evt.preventDefault();
 
-      var search = $("#search").val();
+      var search = $("#search").val().toLowerCase();
       var allMarkers = truckMarkers.concat((poposMarkers.concat(artMarkers)));
 
       for (var marker of allMarkers) {
@@ -389,8 +389,6 @@ function initMap() {
   function resetMap(evt) {
     $("#search").val("");
     $("#truckMap, #poposMap, #artMap").prop("checked", true);
-    directionsDisplay.setMap(null);
-    directionsDisplay.setPanel(null);
     infoWindow.close();
   }
 
