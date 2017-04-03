@@ -5,31 +5,37 @@
 
 <div class="container">
   <div class="row">
+    <div class="col-xs-12 col-sm-8">
+      <h1>Map</h1>
 
-    <h1>Map</h1>
+      <div id="map"></div>
+    </div>
 
-    <form>
-      <label for="truckMap">Food Trucks </label>
-      <input type="checkbox" name="place" value="truck" id="truckMap" checked>
-      <label for="poposMap">POPOS </label>
-      <input type="checkbox" name="place" value="popos" id="poposMap" checked>
-      <label for="artMap">Public Art </label>
-      <input type="checkbox" name="place" value="art" id="artMap" checked>
-    </form>
+    <div class="col-xs-12 col-sm-4">
+      <form>
+        <label for="truckMap">Food Trucks </label>
+        <input type="checkbox" name="place" value="truck" id="truckMap" checked>
+        <label for="poposMap">POPOS </label>
+        <input type="checkbox" name="place" value="popos" id="poposMap" checked>
+        <label for="artMap">Public Art </label>
+        <input type="checkbox" name="place" value="art" id="artMap" checked>
+      </form>
 
-    <form id="searchForm">
-      <input type="text" name="search" placeholder="ice cream, tacos..." id="search">
-      <input type="submit" value="Search">
-      <button id="resetMap">Reset</button>
-    </form>
+      <form id="searchForm">
+        <input type="text" name="search" placeholder="ice cream, tacos..." id="search">
+        <input type="submit" value="Search">
+        <button id="resetMap">Reset</button>
+      </form>
 
-    <div id="map"></div>
+      <div id="textDirections"></div>
 
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key={{ key }}&callback=initMap">
-    </script>
+    </div>
 
   </div>
 </div>
+
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?key={{ key }}&callback=initMap">
+</script>
 
 {% endblock %}

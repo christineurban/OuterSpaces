@@ -18,7 +18,7 @@ function initMap() {
     center: sanFrancisco
   });
   directionsDisplay.setMap(map);
-
+  directionsDisplay.setPanel(document.getElementById("textDirections"));
 
 
   ///////////////////////////
@@ -81,10 +81,12 @@ function initMap() {
        travelMode: google.maps.DirectionsTravelMode.DRIVING
      };
 
-     directionsService.route(request, function (response, status) {
-       if (status == google.maps.DirectionsStatus.OK) {
-         directionsDisplay.setDirections(response);
-       }
+    directionsService.route(request, function (response, status) {
+      if (status == google.maps.DirectionsStatus.OK) {
+        directionsDisplay.setDirections(response);
+      } else {
+        window.alert('Directions request failed due to ' + status);
+      }
      });
     });
   }
