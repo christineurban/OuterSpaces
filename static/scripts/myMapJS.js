@@ -70,10 +70,6 @@ function initMap() {
         lat: position.coords.latitude,
         lng: position.coords.longitude
       };
-      var marker = new google.maps.Marker({
-        position: pos,
-        map: map
-      });
       map.setCenter(pos);
       var request = {
        origin: pos,
@@ -393,6 +389,9 @@ function initMap() {
   function resetMap(evt) {
     $("#search").val("");
     $("#truckMap, #poposMap, #artMap").prop("checked", true);
+    directionsDisplay.setMap(null);
+    directionsDisplay.setPanel(null);
+    infoWindow.close();
   }
 
   $("#resetMap").on("click", resetMap);
