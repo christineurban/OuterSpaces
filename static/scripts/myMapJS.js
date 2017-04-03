@@ -61,8 +61,10 @@ function initMap() {
   // Directions //
   ////////////////
 
+  var destination;
+
   function showDirections() {
-    console.log("showDirections");
+
     navigator.geolocation.getCurrentPosition(function(position) {
       var pos = {
         lat: position.coords.latitude,
@@ -75,7 +77,7 @@ function initMap() {
       map.setCenter(pos);
       var request = {
        origin: pos,
-       destination: 'san francisco',
+       destination: destination,
        travelMode: google.maps.DirectionsTravelMode.DRIVING
      };
 
@@ -86,12 +88,11 @@ function initMap() {
      });
     });
   }
-  
-  // $(".directions").on("click",  showDirections);
 
-
+  // http://stackoverflow.com/questions/6378007/adding-event-to-element-inside-google-maps-api-infowindow
   google.maps.event.addListener(infoWindow, 'domready', function() {
     $(".directions").on("click", showDirections);
+    destination = $(this).attr("position");
   });
 
 
