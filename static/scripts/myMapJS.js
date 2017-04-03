@@ -87,7 +87,12 @@ function initMap() {
     });
   }
   
-  $(".directions").on("click", console.log("showDirections"));
+  // $(".directions").on("click",  showDirections);
+
+
+  google.maps.event.addListener(infoWindow, 'domready', function() {
+    $(".directions").on("click", showDirections);
+  });
 
 
 
