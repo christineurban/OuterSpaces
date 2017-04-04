@@ -22,11 +22,13 @@ app.jinja_env.undefined = StrictUndefined
 
 
 
+
 @app.route("/")
 def splash():
     """Splash page."""
 
     return render_template("index.html")
+
 
 
 @app.route("/map")
@@ -40,11 +42,63 @@ def view_map():
                            key=key)
 
 
+
 @app.route("/account")
 def login_or_sign_up():
     """Log in or sign up for an account."""
 
     return render_template("account.html")
+
+
+
+@app.route("/login", methods=["POST"])
+def login():
+    """Log in to your account."""
+
+    email = request.form.get("emailLogin")
+    password = request.form.get("pwLogin")
+
+    try:
+        user = User.query.filter_by(email = email).one()
+        if user.password == password:
+            session["user_id"] = user.user_id
+            session["email"] = user.email
+            session["first_name"] = user.first_name
+            session["last_name"] = user.last_name
+            flash("Welcome back " + user.first_name + "!")
+            return render_template("profile.html")
+
+    except:
+        flash("Sorry, this does not match our records." + \
+              " Please check your spelling and try again.")
+        return redirect("/account")
+
+
+
+@app.route("/signup", methods=["POST"])
+def signup():
+    """Sign up for an account."""
+
+    first_name = request.form.get("fNameSignup")
+    last_name = request.form.get("lNameSignup")
+    email = request.form.get("emailSignup")
+    password = request.form.get("pwSignup")
+
+    if User.query.filter_by(email = email).first():
+        flash("This email address is already registered.")
+        return redirect("/account")
+
+    else:    
+        user = User(first_name=first_name,
+                    last_name=last_name,
+                    email=email,
+                    password=password)
+
+        db.session.add(user)
+        db.session.commit()
+        flash("Thank you for registering!")
+        return render_template("profile.html")
+
 
 
 @app.route("/profile")
@@ -56,6 +110,7 @@ def view_profile():
 
 # get SF DATA app token 
 sf_data = os.environ["SF_DATA_APP_TOKEN"]
+
 
 
 @app.route("/data/trucks.json")
@@ -73,6 +128,7 @@ def get_trucks():
     return jsonify(data)
 
 
+
 @app.route("/data/popos.json")
 def get_popos():
     """Get POPOS data from API as JSON."""
@@ -88,6 +144,7 @@ def get_popos():
     return jsonify(data)
 
 
+
 @app.route("/data/art.json")
 def get_art():
     """Get public art data from API as JSON."""
@@ -101,6 +158,15 @@ def get_art():
         raise AssertionError("Route /data/art.json status code: {}".format(
                              status))
     return jsonify(data)
+
+
+
+@app.route("/favorites", methods=["POST"])
+def add_to_favorites():
+    """Add single location to favorites."""
+
+    print request.form
+    return "hi"
 
 
 if __name__ == "__main__":

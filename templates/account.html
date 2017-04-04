@@ -8,19 +8,19 @@
 
     <h1>Log In Or Sign Up</h1>
 
-    <button id="logInBtn" disabled>Log In</button>&nbsp;
-    <button id="signUpBtn">Sign Up</button>
+    <button id="loginBtn" disabled>Log In</button>&nbsp;
+    <button id="signupBtn">Sign Up</button>
     <br><br>
 
     <!--============-->
     <!-- LOGIN FORM -->
     <!--============-->
-    <form action="" method="POST" id="logInForm">
-      <input type="text" placeholder="Email" name="emailLogIn" id="emailLogIn">
+    <form action="/login" method="POST" id="loginForm">
+      <input type="text" placeholder="Email" name="emailLogin" id="emailLogin">
       <br><br>
-      <input type="text" placeholder="Password" name="pwLogIn" id="pwLogIn">
+      <input type="text" placeholder="Password" name="pwLogin" id="pwLogin">
       <br><br>
-      <input type="submit" value="Log In" id="submitLogIn">
+      <input type="submit" value="Log In" id="submitLogin">
     </form>
 
 
@@ -28,16 +28,16 @@
     <!-- SIGNUP FORM -->
     <!--=============-->
     <div id="hideSignUpForm">
-      <form action="" method="POST" id="signUpForm">
-        <input type="hidden" placeholder="First Name" name="fNameSignUp" id="fNameSignUp">
+      <form action="/signup" method="POST" id="signUpForm">
+        <input type="hidden" placeholder="First Name" name="fNameSignup" id="fNameSignup">
         <br><br>
-        <input type="hidden" placeholder="Last Name" name="lNameSignUp" id="lNameSignUp">
+        <input type="hidden" placeholder="Last Name" name="lNameSignup" id="lNameSignup">
         <br><br>
-        <input type="hidden" placeholder="Email" name="emailSignUp" id="emailSignUp">
+        <input type="hidden" placeholder="Email" name="emailSignup" id="emailSignup">
         <br><br>
-        <input type="hidden" placeholder="Password" name="pwSignUp" id="pwSignUp">
+        <input type="hidden" placeholder="Password" name="pwSignup" id="pwSignup">
         <br><br>
-        <input type="hidden" value="Sign Up" id="submitSignUp">
+        <input type="hidden" value="Sign Up" id="submitSignup">
       </form>
     </div>
 

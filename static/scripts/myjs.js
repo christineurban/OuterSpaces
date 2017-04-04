@@ -6,20 +6,20 @@ $(document).ready(function() {
   // Toggle log in and sign up forms //
   /////////////////////////////////////
 
-  $("#signUpBtn").click(function(){
-      $("#logInForm").hide();
-      $("#fNameSignUp, #lNameSignUp, #emailSignUp, #pwSignUp").attr("type", "text");
-      $("#submitSignUp").attr("type", "submit");
-      $("#signUpBtn").prop("disabled");
-      $("#logInBtn").prop("disabled", false);
+  $("#signupBtn").click(function(){
+      $("#loginForm").hide();
+      $("#fNameSignup, #lNameSignup, #emailSignup, #pwSignup").attr("type", "text");
+      $("#submitSignup").attr("type", "submit");
+      $("#signupBtn").prop("disabled");
+      $("#loginBtn").prop("disabled", false);
   });
 
 
-  $("#logInBtn").click(function(){
-      $("#fNameSignUp, #lNameSignUp, #emailSignUp, #pwSignUp, #submitSignUp").attr("type", "hidden");
-      $("#logInForm").show();
-      $("#logInBtn").prop("disabled");
-      $("#signUpBtn").prop("disabled", false);
+  $("#loginBtn").click(function(){
+      $("#fNameSignup, #lNameSignup, #emailSignup, #pwSignup, #submitSignup").attr("type", "hidden");
+      $("#loginForm").show();
+      $("#loginBtn").prop("disabled");
+      $("#signupBtn").prop("disabled", false);
   });
 
 });

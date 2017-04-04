@@ -26,6 +26,7 @@ class User(db.Model):
                 self.user_id, self.email, self.first_name, self.last_name)
 
 
+
 class Truck(db.Model):
     """Food Trucks."""
 
@@ -34,6 +35,7 @@ class Truck(db.Model):
     truck_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Unicode(100), nullable=False)
     address = db.Column(db.String(100), nullable=True)
+    hours = db.Column(db.String(50), nullable=True)
     cuisine = db.Column(db.Unicode(500), nullable=True)
     lat = db.Column(db.String(20), nullable=False)
     lng = db.Column(db.String(20), nullable=False)
@@ -41,7 +43,54 @@ class Truck(db.Model):
     def __repr__(self):
         """Provide helpful representation when printed."""
 
-        return "<Truck truck_id={} name={}>".format(self.truck_id, self.name)
+        return "<Truck truck_id={} name={} address={}>".format(
+               self.truck_id, self.name, self.address)
+
+
+
+class Popos(db.Model):
+    """Privately owned public open spaces (POPOS)."""
+
+    __tablename__ = "popos"
+
+    popos_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    name = db.Column(db.Unicode(100), nullable=False)
+    address = db.Column(db.String(100), nullable=False)
+    hours = db.Column(db.String(100), nullable=True)
+    popos_type = db.Column(db.String(50), nullable=True)
+    location = db.Column(db.String(100), nullable=True)
+    description = db.Column(db.Unicode(500), nullable=True)
+    year = db.Column(db.Integer, nullable=True)
+    lat = db.Column(db.String(50), nullable=False)
+    lng = db.Column(db.String(50), nullable=False)
+
+    def __repr__(self):
+        """Provide helpful representation when printed."""
+
+        return "<Popos popos_id={} name={}>".format(self.popos_id, self.name)
+
+
+
+class Art(db.Model):
+    """Public Art."""
+
+    __tablename__ = "art"
+
+    art_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    title = db.Column(db.Unicode(100), nullable=True)
+    address = db.Column(db.Unicode(100), nullable=False)
+    location = db.Column(db.Unicode(100), nullable=True)
+    art_type = db.Column(db.String(50), nullable=True)
+    medium = db.Column(db.String(50), nullable=True)
+    artist_link = db.Column(db.String(200), nullable=True)
+    lat = db.Column(db.String(50), nullable=False)
+    lng = db.Column(db.String(50), nullable=False)
+
+    def __repr__(self):
+        """Provide helpful representation when printed."""
+
+        return "<Art art_id={} title={}>".format(self.art_id, self.title)
+
 
 
 class FavTruck(db.Model):
@@ -63,32 +112,6 @@ class FavTruck(db.Model):
                self.fav_truck_id, self.user_id, self.truck_id)
 
 
-class Popos(db.Model):
-    """Privately owned public open spaces (POPOS)."""
-
-    __tablename__ = "popos"
-
-    popos_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    name = db.Column(db.Unicode(100), nullable=False)
-    address = db.Column(db.String(100), nullable=False)
-    location = db.Column(db.String(100), nullable=True)
-    popos_type = db.Column(db.String(50), nullable=True)
-    hours = db.Column(db.String(100), nullable=True)
-    landscaping = db.Column(db.String(100), nullable=True)
-    art = db.Column(db.String(4), nullable=True)
-    food = db.Column(db.String(4), nullable=True)
-    seating = db.Column(db.String(4), nullable=True)
-    restrooms = db.Column(db.String(4), nullable=True)
-    description = db.Column(db.Unicode(500), nullable=True)
-    year = db.Column(db.Integer, nullable=True)
-    lat = db.Column(db.String(50), nullable=False)
-    lng = db.Column(db.String(50), nullable=False)
-
-    def __repr__(self):
-        """Provide helpful representation when printed."""
-
-        return "<Popos popos_id={} name={}>".format(self.popos_id, self.name)
-
 
 class FavPopos(db.Model):
     """POPOS favorited by a user."""
@@ -108,26 +131,6 @@ class FavPopos(db.Model):
         return "<FavPopos fav_popos_id={} user_id={} popos_id={}>".format(
                self.fav_popos_id, self.user_id, self.popos_id)
 
-
-class Art(db.Model):
-    """Public Art."""
-
-    __tablename__ = "art"
-
-    art_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    address = db.Column(db.Unicode(100), nullable=False)
-    title = db.Column(db.Unicode(100), nullable=True)
-    art_type = db.Column(db.String(50), nullable=True)
-    medium = db.Column(db.String(50), nullable=True)
-    location = db.Column(db.Unicode(100), nullable=True)
-    artist_link = db.Column(db.String(200), nullable=True)
-    lat = db.Column(db.String(50), nullable=False)
-    lng = db.Column(db.String(50), nullable=False)
-
-    def __repr__(self):
-        """Provide helpful representation when printed."""
-
-        return "<Art art_id={} title={}>".format(self.art_id, self.title)
 
 
 class FavArt(db.Model):

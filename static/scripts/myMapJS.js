@@ -55,43 +55,6 @@ function initMap() {
 
 
 
-  ////////////////
-  // Directions //
-  ////////////////
-
-  var destination;
-
-  function showDirections() {
-
-    navigator.geolocation.getCurrentPosition(function(position) {
-      var pos = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      };
-      map.setCenter(pos);
-      var request = {
-       origin: pos,
-       destination: destination,
-       travelMode: google.maps.DirectionsTravelMode.DRIVING
-     };
-
-    directionsService.route(request, function (response, status) {
-      if (status == google.maps.DirectionsStatus.OK) {
-        directionsDisplay.setDirections(response);
-      } else {
-        window.alert('Directions request failed due to ' + status);
-      }
-     });
-    });
-  }
-
-  // http://stackoverflow.com/questions/6378007/adding-event-to-element-inside-google-maps-api-infowindow
-  google.maps.event.addListener(infoWindow, 'domready', function() {
-    $(".directions").on("click", showDirections);
-    destination = $(this).attr("position");
-  });
-
-
 
   //////////////////////////////////////////////////////
   // Retrieve data from server, send to loop function //
@@ -170,8 +133,10 @@ function initMap() {
 
     // create marker
     var marker = new google.maps.Marker({
-      position: latLng,
       map: map,
+      position: latLng,
+      lat: coords[1],
+      lng: coords[0],
       title: title,
       address: address,
       schedule: schedule,
@@ -183,8 +148,10 @@ function initMap() {
     
     // show info window on click  
     marker.addListener("click", function(){
-      infoWindow.close(); // Close previously opened infowindow
+      infoWindow.close();   // Close previously opened info window
       infoWindow.setContent(contentString);
+      // assign marker info to info window for adding to favorites
+      infoWindow.marker = marker;
       infoWindow.open(map, marker);
     });
 
@@ -203,6 +170,7 @@ function initMap() {
     var location = data.location;
     var type = data.type;
     var desc = data.descriptio;
+    var year = data.year;
     var searchDetails = (title + address + 
       location + type + desc).toLowerCase();
 
@@ -217,6 +185,7 @@ function initMap() {
         "<p><strong>Type:</strong> " + type + "</p>" +
         "<p><strong>Location:</strong> " + location + "</p>" +
         "<p>" + desc + "</p>" +
+        "<p>" + year + "</p>" +
         "<p><button id='nearbyTrucksFromPopos'>Nearby Food Trucks</button> " +
         "<button id='nearbyPoposFromPopos'>Nearby Popos</button> " +
         "<button id='nearbyArtFromPopos'>Nearby Art</button></p>" +
@@ -224,21 +193,27 @@ function initMap() {
 
     // create marker
     var marker = new google.maps.Marker({
-      position: latLng,
       map: map,
+      position: latLng,
+      lat: coords[1],
+      lng: coords[0],
       title: title,
       address: address,
+      schedule: schedule,
       location: location,
       type: type,
       desc: desc,
+      year: year,
       searchDetails: searchDetails,
       icon: "https://maps.gstatic.com/intl/en_us/mapfiles/markers2/measle_blue.png"
     });
 
     // show info window on click
     marker.addListener("click", function(){
-      infoWindow.close(); // Close previously opened infowindow
+      infoWindow.close();   // Close previously opened info window
       infoWindow.setContent(contentString);
+      // assign marker info to info window for adding to favorites
+      infoWindow.marker = marker;
       infoWindow.open(map, marker);
     });
 
@@ -278,22 +253,26 @@ function initMap() {
 
     // create marker
     var marker = new google.maps.Marker({
-      position: latLng,
       map: map,
+      position: latLng,
+      lat: coords[1],
+      lng: coords[0],
       title: title,
+      address: address,
+      location: location,
+      type: type,
+      medium: medium,
+      link: link,
       searchDetails: searchDetails,
-      // address: address,
-      // location: location,
-      // type: type,
-      // medium: medium,
-      // link: link,
       icon: "https://storage.googleapis.com/support-kms-prod/SNP_2752264_en_v0"
     });
 
     // show info window on click
     marker.addListener("click", function(){
-      infoWindow.close(); // Close previously opened infowindow
+      infoWindow.close();   // Close previously opened info window
       infoWindow.setContent(contentString);
+      // assign marker info to info window for adding to favorites
+      infoWindow.marker = marker;
       infoWindow.open(map, marker);
     });
 
@@ -395,4 +374,81 @@ function initMap() {
   $("#resetMap").on("click", resetMap);
 
 
-}
+
+  ////////////////
+  // Directions //
+  ////////////////
+
+  function showDirections(evt) {
+
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+      map.setCenter(pos);
+      var request = {
+       origin: pos,
+       destination: evt.data,
+       travelMode: google.maps.DirectionsTravelMode.DRIVING
+     };
+
+    directionsService.route(request, function (response, status) {
+      if (status == google.maps.DirectionsStatus.OK) {
+        directionsDisplay.setDirections(response);
+      } else {
+        window.alert('Directions request failed due to ' + status);
+      }
+     });
+    });
+  }
+
+  // http://stackoverflow.com/questions/6378007/adding-event-to-element-inside-google-maps-api-infowindow
+  google.maps.event.addListener(infoWindow, 'domready', function() {
+    var destination = $(this).attr("position");
+    $(".directions").on("click", null, destination, showDirections);
+  });
+
+
+
+  //////////////////////
+  // Add to favorites //
+  //////////////////////
+
+  
+  function addedToFavorites() {
+
+  }
+
+
+
+  function addToFavTrucks(evt) {
+    console.log(evt.data);
+
+    var info = {
+      "title": evt.data.title,
+      "address": evt.data.address,
+      "hours": evt.data.hours,
+      "cuisine": evt.data.cuisine,
+      "lat": evt.data.lat,
+      "lng": evt.data.lng,
+      };
+
+
+    $.post("/favorites",
+           info,
+           addedToFavorites);
+    
+  }
+
+
+
+  google.maps.event.addListener(infoWindow, 'domready', function() {
+    var favorite = this.marker;
+    $("#addToFavTrucks").on("click", favorite, addToFavTrucks);
+  });
+
+
+
+
+} // end of initMap
