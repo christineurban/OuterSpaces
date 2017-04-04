@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
-##############################################################################
+################################################################################
 # Model definitions
 
 
@@ -32,7 +32,7 @@ class Truck(db.Model):
 
     __tablename__ = "trucks"
 
-    truck_id = db.Column(db.Integer, primary_key=True)
+    truck_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     name = db.Column(db.Unicode(100), nullable=False)
     address = db.Column(db.String(100), nullable=True)
     hours = db.Column(db.String(50), nullable=True)
@@ -153,8 +153,9 @@ class FavArt(db.Model):
 
 
 
-##############################################################################
+################################################################################
 # Helper functions
+
 
 def connect_to_db(app):
     """Connect the database to our Flask app."""

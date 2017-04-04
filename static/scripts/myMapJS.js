@@ -113,7 +113,7 @@ function initMap() {
     var latLng = new google.maps.LatLng(coords[1],coords[0]);
     var title = data.applicant;
     var address = data.address;
-    var schedule = data.dayshours;
+    var hours = data.dayshours;
     var cuisine = data.fooditems;
     var searchDetails = (title + address + cuisine).toLowerCase();
 
@@ -124,7 +124,7 @@ function initMap() {
         "<p><button id='addToFavTrucks'>Add to Favorites</button> " +
         "<button class='directions'>Directions</button></p>" +
         "<p><strong>Address:</strong> " + address + "</p>" +
-        "<p><strong>Hours:</strong> " + schedule + "</p>" +
+        "<p><strong>Hours:</strong> " + hours + "</p>" +
         "<p><strong>Cuisine:</strong> " + cuisine + "</p>" +
         "<p><button id='nearbyTrucksFromTruck'>Nearby Food Trucks</button> " +
         "<button id='nearbyPoposFromTruck'>Nearby POPOS</button> " +
@@ -137,7 +137,7 @@ function initMap() {
       position: latLng,
       title: title,
       address: address,
-      schedule: schedule,
+      hours: hours,
       cuisine: cuisine,
       lat: coords[1],
       lng: coords[0],
@@ -166,7 +166,7 @@ function initMap() {
     var latLng = new google.maps.LatLng(coords[1],coords[0]);
     var title = data.name;
     var address = data.popos_addr;
-    var schedule = data.hours;
+    var hours = data.hours;
     var location = data.location;
     var type = data.type;
     var desc = data.descriptio;
@@ -181,7 +181,7 @@ function initMap() {
         "<p><button id='addToFavPopos'>Add to Favorites</button> " +
         "<button class='directions'>Directions</button></p>" +
         "<p><strong>Address:</strong> " + address + "</p>" +
-        "<p><strong>Hours:</strong> " + schedule + "</p>" +
+        "<p><strong>Hours:</strong> " + hours + "</p>" +
         "<p><strong>Type:</strong> " + type + "</p>" +
         "<p><strong>Location:</strong> " + location + "</p>" +
         "<p>" + desc + "</p>" +
@@ -197,7 +197,7 @@ function initMap() {
       position: latLng,
       title: title,
       address: address,
-      schedule: schedule,
+      hours: hours,
       type: type,
       location: location,
       desc: desc,
@@ -344,6 +344,7 @@ function initMap() {
 
   function submitSearch(evt) {
       evt.preventDefault();
+      infoWindow.close();
 
       var search = $("#search").val().toLowerCase();
       var allMarkers = truckMarkers.concat((poposMarkers.concat(artMarkers)));
@@ -416,16 +417,14 @@ function initMap() {
   //////////////////////
 
   
-  function addedToFavorites() {
-    alert("Added to favorites!")
+  function addedToFavorites(result) {
+    alert(result);
   }
 
 
   function addToFavTrucks(evt) {
-    console.log(evt.data);
-
     var info = {
-      "title": evt.data.title,
+      "name": evt.data.title,
       "address": evt.data.address,
       "hours": evt.data.hours,
       "cuisine": evt.data.cuisine,
@@ -440,8 +439,6 @@ function initMap() {
 
 
   function addToFavPopos(evt) {
-    console.log(evt.data);
-
     var info = {
       "name": evt.data.title,
       "address": evt.data.address,
@@ -461,10 +458,8 @@ function initMap() {
 
 
   function addToFavArt(evt) {
-    console.log(evt.data);
-
     var info = {
-      "name": evt.data.title,
+      "title": evt.data.title,
       "address": evt.data.address,
       "location": evt.data.location,
       "art_type": evt.data.type,
@@ -499,4 +494,4 @@ function initMap() {
 
 
 
-} // end of initMap
+} // end of initMap()

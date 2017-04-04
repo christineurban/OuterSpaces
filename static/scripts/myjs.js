@@ -22,4 +22,4 @@ $(document).ready(function() {
       $("#signupBtn").prop("disabled", false);
   });
 
-});
+}); // end of $(document).ready

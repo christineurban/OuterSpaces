@@ -96,6 +96,12 @@ def signup():
 
         db.session.add(user)
         db.session.commit()
+
+        session["user_id"] = user.user_id
+        session["email"] = user.email
+        session["first_name"] = user.first_name
+        session["last_name"] = user.last_name
+
         flash("Thank you for registering!")
         return render_template("profile.html")
 
@@ -108,9 +114,184 @@ def view_profile():
     return render_template("profile.html")
 
 
+
+
+################################################################################
+# Add to favorites
+
+
+@app.route("/favorite-truck", methods=["POST"])
+def add_truck_to_favorites():
+    """Add a food truck to favorites."""
+
+    try:
+        user_id = session["user_id"]
+
+        name = request.form.get("name")
+        address = request.form.get("address")
+        hours = request.form.get("hours")
+        cuisine = request.form.get("cuisine")
+        lat = request.form.get("lat")
+        lng = request.form.get("lng")
+
+        truck_in_db = Truck.query.filter(Truck.name == name, 
+                                         Truck.address == address).first()
+
+        if truck_in_db:
+            # get truck id
+            truck_id = truck_in_db.truck_id
+
+            # check if user has already favorited truck
+            if FavTruck.query.filter(FavTruck.user_id == user_id,
+                                     FavTruck.truck_id == truck_id).first():
+                return "This spot is already in your favorites."    
+
+        else:
+            # if truck not in DB, add truck
+            new_truck = Truck(name=name,
+                              address=address,
+                              hours=hours,
+                              cuisine=cuisine,
+                              lat=lat,
+                              lng=lng)
+
+            db.session.add(new_truck)
+            db.session.commit()
+            # update truck id with just added truck
+            truck_id = new_truck.truck_id
+
+
+        fav_truck = FavTruck(user_id=user_id,
+                             truck_id=truck_id)
+
+        db.session.add(fav_truck)
+        db.session.commit()
+        return "Added to favorites!"
+
+    except:
+        return "Oops! You must be logged in to save a favorite."
+
+
+@app.route("/favorite-popos", methods=["POST"])
+def add_popos_to_favorites():
+    """Add a POPOS to favorites."""
+
+    try:
+        user_id = session["user_id"]
+
+        name = request.form.get("name")
+        address = request.form.get("address")
+        hours = request.form.get("hours")
+        popos_type = request.form.get("popos_type")
+        location = request.form.get("location")
+        description = request.form.get("description")
+        year = request.form.get("year")
+        lat = request.form.get("lat")
+        lng = request.form.get("lng")
+
+        popos_in_db = Popos.query.filter(Popos.name == name, 
+                                         Popos.address == address).first()
+
+        if popos_in_db:
+            # get popos id
+            popos_id = popos_in_db.popos_id
+
+            # check if user has already favorited popos
+            if FavPopos.query.filter(FavPopos.user_id == user_id,
+                                     FavPopos.popos_id == popos_id).first():
+                return "This space is already in your favorites."    
+
+        else:
+            # if popos not in DB, add popos
+            new_popos = Popos(name=name,
+                              address=address,
+                              hours=hours,
+                              popos_type=popos_type,
+                              location=location,
+                              description=description,
+                              year=year,
+                              lat=lat,
+                              lng=lng)
+
+            db.session.add(new_popos)
+            db.session.commit()
+            # update popos id with just added popos
+            popos_id = new_popos.popos_id
+
+
+        fav_popos = FavPopos(user_id=user_id,
+                             popos_id=popos_id)
+
+        db.session.add(fav_popos)
+        db.session.commit()
+        return "Added to favorites!"
+
+    except:
+        return "Oops! You must be logged in to save a favorite."
+
+
+@app.route("/favorite-art", methods=["POST"])
+def add_art_to_favorites():
+    """Add a public art location to favorites."""
+
+    try:
+        user_id = session["user_id"]
+
+        title = request.form.get("title")
+        address = request.form.get("address")
+        location = request.form.get("location")
+        art_type = request.form.get("art_type")
+        medium = request.form.get("medium")
+        artist_link = request.form.get("artist_link")
+        lat = request.form.get("lat")
+        lng = request.form.get("lng")
+
+        art_in_db = Art.query.filter(Art.title == title, 
+                                     Art.address == address).first()
+
+        if art_in_db:
+            # get art id
+            art_id = art_in_db.art_id
+
+            # check if user has already favorited art
+            if FavArt.query.filter(FavArt.user_id == user_id,
+                                   FavArt.art_id == art_id).first():
+                return "This spot is already in your favorites."    
+
+        else:
+            # if art not in DB, add art
+            new_art = Art(title=title,
+                          address=address,
+                          location=location,
+                          art_type=art_type,
+                          medium=medium,
+                          artist_link=artist_link,
+                          lat=lat,
+                          lng=lng)
+
+            db.session.add(new_art)
+            db.session.commit()
+            # update art id with just added art
+            art_id = new_art.art_id
+
+
+        fav_art = FavArt(user_id=user_id,
+                         art_id=art_id)
+
+        db.session.add(fav_art)
+        db.session.commit()
+        return "Added to favorites!"
+
+    except:
+        return "Oops! You must be logged in to save a favorite."
+
+
+################################################################################
+# Get data from API
+
+
 # get SF DATA app token 
 sf_data = os.environ["SF_DATA_APP_TOKEN"]
-
 
 
 @app.route("/data/trucks.json")
@@ -128,7 +309,6 @@ def get_trucks():
     return jsonify(data)
 
 
-
 @app.route("/data/popos.json")
 def get_popos():
     """Get POPOS data from API as JSON."""
@@ -144,7 +324,6 @@ def get_popos():
     return jsonify(data)
 
 
-
 @app.route("/data/art.json")
 def get_art():
     """Get public art data from API as JSON."""
@@ -158,33 +337,6 @@ def get_art():
         raise AssertionError("Route /data/art.json status code: {}".format(
                              status))
     return jsonify(data)
-
-
-
-@app.route("/favorite-truck", methods=["POST"])
-def add_truck_to_favorites():
-    """Add a food truck to favorites."""
-
-    print request.form
-    return "hi"
-
-
-
-@app.route("/favorite-popos", methods=["POST"])
-def add_popos_to_favorites():
-    """Add a POPOS to favorites."""
-
-    print request.form
-    return "hi"
-
-
-
-@app.route("/favorite-art", methods=["POST"])
-def add_art_to_favorites():
-    """Add a public art location to favorites."""
-
-    print request.form
-    return "hi"
 
 
 
