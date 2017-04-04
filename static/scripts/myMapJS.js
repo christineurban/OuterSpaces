@@ -135,12 +135,12 @@ function initMap() {
     var marker = new google.maps.Marker({
       map: map,
       position: latLng,
-      lat: coords[1],
-      lng: coords[0],
       title: title,
       address: address,
       schedule: schedule,
       cuisine: cuisine,
+      lat: coords[1],
+      lng: coords[0],
       searchDetails: searchDetails,
       // http://stackoverflow.com/questions/11162740/where-i-can-find-the-little-red-dot-image-used-in-google-map
       icon: "https://storage.googleapis.com/support-kms-prod/SNP_2752129_en_v0"
@@ -195,15 +195,15 @@ function initMap() {
     var marker = new google.maps.Marker({
       map: map,
       position: latLng,
-      lat: coords[1],
-      lng: coords[0],
       title: title,
       address: address,
       schedule: schedule,
-      location: location,
       type: type,
+      location: location,
       desc: desc,
       year: year,
+      lat: coords[1],
+      lng: coords[0],
       searchDetails: searchDetails,
       icon: "https://maps.gstatic.com/intl/en_us/mapfiles/markers2/measle_blue.png"
     });
@@ -255,14 +255,14 @@ function initMap() {
     var marker = new google.maps.Marker({
       map: map,
       position: latLng,
-      lat: coords[1],
-      lng: coords[0],
       title: title,
       address: address,
       location: location,
       type: type,
       medium: medium,
       link: link,
+      lat: coords[1],
+      lng: coords[0],
       searchDetails: searchDetails,
       icon: "https://storage.googleapis.com/support-kms-prod/SNP_2752264_en_v0"
     });
@@ -406,7 +406,7 @@ function initMap() {
   // http://stackoverflow.com/questions/6378007/adding-event-to-element-inside-google-maps-api-infowindow
   google.maps.event.addListener(infoWindow, 'domready', function() {
     var destination = $(this).attr("position");
-    $(".directions").on("click", null, destination, showDirections);
+    $(".directions").on("click", destination, showDirections);
   });
 
 
@@ -417,9 +417,8 @@ function initMap() {
 
   
   function addedToFavorites() {
-
+    alert("Added to favorites!")
   }
-
 
 
   function addToFavTrucks(evt) {
@@ -434,11 +433,50 @@ function initMap() {
       "lng": evt.data.lng,
       };
 
-
-    $.post("/favorites",
+    $.post("/favorite-truck",
            info,
            addedToFavorites);
-    
+  }
+
+
+  function addToFavPopos(evt) {
+    console.log(evt.data);
+
+    var info = {
+      "name": evt.data.title,
+      "address": evt.data.address,
+      "hours": evt.data.hours,
+      "popos_type": evt.data.type,
+      "location": evt.data.location,
+      "description": evt.data.desc,
+      "year": evt.data.year,
+      "lat": evt.data.lat,
+      "lng": evt.data.lng,
+      };
+
+    $.post("/favorite-popos",
+           info,
+           addedToFavorites);
+  }
+
+
+  function addToFavArt(evt) {
+    console.log(evt.data);
+
+    var info = {
+      "name": evt.data.title,
+      "address": evt.data.address,
+      "location": evt.data.location,
+      "art_type": evt.data.type,
+      "medium": evt.data.medium,
+      "artist_link": evt.data.link,
+      "lat": evt.data.lat,
+      "lng": evt.data.lng,
+      };
+
+    $.post("/favorite-art",
+           info,
+           addedToFavorites);
   }
 
 
@@ -446,6 +484,16 @@ function initMap() {
   google.maps.event.addListener(infoWindow, 'domready', function() {
     var favorite = this.marker;
     $("#addToFavTrucks").on("click", favorite, addToFavTrucks);
+  });  
+
+  google.maps.event.addListener(infoWindow, 'domready', function() {
+    var favorite = this.marker;
+    $("#addToFavPopos").on("click", favorite, addToFavPopos);
+  });  
+
+  google.maps.event.addListener(infoWindow, 'domready', function() {
+    var favorite = this.marker;
+    $("#addToFavArt").on("click", favorite, addToFavArt);
   });
 
 

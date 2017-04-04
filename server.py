@@ -161,12 +161,33 @@ def get_art():
 
 
 
-@app.route("/favorites", methods=["POST"])
-def add_to_favorites():
-    """Add single location to favorites."""
+@app.route("/favorite-truck", methods=["POST"])
+def add_truck_to_favorites():
+    """Add a food truck to favorites."""
 
     print request.form
     return "hi"
+
+
+
+@app.route("/favorite-popos", methods=["POST"])
+def add_popos_to_favorites():
+    """Add a POPOS to favorites."""
+
+    print request.form
+    return "hi"
+
+
+
+@app.route("/favorite-art", methods=["POST"])
+def add_art_to_favorites():
+    """Add a public art location to favorites."""
+
+    print request.form
+    return "hi"
+
+
+
 
 
 if __name__ == "__main__":
