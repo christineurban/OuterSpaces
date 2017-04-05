@@ -24,20 +24,20 @@ class OuterSpacesTests(unittest.TestCase):
         self.assertIn('<div id="hideSignUpForm">', result.data)
 
 
-    # TODO when database is set up
-
-    # def test_profile(self):
-    #     result = self.client.post("/profile")
-    #     self.assertEqual(result.status_code, 200)
-    #     self.assertIn("<h1>Profile</h1>", result.data)
-
-
     def test_map(self):
         """Test profile page."""
 
         result = self.client.get("/map")
         self.assertEqual(result.status_code, 200)
         self.assertIn('<label for="truckMap">Food Trucks </label>', result.data)
+
+
+    # TODO when database is set up
+
+    # def test_profile(self):
+    #     result = self.client.post("/profile")
+    #     self.assertEqual(result.status_code, 200)
+    #     self.assertIn("<h1>Profile</h1>", result.data)
 
 
 class OuterSpacesTestsDatabase(unittest.TestCase):

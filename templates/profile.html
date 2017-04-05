@@ -4,15 +4,54 @@
 
 {% block body %}
 
-<div class="container">
+  <div class="container">
 
-<h1>Profile</h1>
+  <h1>Profile</h1>
 
 
-Name: {{ session["first_name"] }} {{ session["last_name"] }}
-<br><br>
-Email: {{ session["email"] }}
-<br><br>
-Favorites:
+  <p><strong>Name:</strong> {{ session["first_name"] }} {{ session["last_name"] }}</p>
+  
+  <p><strong>Email:</strong> {{ session["email"] }}</p>
+  <br><br>
+  {% if fav_trucks %}
+  <p><strong>Favorite Food Trucks:</strong></p>
+    {% for fav in fav_trucks %}
+      <p>
+        <p>{{ fav.truck.name }}</p>
+        <strong>Address: </strong>{{ fav.truck.address }}<br>
+        <strong>Hours: </strong>{{ fav.truck.hours }}<br>
+        <strong>Cuisine: </strong>{{ fav.truck.cuisine }}
+      <p>
+    {% endfor %}
+  {% endif %}
+  <br><br>
+  {% if fav_popos %}  
+  <p><strong>Favorite POPOS (Privately Owned Public Open Spaces):</strong></p>    
+      {% for fav in fav_popos %}
+      <p>
+        <p>{{ fav.popos.name }}</p>
+        <strong>Address: </strong>{{ fav.popos.address }}<br>
+        <strong>Hours: </strong>{{ fav.popos.hours }}<br>
+        <strong>Type: </strong>{{ fav.popos.popos_type }}<br>
+        <strong>Location: </strong>{{ fav.popos.location }}<br>
+        <strong>Year: </strong>{{ fav.popos.year }}<br>
+        {{ fav.popos.description }}
+      <p>
+    {% endfor %}
+  {% endif %}
+  <br><br>
+  {% if fav_art %}
+  <p><strong>Favorite Public Art:</strong></p>    
+      {% for fav in fav_art %}
+      <p>
+        <p>{{ fav.art.title }}</p>
+        <strong>Address: </strong>{{ fav.art.address }}<br>
+        <strong>Location: </strong>{{ fav.art.location }}<br>
+        <strong>Type: </strong>{{ fav.art.art_type }}<br>
+        <strong>Medium: </strong>{{ fav.art.medium }}<br>
+        {{ fav.art.artist_link }}
+      <p>
+    {% endfor %}
+  {% endif %}
 
 {% endblock %}

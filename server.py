@@ -60,19 +60,24 @@ def login():
 
     try:
         user = User.query.filter_by(email = email).one()
-        if user.password == password:
+
+    except:
+        flash("Sorry, this email does not match our records." + \
+              " Please check your spelling and try again.")  # FIXME security
+        return redirect("/account")
+
+    if user.password == password:
             session["user_id"] = user.user_id
             session["email"] = user.email
             session["first_name"] = user.first_name
             session["last_name"] = user.last_name
             flash("Welcome back " + user.first_name + "!")
-            return render_template("profile.html")
+            return redirect("/profile")
 
-    except:
-        flash("Sorry, this does not match our records." + \
-              " Please check your spelling and try again.")
+    else:
+        flash("Sorry, this password does not match our records." + \
+              " Please check your spelling and try again.")  # FIXME security
         return redirect("/account")
-
 
 
 @app.route("/signup", methods=["POST"])
@@ -111,7 +116,24 @@ def signup():
 def view_profile():
     """View profile and favorites."""
 
-    return render_template("profile.html")
+
+    fav_trucks = FavTruck.query.filter_by(user_id = session["user_id"]).all()
+    fav_popos = FavPopos.query.filter_by(user_id = session["user_id"]).all()
+    fav_art = FavArt.query.filter_by(user_id = session["user_id"]).all()
+
+    if not fav_trucks:
+        fav_trucks = []
+
+    if not fav_popos:
+        fav_popos = []
+
+    if not fav_art:
+        fav_art = []
+
+    return render_template("profile.html",
+                           fav_trucks=fav_trucks,
+                           fav_popos=fav_popos,
+                           fav_art=fav_art)
 
 
 
