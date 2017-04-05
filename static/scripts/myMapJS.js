@@ -1,19 +1,43 @@
 "use strict"
 
-////////////////////////////////////
-// Initalize map of San Francisco //
-////////////////////////////////////
+var directionsService;
+var directionsDisplay;
+var infoWindow;
+var map;
+
+var TRUCKMARKERS = [];
+var ARTMARKERS = [];
+var POPOSMARKERS = [];
+
 
 
 function initMap() {
+  // if (blah) {
+  //   var func = showFavoriteOnMap;
+  // } else {
+  //   var func = allDataOnMap;
+  // };
+
+  var func = allDataOnMap;
+
+  showMap(func);
+
+} // end initMap()
+
+
+function showMap(func) {
+
+  ////////////////////////////////////
+  // Initalize map of San Francisco //
+  ////////////////////////////////////
   
-  var directionsService = new google.maps.DirectionsService;
-  var directionsDisplay = new google.maps.DirectionsRenderer;
-  var infoWindow = new google.maps.InfoWindow( {
+  directionsService = new google.maps.DirectionsService;
+  directionsDisplay = new google.maps.DirectionsRenderer;
+  infoWindow = new google.maps.InfoWindow( {
     maxWidth: 350
   });
   var sanFrancisco = {lat: 37.7599, lng: -122.440558};
-  var map = new google.maps.Map(document.getElementById("map"), {
+  map = new google.maps.Map(document.getElementById("map"), {
     zoom: 13,
     center: sanFrancisco
   });
@@ -53,8 +77,51 @@ function initMap() {
                                 'Error: Your browser doesn\'t support geolocation.');
   }
 
+  func();
+
+} // end showMap()
 
 
+
+//////////////////////////
+// Show favorite on map //
+//////////////////////////
+
+function showFavoriteOnMap() {
+  console.log("showFavoriteOnMap called");
+
+
+  function plotFavorite() {
+
+    console.log("plotFavorite called");
+    var name = $(".name").val().toLowerCase();
+    var address = $(".address").val().toLowerCase();
+    var fav = name + " " + address
+
+    var allMarkers = TRUCKMARKERS.concat((POPOSMARKERS.concat(ARTMARKERS)));
+
+    for (var marker of allMarkers) {
+      if (String(marker.searchDetails).includes(fav)) {
+        marker.setVisible(true);
+      } else {
+        marker.setVisible(false);
+      }
+    } 
+  }
+
+  function initMapFavorite(plotFavorite) {
+    console.log("initMapFavorite called");
+    initMap();
+    plotFavorite();
+  
+  $("#favOnMap").on("submit", initMapFavorite);
+
+  }
+}
+
+
+
+function allDataOnMap() {
 
   //////////////////////////////////////////////////////
   // Retrieve data from server, send to loop function //
@@ -101,10 +168,6 @@ function initMap() {
   //////////////////////////////////
   // Plot data and store in array //
   //////////////////////////////////
-
-  var truckMarkers = [];
-  var artMarkers = [];
-  var poposMarkers = [];
 
 
   function plotDataTrucks(data) {
@@ -156,7 +219,7 @@ function initMap() {
     });
 
     // collect all markers in array
-    truckMarkers.push(marker);
+    TRUCKMARKERS.push(marker);
   }
 
 
@@ -218,7 +281,7 @@ function initMap() {
     });
 
     // collect all markers in array
-    poposMarkers.push(marker);
+    POPOSMARKERS.push(marker);
   }
 
 
@@ -277,221 +340,215 @@ function initMap() {
     });
 
     // collect all markers in array
-    artMarkers.push(marker);
+    ARTMARKERS.push(marker);
   }
 
-
-
-  /////////////////////////////////////////////
-  // On checkbox change, call toggle function //
-  /////////////////////////////////////////////
-
-  $("#truckMap").on("change", toggleTruckMarkers);
-
-  $("#poposMap").on("change", togglePoposMarkers);
-
-  $("#artMap").on("change", toggleArtMarkers);
+} // end allDataOnMap()
 
 
 
-  /////////////////////////////////////
-  // Toggle marker visibility on map //
-  /////////////////////////////////////
+//////////////////////////////////////////////
+// On checkbox change, call toggle function //
+//////////////////////////////////////////////
 
-  function toggleTruckMarkers(evt) {
-    if ($("#truckMap").is(":checked")) {
-      for (var marker of truckMarkers) {
-        marker.setVisible(true);
-      }
-    } else {
-      for (var marker of truckMarkers) {
-        marker.setVisible(false);
-      }
+$("#truckMap").on("change", toggleTRUCKMARKERS);
+
+$("#poposMap").on("change", togglePOPOSMARKERS);
+
+$("#artMap").on("change", toggleARTMARKERS);
+
+
+
+/////////////////////////////////////
+// Toggle marker visibility on map //
+/////////////////////////////////////
+
+function toggleTRUCKMARKERS(evt) {
+  if ($("#truckMap").is(":checked")) {
+    for (var marker of TRUCKMARKERS) {
+      marker.setVisible(true);
+    }
+  } else {
+    for (var marker of TRUCKMARKERS) {
+      marker.setVisible(false);
     }
   }
+}
 
 
-  function togglePoposMarkers(evt) {
-    if ($("#poposMap").is(":checked")) {
-      for (var marker of poposMarkers) {
-        marker.setVisible(true);
-      }
-    } else {
-      for (var marker of poposMarkers) {
-        marker.setVisible(false);
-      }
+function togglePOPOSMARKERS(evt) {
+  if ($("#poposMap").is(":checked")) {
+    for (var marker of POPOSMARKERS) {
+      marker.setVisible(true);
+    }
+  } else {
+    for (var marker of POPOSMARKERS) {
+      marker.setVisible(false);
     }
   }
+}
 
 
-  function toggleArtMarkers(evt) {
-    if ($("#artMap").is(":checked")) {
-      for (var marker of artMarkers) {
-        marker.setVisible(true);
-      }
-    } else {
-      for (var marker of artMarkers) {
-        marker.setVisible(false);
-      }
+function toggleARTMARKERS(evt) {
+  if ($("#artMap").is(":checked")) {
+    for (var marker of ARTMARKERS) {
+      marker.setVisible(true);
+    }
+  } else {
+    for (var marker of ARTMARKERS) {
+      marker.setVisible(false);
     }
   }
+}
 
 
 
-  ////////////////
-  // Search box //
-  ////////////////
+////////////////
+// Search box //
+////////////////
 
-  function submitSearch(evt) {
-      evt.preventDefault();
-      infoWindow.close();
-
-      var search = $("#search").val().toLowerCase();
-      var allMarkers = truckMarkers.concat((poposMarkers.concat(artMarkers)));
-
-      for (var marker of allMarkers) {
-        if (String(marker.searchDetails).includes(search)) {
-          marker.setVisible(true);
-        } else {
-          marker.setVisible(false);
-        }
-      } 
-  }
-
-  $("#searchForm").on("submit", submitSearch);
-
-
-
-  ///////////////
-  // Reset map //
-  ///////////////
-
-  function resetMap(evt) {
-    $("#search").val("");
-    $("#truckMap, #poposMap, #artMap").prop("checked", true);
+function submitSearch(evt) {
+    evt.preventDefault();
     infoWindow.close();
-  }
 
-  $("#resetMap").on("click", resetMap);
+    var search = $("#search").val().toLowerCase();
+    var allMarkers = TRUCKMARKERS.concat((POPOSMARKERS.concat(ARTMARKERS)));
 
-
-
-  ////////////////
-  // Directions //
-  ////////////////
-
-  function showDirections(evt) {
-
-    navigator.geolocation.getCurrentPosition(function(position) {
-      var pos = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      };
-      map.setCenter(pos);
-      var request = {
-       origin: pos,
-       destination: evt.data,
-       travelMode: google.maps.DirectionsTravelMode.DRIVING
-     };
-
-    directionsService.route(request, function (response, status) {
-      if (status == google.maps.DirectionsStatus.OK) {
-        directionsDisplay.setDirections(response);
+    for (var marker of allMarkers) {
+      if (String(marker.searchDetails).includes(search)) {
+        marker.setVisible(true);
       } else {
-        window.alert('Directions request failed due to ' + status);
+        marker.setVisible(false);
       }
-     });
-    });
-  }
+    } 
+}
 
-  // http://stackoverflow.com/questions/6378007/adding-event-to-element-inside-google-maps-api-infowindow
-  google.maps.event.addListener(infoWindow, 'domready', function() {
-    var destination = $(this).attr("position");
-    $(".directions").on("click", destination, showDirections);
+$("#searchForm").on("submit", submitSearch);
+
+
+
+///////////////
+// Reset map //
+///////////////
+
+// function resetMap(evt) {
+//   $.post("/map");
+// }
+
+// $("#resetMap").on("click", resetMap);
+
+
+
+////////////////
+// Directions //
+////////////////
+
+function showDirections(evt) {
+
+  navigator.geolocation.getCurrentPosition(function(position) {
+    var pos = {
+      lat: position.coords.latitude,
+      lng: position.coords.longitude
+    };
+    map.setCenter(pos);
+    var request = {
+     origin: pos,
+     destination: evt.data,
+     travelMode: google.maps.DirectionsTravelMode.DRIVING
+   };
+
+  directionsService.route(request, function (response, status) {
+    if (status == google.maps.DirectionsStatus.OK) {
+      directionsDisplay.setDirections(response);
+    } else {
+      window.alert('Directions request failed due to ' + status);
+    }
+   });
   });
+}
+
+// http://stackoverflow.com/questions/6378007/adding-event-to-element-inside-google-maps-api-infowindow
+google.maps.event.addListener(infoWindow, 'domready', function() {
+  var destination = $(this).attr("position");
+  $(".directions").on("click", destination, showDirections);
+});
 
 
 
-  //////////////////////
-  // Add to favorites //
-  //////////////////////
+//////////////////////
+// Add to favorites //
+//////////////////////
 
-  
-  function addedToFavorites(result) {
-    alert(result);
-  }
-
-
-  function addToFavTrucks(evt) {
-    var info = {
-      "name": evt.data.title,
-      "address": evt.data.address,
-      "hours": evt.data.hours,
-      "cuisine": evt.data.cuisine,
-      "lat": evt.data.lat,
-      "lng": evt.data.lng,
-      };
-
-    $.post("/favorite-truck",
-           info,
-           addedToFavorites);
-  }
+function addedToFavorites(result) {
+  alert(result);
+}
 
 
-  function addToFavPopos(evt) {
-    var info = {
-      "name": evt.data.title,
-      "address": evt.data.address,
-      "hours": evt.data.hours,
-      "popos_type": evt.data.type,
-      "location": evt.data.location,
-      "description": evt.data.desc,
-      "year": evt.data.year,
-      "lat": evt.data.lat,
-      "lng": evt.data.lng,
-      };
+function addToFavTrucks(evt) {
+  var info = {
+    "name": evt.data.title,
+    "address": evt.data.address,
+    "hours": evt.data.hours,
+    "cuisine": evt.data.cuisine,
+    "lat": evt.data.lat,
+    "lng": evt.data.lng,
+    };
 
-    $.post("/favorite-popos",
-           info,
-           addedToFavorites);
-  }
+  $.post("/favorite-truck",
+         info,
+         addedToFavorites);
+}
 
 
-  function addToFavArt(evt) {
-    var info = {
-      "title": evt.data.title,
-      "address": evt.data.address,
-      "location": evt.data.location,
-      "art_type": evt.data.type,
-      "medium": evt.data.medium,
-      "artist_link": evt.data.link,
-      "lat": evt.data.lat,
-      "lng": evt.data.lng,
-      };
+function addToFavPopos(evt) {
+  var info = {
+    "name": evt.data.title,
+    "address": evt.data.address,
+    "hours": evt.data.hours,
+    "popos_type": evt.data.type,
+    "location": evt.data.location,
+    "description": evt.data.desc,
+    "year": evt.data.year,
+    "lat": evt.data.lat,
+    "lng": evt.data.lng,
+    };
 
-    $.post("/favorite-art",
-           info,
-           addedToFavorites);
-  }
-
-
-
-  google.maps.event.addListener(infoWindow, 'domready', function() {
-    var favorite = this.marker;
-    $("#addToFavTrucks").on("click", favorite, addToFavTrucks);
-  });  
-
-  google.maps.event.addListener(infoWindow, 'domready', function() {
-    var favorite = this.marker;
-    $("#addToFavPopos").on("click", favorite, addToFavPopos);
-  });  
-
-  google.maps.event.addListener(infoWindow, 'domready', function() {
-    var favorite = this.marker;
-    $("#addToFavArt").on("click", favorite, addToFavArt);
-  });
+  $.post("/favorite-popos",
+         info,
+         addedToFavorites);
+}
 
 
+function addToFavArt(evt) {
+  var info = {
+    "title": evt.data.title,
+    "address": evt.data.address,
+    "location": evt.data.location,
+    "art_type": evt.data.type,
+    "medium": evt.data.medium,
+    "artist_link": evt.data.link,
+    "lat": evt.data.lat,
+    "lng": evt.data.lng,
+    };
+
+  $.post("/favorite-art",
+         info,
+         addedToFavorites);
+}
 
 
-} // end of initMap()
+google.maps.event.addListener(infoWindow, 'domready', function() {
+  var favorite = this.marker;
+  $("#addToFavTrucks").on("click", favorite, addToFavTrucks);
+});  
+
+google.maps.event.addListener(infoWindow, 'domready', function() {
+  var favorite = this.marker;
+  $("#addToFavPopos").on("click", favorite, addToFavPopos);
+});  
+
+google.maps.event.addListener(infoWindow, 'domready', function() {
+  var favorite = this.marker;
+  $("#addToFavArt").on("click", favorite, addToFavArt);
+});
+

@@ -31,16 +31,30 @@ def splash():
 
 
 
-@app.route("/map")
+@app.route("/map", methods=["GET", "POST"])
 def view_map():
     """Google Map of food trucks, POPOS, and public art"""
 
     # get Google Maps key
     key = os.environ["GOOGLE_MAPS_API_KEY"]
+    id = "view_map"
                            
     return render_template("map.html",
-                           key=key)
+                           key=key,
+                           id=id)
 
+
+@app.route("/fav-on-map", methods=["POST"])
+def show_fav_on_map():
+    """Google Map of specific favorite"""
+
+    # get Google Maps key
+    key = os.environ["GOOGLE_MAPS_API_KEY"]
+    id = "show_fav_on_map"
+                    
+    return render_template("map.html",
+                           key=key,
+                           id=id)
 
 
 @app.route("/account")
@@ -115,7 +129,6 @@ def signup():
 @app.route("/profile")
 def view_profile():
     """View profile and favorites."""
-
 
     fav_trucks = FavTruck.query.filter_by(user_id = session["user_id"]).all()
     fav_popos = FavPopos.query.filter_by(user_id = session["user_id"]).all()
