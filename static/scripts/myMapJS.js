@@ -1,34 +1,28 @@
 "use strict"
 
-var directionsService;
-var directionsDisplay;
-var infoWindow;
-var map;
-
-var truckMarkers = [];
-var artMarkers = [];
-var poposMarkers = [];
-
-
-
 function initMap() {
 
   ////////////////////////////////////
   // Initalize map of San Francisco //
   ////////////////////////////////////
   
-  directionsService = new google.maps.DirectionsService;
-  directionsDisplay = new google.maps.DirectionsRenderer;
-  infoWindow = new google.maps.InfoWindow( {
+  var directionsService = new google.maps.DirectionsService;
+  var directionsDisplay = new google.maps.DirectionsRenderer;
+  var infoWindow = new google.maps.InfoWindow( {
     maxWidth: 350
   });
   var sanFrancisco = {lat: 37.7599, lng: -122.440558};
-  map = new google.maps.Map(document.getElementById("map"), {
+  var map = new google.maps.Map(document.getElementById("map"), {
     zoom: 13,
     center: sanFrancisco
   });
   directionsDisplay.setMap(map);
   directionsDisplay.setPanel(document.getElementById("textDirections"));
+
+  var truckMarkers = [];
+  var artMarkers = [];
+  var poposMarkers = [];
+
 
 
   ///////////////////////////////////
@@ -42,9 +36,9 @@ function initMap() {
   });
 
 
-  ////////////////////////////////////////////
-  // Event listener for adding to favorites //
-  ////////////////////////////////////////////
+  /////////////////////////////////////////////
+  // Event listeners for adding to favorites //
+  /////////////////////////////////////////////
 
   google.maps.event.addListener(infoWindow, 'domready', function() {
     var favorite = this.marker;
@@ -60,6 +54,32 @@ function initMap() {
     var favorite = this.marker;
     $("#addToFavArt").on("click", favorite, addToFavArt);
   });
+
+
+
+  //////////////////////////////////////////////////
+  // Event listeners for finding nearby locations //
+  //////////////////////////////////////////////////
+
+  google.maps.event.addListener(infoWindow, 'domready', function() {
+    var data = {
+      currentMarker: this.marker,
+      markers: truckMarkers
+    }
+    $("#nearbyTrucks").on("click", data, getNearbyMarkers);
+
+    data = {
+      currentMarker: this.marker,
+      markers: poposMarkers
+    }
+    $("#nearbyPopos").on("click", data, getNearbyMarkers);
+
+    data = {
+      currentMarker: this.marker,
+      markers: artMarkers
+    }
+    $("#nearbyArt").on("click", data, getNearbyMarkers);
+  });  
 
 
   ///////////////////////////
@@ -161,9 +181,9 @@ function initMap() {
         "<p><strong>Address:</strong> " + address + "</p>" +
         "<p><strong>Hours:</strong> " + hours + "</p>" +
         "<p><strong>Cuisine:</strong> " + cuisine + "</p>" +
-        "<p><button id='nearbyTrucksFromTruck'>Nearby Food Trucks</button> " +
-        "<button id='nearbyPoposFromTruck'>Nearby POPOS</button> " +
-        "<button id='nearbyArtFromTruck'>Nearby Art</button></p>" +
+        "<p><button id='nearbyTrucks'>Nearby Food Trucks</button> " +
+        "<button id='nearbyPopos'>Nearby POPOS</button> " +
+        "<button id='nearbyArt'>Nearby Art</button></p>" +
         "</div>";
 
     // create marker
@@ -177,8 +197,7 @@ function initMap() {
       lat: coords[1],
       lng: coords[0],
       searchDetails: searchDetails,
-      // http://stackoverflow.com/questions/11162740/where-i-can-find-the-little-red-dot-image-used-in-google-map
-      icon: "https://storage.googleapis.com/support-kms-prod/SNP_2752129_en_v0"
+      icon: "../static/images/green-dot.png"
       });
 
     // hide all markers if showing favorite on map
@@ -226,9 +245,9 @@ function initMap() {
         "<p><strong>Location:</strong> " + location + "</p>" +
         "<p>" + desc + "</p>" +
         "<p>" + year + "</p>" +
-        "<p><button id='nearbyTrucksFromPopos'>Nearby Food Trucks</button> " +
-        "<button id='nearbyPoposFromPopos'>Nearby Popos</button> " +
-        "<button id='nearbyArtFromPopos'>Nearby Art</button></p>" +
+        "<p><button id='nearbyTrucks'>Nearby Food Trucks</button> " +
+        "<button id='nearbyPopos'>Nearby Popos</button> " +
+        "<button id='nearbyArt'>Nearby Art</button></p>" +
         "</div>";
 
     // create marker
@@ -245,7 +264,7 @@ function initMap() {
       lat: coords[1],
       lng: coords[0],
       searchDetails: searchDetails,
-      icon: "https://maps.gstatic.com/intl/en_us/mapfiles/markers2/measle_blue.png"
+      icon: "../static/images/blue-dot.png"
     });
 
     // hide all markers if showing favorite on map
@@ -291,9 +310,9 @@ function initMap() {
         "<p><strong>Type:</strong> " + type + "</p>" +
         "<p><strong>Medium:</strong> " + medium + "</p>" +
         "<p><a target='_blank' href='" + link + "'>" + link + "</a></p>" +
-        "<p><button id='nearbyTrucksFromArt'>Nearby Food Trucks</button> " +
-        "<button id='nearbyPoposFromArt'>Nearby POPOS</button> " +
-        "<button id='nearbyArtFromArt'>Nearby Art</button></p>" +
+        "<p><button id='nearbyTrucks'>Nearby Food Trucks</button> " +
+        "<button id='nearbyPopos'>Nearby POPOS</button> " +
+        "<button id='nearbyArt'>Nearby Art</button></p>" +
         "</div>";
 
     // create marker
@@ -309,7 +328,7 @@ function initMap() {
       lat: coords[1],
       lng: coords[0],
       searchDetails: searchDetails,
-      icon: "https://storage.googleapis.com/support-kms-prod/SNP_2752264_en_v0"
+      icon: "../static/images/pink-dot.png"
     });
 
     // hide all markers if showing favorite on map
@@ -355,31 +374,210 @@ function initMap() {
   $("#searchForm").on("submit", submitSearch);
 
 
+
+  ///////////////
+  // Reset map //
+  ///////////////
+
+  // function resetMap(evt) {
+  //   // console.log("reset map called");
+  //   // $("#truckMap, #poposMap, #artMap").prop("checked", true);
+  //   // $("#search").val("");
+  //   // infoWindow.close();
+  //   initMap();
+  // }
+
+  $("#resetMap").on("click", initMap);
+
+
+
+  //////////////////////////
+  // Show favorite on map //
+  //////////////////////////
+
+  function plotFavorite() {
+    if (document.getElementById("show_fav_on_map")) {
+
+      var name = $("#name").val();
+      var address = $("#address").val();
+
+      var allMarkers = truckMarkers.concat((poposMarkers.concat(artMarkers)));
+
+      for (var marker of allMarkers) {
+        if (String(marker.searchDetails).includes(name) && 
+            String(marker.searchDetails).includes(address)) {
+          marker.setVisible(true);
+        } else {
+          marker.setVisible(false);
+        }
+      }
+    }
+  }
+
+
+
+  //////////////////////////////////////////////
+  // On checkbox change, call toggle function //
+  //////////////////////////////////////////////
+
+  $("#truckMap").on("change", toggleMarkers);
+
+  $("#poposMap").on("change", toggleMarkers);
+
+  $("#artMap").on("change", toggleMarkers);
+
+
+
+  /////////////////////////////////////
+  // Toggle marker visibility on map //
+  /////////////////////////////////////
+
+  function toggleMarkers(evt) {
+    var visible = $("#truckMap").is(":checked");
+    setVisibility(truckMarkers, visible);
+
+    visible = $("#poposMap").is(":checked");
+    setVisibility(poposMarkers, visible);
+
+    visible = $("#artMap").is(":checked");
+    setVisibility(artMarkers, visible);
+  }
+
+
+  function setVisibility(markers, visibility) {
+    for (var marker of markers) {
+      marker.setVisible(visibility);
+    }
+  }
+
+
+
+  ////////////////
+  // Directions //
+  ////////////////
+
+  function showDirections(evt) {
+
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+      map.setCenter(pos);
+      var request = {
+       origin: pos,
+       destination: evt.data,
+       travelMode: google.maps.DirectionsTravelMode.DRIVING
+     };
+
+    directionsService.route(request, function (response, status) {
+      if (status == google.maps.DirectionsStatus.OK) {
+        directionsDisplay.setDirections(response);
+      } else {
+        window.alert('Directions request failed due to ' + status);
+      }
+     });
+    });
+  }
+
+
+
+
+  //////////////////////
+  // Add to favorites //
+  //////////////////////
+
+  function addedToFavorites(result) {
+    alert(result);
+  }
+
+
+  function addToFavTrucks(evt) {
+    var info = {
+      "name": evt.data.title,
+      "address": evt.data.address,
+      "hours": evt.data.hours,
+      "cuisine": evt.data.cuisine,
+      "lat": evt.data.lat,
+      "lng": evt.data.lng,
+      };
+
+    $.post("/favorite-truck",
+           info,
+           addedToFavorites);
+  }
+
+
+  function addToFavPopos(evt) {
+    var info = {
+      "name": evt.data.title,
+      "address": evt.data.address,
+      "hours": evt.data.hours,
+      "popos_type": evt.data.type,
+      "location": evt.data.location,
+      "description": evt.data.desc,
+      "year": evt.data.year,
+      "lat": evt.data.lat,
+      "lng": evt.data.lng,
+      };
+
+    $.post("/favorite-popos",
+           info,
+           addedToFavorites);
+  }
+
+
+  function addToFavArt(evt) {
+    var info = {
+      "title": evt.data.title,
+      "address": evt.data.address,
+      "location": evt.data.location,
+      "art_type": evt.data.type,
+      "medium": evt.data.medium,
+      "artist_link": evt.data.link,
+      "lat": evt.data.lat,
+      "lng": evt.data.lng,
+      };
+
+    $.post("/favorite-art",
+           info,
+           addedToFavorites);
+  }
+
+
+
+  //////////////////////
+  // Nearby locations //
+  //////////////////////
+
+  
+  function getNearbyMarkers(evt) {
+
+    var allMarkers = truckMarkers.concat((poposMarkers.concat(artMarkers)));
+
+    for (var marker of allMarkers) {
+        marker.setVisible(false);
+      }
+
+    var p1 = evt.data.currentMarker.position;
+    evt.data.currentMarker.setVisible(true);
+
+    for (var marker of evt.data.markers) {
+      var p2 = marker.position;
+      var distance = (google.maps.geometry.spherical.computeDistanceBetween(p1, p2) / 1000);
+
+      if (distance < 1.6) {
+        marker.setVisible(true);
+      }
+    }
+  }
+
+
+
 } // end initMap()
 
 
 
-//////////////////////////
-// Show favorite on map //
-//////////////////////////
-
-function plotFavorite() {
-  if (document.getElementById("show_fav_on_map")) {
-    var allMarkers = truckMarkers.concat((poposMarkers.concat(artMarkers)));
-
-    var name = $("#name").val();
-    var address = $("#address").val();
-
-    for (var marker of allMarkers) {
-      if (String(marker.searchDetails).includes(name) && 
-          String(marker.searchDetails).includes(address)) {
-        marker.setVisible(true);
-      } else {
-        marker.setVisible(false);
-      }
-    }
-  }
-}
 
 
 // function submitFavorite(evt) {
@@ -402,156 +600,3 @@ function plotFavorite() {
 //       $(value).on("submit", submitFavorite);
 //   });
 // });
-
-
-
-//////////////////////////////////////////////
-// On checkbox change, call toggle function //
-//////////////////////////////////////////////
-
-$("#truckMap").on("change", toggleTruckMarkers);
-
-$("#poposMap").on("change", togglePoposMarkers);
-
-$("#artMap").on("change", toggleArtMarkers);
-
-
-
-/////////////////////////////////////
-// Toggle marker visibility on map //
-/////////////////////////////////////
-
-function toggleTruckMarkers(evt) {
-  if ($("#truckMap").is(":checked")) {
-    for (var marker of truckMarkers) {
-      marker.setVisible(true);
-    }
-  } else {
-    for (var marker of truckMarkers) {
-      marker.setVisible(false);
-    }
-  }
-}
-
-
-function togglePoposMarkers(evt) {
-  if ($("#poposMap").is(":checked")) {
-    for (var marker of poposMarkers) {
-      marker.setVisible(true);
-    }
-  } else {
-    for (var marker of poposMarkers) {
-      marker.setVisible(false);
-    }
-  }
-}
-
-
-function toggleArtMarkers(evt) {
-  if ($("#artMap").is(":checked")) {
-    for (var marker of artMarkers) {
-      marker.setVisible(true);
-    }
-  } else {
-    for (var marker of artMarkers) {
-      marker.setVisible(false);
-    }
-  }
-}
-
-
-
-////////////////
-// Directions //
-////////////////
-
-function showDirections(evt) {
-
-  navigator.geolocation.getCurrentPosition(function(position) {
-    var pos = {
-      lat: position.coords.latitude,
-      lng: position.coords.longitude
-    };
-    map.setCenter(pos);
-    var request = {
-     origin: pos,
-     destination: evt.data,
-     travelMode: google.maps.DirectionsTravelMode.DRIVING
-   };
-
-  directionsService.route(request, function (response, status) {
-    if (status == google.maps.DirectionsStatus.OK) {
-      directionsDisplay.setDirections(response);
-    } else {
-      window.alert('Directions request failed due to ' + status);
-    }
-   });
-  });
-}
-
-
-
-
-//////////////////////
-// Add to favorites //
-//////////////////////
-
-function addedToFavorites(result) {
-  alert(result);
-}
-
-
-function addToFavTrucks(evt) {
-  var info = {
-    "name": evt.data.title,
-    "address": evt.data.address,
-    "hours": evt.data.hours,
-    "cuisine": evt.data.cuisine,
-    "lat": evt.data.lat,
-    "lng": evt.data.lng,
-    };
-
-  $.post("/favorite-truck",
-         info,
-         addedToFavorites);
-}
-
-
-function addToFavPopos(evt) {
-  var info = {
-    "name": evt.data.title,
-    "address": evt.data.address,
-    "hours": evt.data.hours,
-    "popos_type": evt.data.type,
-    "location": evt.data.location,
-    "description": evt.data.desc,
-    "year": evt.data.year,
-    "lat": evt.data.lat,
-    "lng": evt.data.lng,
-    };
-
-  $.post("/favorite-popos",
-         info,
-         addedToFavorites);
-}
-
-
-function addToFavArt(evt) {
-  var info = {
-    "title": evt.data.title,
-    "address": evt.data.address,
-    "location": evt.data.location,
-    "art_type": evt.data.type,
-    "medium": evt.data.medium,
-    "artist_link": evt.data.link,
-    "lat": evt.data.lat,
-    "lng": evt.data.lng,
-    };
-
-  $.post("/favorite-art",
-         info,
-         addedToFavorites);
-}
-
-
-

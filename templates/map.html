@@ -26,9 +26,14 @@
           <input type="submit" value="Search">
         </form>
 
-        <form action="/map" method="POST">
-          <input type="submit" value="Reset">
-        </form>
+        {% if id == "show_fav_on_map" %}
+          <form action="/map" method="POST">
+            <input type="submit" value="Reset">
+          </form>
+        {% else %}
+          <button id="resetMap">Reset</button>
+        {% endif %}
+
 
         {% if name != None %}
           <form>

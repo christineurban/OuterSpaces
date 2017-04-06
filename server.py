@@ -53,14 +53,7 @@ def show_fav_on_map():
     id = "show_fav_on_map"
 
     name = request.form.get("name").lower()
-    address = request.form.get("address").lower()
-
-
-    print "\n\n"
-    print name
-    print address
-    print "\n\n"
-    
+    address = request.form.get("address").lower()   
                     
     return render_template("map.html",
                            key=key,
