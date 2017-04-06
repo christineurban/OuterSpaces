@@ -35,26 +35,38 @@ def splash():
 def view_map():
     """Google Map of food trucks, POPOS, and public art"""
 
-    # get Google Maps key
     key = os.environ["GOOGLE_MAPS_API_KEY"]
     id = "view_map"
                            
     return render_template("map.html",
                            key=key,
-                           id=id)
+                           id=id,
+                           name=None)
+
 
 
 @app.route("/fav-on-map", methods=["POST"])
 def show_fav_on_map():
     """Google Map of specific favorite"""
 
-    # get Google Maps key
     key = os.environ["GOOGLE_MAPS_API_KEY"]
     id = "show_fav_on_map"
+
+    name = request.form.get("name").lower()
+    address = request.form.get("address").lower()
+
+
+    print "\n\n"
+    print name
+    print address
+    print "\n\n"
+    
                     
     return render_template("map.html",
                            key=key,
-                           id=id)
+                           id=id,
+                           name=name,
+                           address=address)
 
 
 @app.route("/account")
@@ -76,7 +88,7 @@ def login():
         user = User.query.filter_by(email = email).one()
 
     except:
-        flash("Sorry, this email does not match our records." + \
+        flash("ASorry, this email does not match our records." + \
               " Please check your spelling and try again.")  # FIXME security
         return redirect("/account")
 

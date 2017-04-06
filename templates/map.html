@@ -1,45 +1,52 @@
 {% extends "base.html" %}
 {% block title %} Map | OuterSpaces {% endblock %}
-{% block script %}<script src="../static/scripts/myMapJS.js"></script>{% endblock %}
+{% block script %}<script src="../static/scripts/myMapJS.js" defer></script>{% endblock %}
 {% block body %}
 
-<div class="container">
-  <div class="row">
-    <div class="col-xs-12 col-sm-8" id="{{ id }}>
-      <h1>Map</h1>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-8" id="{{ id }}">
+        <h1>Map</h1>
 
-      <div id="map"></div>
+        <div id="map"></div>
+      </div>
+
+      <div class="col-xs-12 col-sm-4">
+        <form>
+          <label for="truckMap">Food Trucks </label>
+          <input type="checkbox" name="space" value="truck" id="truckMap" checked>
+          <label for="poposMap">POPOS </label>
+          <input type="checkbox" name="space" value="popos" id="poposMap" checked>
+          <label for="artMap">Public Art </label>
+          <input type="checkbox" name="space" value="art" id="artMap" checked>
+        </form>
+
+        <form id="searchForm">
+          <input type="text" name="search" placeholder="ice cream, tacos..." id="search">
+          <input type="submit" value="Search">
+        </form>
+        <!-- <button id="resetMap">Reset</button> -->
+
+        <form action="/fav-on-map">
+          <input type="submit" value="Reset">
+        </form>
+
+        {% if name != None %}
+          <form>
+            <input type="hidden" id="name" value="{{ name }}">
+            <input type="hidden" id="address" value="{{ address }}">
+          </form>
+        {% endif %}
+
+        <div id="textDirections"></div>
+
+      </div>
+
     </div>
-
-    <div class="col-xs-12 col-sm-4">
-      <form>
-        <label for="truckMap">Food Trucks </label>
-        <input type="checkbox" name="space" value="truck" id="truckMap" checked>
-        <label for="poposMap">POPOS </label>
-        <input type="checkbox" name="space" value="popos" id="poposMap" checked>
-        <label for="artMap">Public Art </label>
-        <input type="checkbox" name="space" value="art" id="artMap" checked>
-      </form>
-
-      <form id="searchForm">
-        <input type="text" name="search" placeholder="ice cream, tacos..." id="search">
-        <input type="submit" value="Search">
-      </form>
-      <!-- <button id="resetMap">Reset</button> -->
-
-      <form action="/fav-on-map">
-        <input type="submit" value="Reset">
-      </form>
-
-      <div id="textDirections"></div>
-
-    </div>
-
   </div>
-</div>
 
-<script async defer
-  src="https://maps.googleapis.com/maps/api/js?key={{ key }}&callback=initMap&libraries=geometry">
-</script>
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key={{ key }}&callback=initMap&libraries=geometry">
+  </script>
 
 {% endblock %}

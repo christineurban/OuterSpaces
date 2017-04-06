@@ -5,28 +5,14 @@ var directionsDisplay;
 var infoWindow;
 var map;
 
-var TRUCKMARKERS = [];
-var ARTMARKERS = [];
-var POPOSMARKERS = [];
+var truckMarkers = [];
+var artMarkers = [];
+var poposMarkers = [];
 
 
 
 function initMap() {
-  // if (blah) {
-  //   var func = showFavoriteOnMap;
-  // } else {
-  //   var func = allDataOnMap;
-  // };
-
-  var func = allDataOnMap;
-
-  showMap(func);
-
-} // end initMap()
-
-
-function showMap(func) {
-
+  console.log("initMap called");
   ////////////////////////////////////
   // Initalize map of San Francisco //
   ////////////////////////////////////
@@ -44,6 +30,36 @@ function showMap(func) {
   directionsDisplay.setMap(map);
   directionsDisplay.setPanel(document.getElementById("textDirections"));
 
+
+  ///////////////////////////////////
+  // Event listener for directions //
+  ///////////////////////////////////
+
+  // http://stackoverflow.com/questions/6378007/adding-event-to-element-inside-google-maps-api-infowindow
+  google.maps.event.addListener(infoWindow, 'domready', function() {
+    var destination = $(this).attr("position");
+    $(".directions").on("click", destination, showDirections);
+  });
+
+
+  ////////////////////////////////////////////
+  // Event listener for adding to favorites //
+  ////////////////////////////////////////////
+
+  google.maps.event.addListener(infoWindow, 'domready', function() {
+    var favorite = this.marker;
+    $("#addToFavTrucks").on("click", favorite, addToFavTrucks);
+  });  
+
+  google.maps.event.addListener(infoWindow, 'domready', function() {
+    var favorite = this.marker;
+    $("#addToFavPopos").on("click", favorite, addToFavPopos);
+  });  
+
+  google.maps.event.addListener(infoWindow, 'domready', function() {
+    var favorite = this.marker;
+    $("#addToFavArt").on("click", favorite, addToFavArt);
+  });
 
 
   ///////////////////////////
@@ -77,51 +93,7 @@ function showMap(func) {
                                 'Error: Your browser doesn\'t support geolocation.');
   }
 
-  func();
 
-} // end showMap()
-
-
-
-//////////////////////////
-// Show favorite on map //
-//////////////////////////
-
-function showFavoriteOnMap() {
-  console.log("showFavoriteOnMap called");
-
-
-  function plotFavorite() {
-
-    console.log("plotFavorite called");
-    var name = $(".name").val().toLowerCase();
-    var address = $(".address").val().toLowerCase();
-    var fav = name + " " + address
-
-    var allMarkers = TRUCKMARKERS.concat((POPOSMARKERS.concat(ARTMARKERS)));
-
-    for (var marker of allMarkers) {
-      if (String(marker.searchDetails).includes(fav)) {
-        marker.setVisible(true);
-      } else {
-        marker.setVisible(false);
-      }
-    } 
-  }
-
-  function initMapFavorite(plotFavorite) {
-    console.log("initMapFavorite called");
-    initMap();
-    plotFavorite();
-  
-  $("#favOnMap").on("submit", initMapFavorite);
-
-  }
-}
-
-
-
-function allDataOnMap() {
 
   //////////////////////////////////////////////////////
   // Retrieve data from server, send to loop function //
@@ -129,15 +101,15 @@ function allDataOnMap() {
 
   // get food truck data
   $.get("/data/trucks.json",
-        loopDataTrucks);
+        loopDataTrucks).then(plotFavorite);
 
   // get POPOS data
   $.get("/data/popos.json",
-        loopDataPopos);
+        loopDataPopos).then(plotFavorite);
 
   // get public art data
   $.get("/data/art.json",
-        loopDataArt);
+        loopDataArt).then(plotFavorite);
 
 
 
@@ -208,6 +180,11 @@ function allDataOnMap() {
       // http://stackoverflow.com/questions/11162740/where-i-can-find-the-little-red-dot-image-used-in-google-map
       icon: "https://storage.googleapis.com/support-kms-prod/SNP_2752129_en_v0"
       });
+
+    // hide all markers if showing favorite on map
+    if (document.getElementById("show_fav_on_map")) {
+      marker.setVisible(false);
+    }
     
     // show info window on click  
     marker.addListener("click", function(){
@@ -219,7 +196,7 @@ function allDataOnMap() {
     });
 
     // collect all markers in array
-    TRUCKMARKERS.push(marker);
+    truckMarkers.push(marker);
   }
 
 
@@ -271,6 +248,11 @@ function allDataOnMap() {
       icon: "https://maps.gstatic.com/intl/en_us/mapfiles/markers2/measle_blue.png"
     });
 
+    // hide all markers if showing favorite on map
+    if (document.getElementById("show_fav_on_map")) {
+      marker.setVisible(false);
+    }
+
     // show info window on click
     marker.addListener("click", function(){
       infoWindow.close();   // Close previously opened info window
@@ -281,7 +263,7 @@ function allDataOnMap() {
     });
 
     // collect all markers in array
-    POPOSMARKERS.push(marker);
+    poposMarkers.push(marker);
   }
 
 
@@ -330,6 +312,12 @@ function allDataOnMap() {
       icon: "https://storage.googleapis.com/support-kms-prod/SNP_2752264_en_v0"
     });
 
+    // hide all markers if showing favorite on map
+    if (document.getElementById("show_fav_on_map")) {
+      marker.setVisible(false);
+    }
+    
+
     // show info window on click
     marker.addListener("click", function(){
       infoWindow.close();   // Close previously opened info window
@@ -340,10 +328,59 @@ function allDataOnMap() {
     });
 
     // collect all markers in array
-    ARTMARKERS.push(marker);
+    artMarkers.push(marker);
   }
 
-} // end allDataOnMap()
+
+} // end initMap()
+
+
+
+//////////////////////////
+// Show favorite on map //
+//////////////////////////
+
+function plotFavorite() {
+  if (document.getElementById("show_fav_on_map")) {
+    var allMarkers = truckMarkers.concat((poposMarkers.concat(artMarkers)));
+
+    var name = $("#name").val();
+    var address = $("#address").val();
+    console.log(name);
+
+    for (var marker of allMarkers) {
+      console.log(marker);
+      if (String(marker.searchDetails).includes(name) && 
+          String(marker.searchDetails).includes(address)) {
+        marker.setVisible(true);
+      } else {
+        marker.setVisible(false);
+      }
+    }
+  }
+}
+
+
+// function submitFavorite(evt) {
+//   evt.preventDefault();
+
+//   var hiddenInputs = $(evt.currentTarget).find("input");
+
+//   var formInputs = {
+//     name: hiddenInputs[0].value.toLowerCase(),
+//     address: hiddenInputs[1].value.toLowerCase()
+//   }
+
+//   $.post("/fav-on-map",
+//          formInputs,
+//          showFavorite)
+// }
+
+// $(document).ready(function() {
+//     $.each($(".favOnMapForm"), function(index, value){
+//       $(value).on("submit", submitFavorite);
+//   });
+// });
 
 
 
@@ -351,11 +388,11 @@ function allDataOnMap() {
 // On checkbox change, call toggle function //
 //////////////////////////////////////////////
 
-$("#truckMap").on("change", toggleTRUCKMARKERS);
+$("#truckMap").on("change", toggleTruckMarkers);
 
-$("#poposMap").on("change", togglePOPOSMARKERS);
+$("#poposMap").on("change", togglePoposMarkers);
 
-$("#artMap").on("change", toggleARTMARKERS);
+$("#artMap").on("change", toggleArtMarkers);
 
 
 
@@ -363,39 +400,39 @@ $("#artMap").on("change", toggleARTMARKERS);
 // Toggle marker visibility on map //
 /////////////////////////////////////
 
-function toggleTRUCKMARKERS(evt) {
+function toggleTruckMarkers(evt) {
   if ($("#truckMap").is(":checked")) {
-    for (var marker of TRUCKMARKERS) {
+    for (var marker of truckMarkers) {
       marker.setVisible(true);
     }
   } else {
-    for (var marker of TRUCKMARKERS) {
+    for (var marker of truckMarkers) {
       marker.setVisible(false);
     }
   }
 }
 
 
-function togglePOPOSMARKERS(evt) {
+function togglePoposMarkers(evt) {
   if ($("#poposMap").is(":checked")) {
-    for (var marker of POPOSMARKERS) {
+    for (var marker of poposMarkers) {
       marker.setVisible(true);
     }
   } else {
-    for (var marker of POPOSMARKERS) {
+    for (var marker of poposMarkers) {
       marker.setVisible(false);
     }
   }
 }
 
 
-function toggleARTMARKERS(evt) {
+function toggleArtMarkers(evt) {
   if ($("#artMap").is(":checked")) {
-    for (var marker of ARTMARKERS) {
+    for (var marker of artMarkers) {
       marker.setVisible(true);
     }
   } else {
-    for (var marker of ARTMARKERS) {
+    for (var marker of artMarkers) {
       marker.setVisible(false);
     }
   }
@@ -412,7 +449,7 @@ function submitSearch(evt) {
     infoWindow.close();
 
     var search = $("#search").val().toLowerCase();
-    var allMarkers = TRUCKMARKERS.concat((POPOSMARKERS.concat(ARTMARKERS)));
+    var allMarkers = truckMarkers.concat((poposMarkers.concat(artMarkers)));
 
     for (var marker of allMarkers) {
       if (String(marker.searchDetails).includes(search)) {
@@ -467,11 +504,6 @@ function showDirections(evt) {
   });
 }
 
-// http://stackoverflow.com/questions/6378007/adding-event-to-element-inside-google-maps-api-infowindow
-google.maps.event.addListener(infoWindow, 'domready', function() {
-  var destination = $(this).attr("position");
-  $(".directions").on("click", destination, showDirections);
-});
 
 
 
@@ -537,18 +569,4 @@ function addToFavArt(evt) {
 }
 
 
-google.maps.event.addListener(infoWindow, 'domready', function() {
-  var favorite = this.marker;
-  $("#addToFavTrucks").on("click", favorite, addToFavTrucks);
-});  
-
-google.maps.event.addListener(infoWindow, 'domready', function() {
-  var favorite = this.marker;
-  $("#addToFavPopos").on("click", favorite, addToFavPopos);
-});  
-
-google.maps.event.addListener(infoWindow, 'domready', function() {
-  var favorite = this.marker;
-  $("#addToFavArt").on("click", favorite, addToFavArt);
-});
 
