@@ -12,7 +12,7 @@ var poposMarkers = [];
 
 
 function initMap() {
-  console.log("initMap called");
+
   ////////////////////////////////////
   // Initalize map of San Francisco //
   ////////////////////////////////////
@@ -346,10 +346,8 @@ function plotFavorite() {
 
     var name = $("#name").val();
     var address = $("#address").val();
-    console.log(name);
 
     for (var marker of allMarkers) {
-      console.log(marker);
       if (String(marker.searchDetails).includes(name) && 
           String(marker.searchDetails).includes(address)) {
         marker.setVisible(true);
@@ -461,18 +459,6 @@ function submitSearch(evt) {
 }
 
 $("#searchForm").on("submit", submitSearch);
-
-
-
-///////////////
-// Reset map //
-///////////////
-
-// function resetMap(evt) {
-//   $.post("/map");
-// }
-
-// $("#resetMap").on("click", resetMap);
 
 
 
