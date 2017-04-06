@@ -332,6 +332,29 @@ function initMap() {
   }
 
 
+  ////////////////
+  // Search box //
+  ////////////////
+
+  function submitSearch(evt) {
+      evt.preventDefault();
+      infoWindow.close();
+
+      var search = $("#search").val().toLowerCase();
+      var allMarkers = truckMarkers.concat((poposMarkers.concat(artMarkers)));
+
+      for (var marker of allMarkers) {
+        if (String(marker.searchDetails).includes(search)) {
+          marker.setVisible(true);
+        } else {
+          marker.setVisible(false);
+        }
+      } 
+  }
+
+  $("#searchForm").on("submit", submitSearch);
+
+
 } // end initMap()
 
 
@@ -435,30 +458,6 @@ function toggleArtMarkers(evt) {
     }
   }
 }
-
-
-
-////////////////
-// Search box //
-////////////////
-
-function submitSearch(evt) {
-    evt.preventDefault();
-    infoWindow.close();
-
-    var search = $("#search").val().toLowerCase();
-    var allMarkers = truckMarkers.concat((poposMarkers.concat(artMarkers)));
-
-    for (var marker of allMarkers) {
-      if (String(marker.searchDetails).includes(search)) {
-        marker.setVisible(true);
-      } else {
-        marker.setVisible(false);
-      }
-    } 
-}
-
-$("#searchForm").on("submit", submitSearch);
 
 
 
