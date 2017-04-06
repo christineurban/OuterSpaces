@@ -1,7 +1,23 @@
 {% extends "base.html" %}
-{% block title %} Map | OuterSpaces {% endblock %}
-{% block script %}<script src="../static/scripts/myMapJS.js"></script>{% endblock %}
-{% block body %}
+{% block title %}Map | OuterSpaces{% endblock %}
+{% block script %}
+  <script src="../static/scripts/initMap.js"></script>
+  <script src="../static/scripts/mapHelpers.js"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ key }}&callback=initMap&libraries=geometry"></script>
+{% endblock %}
+
+  {% block search %}
+    <ul class="nav navbar-nav navbar-right">
+      <form class="navbar-form navbar-left" id="searchForm">
+      <div class="form-group">
+        <input type="text" class="form-control"  name="search" placeholder="ice cream, tacos..." id="search">
+      </div>
+      <button type="submit" class="btn btn-default">Search</button>
+    </form>
+    </ul>
+  {% endblock %}
+
+  {% block body %}
 
   <div class="container">
     <div class="row">
@@ -21,17 +37,12 @@
           <input type="checkbox" name="space" value="art" id="artMap" checked>
         </form>
 
-        <form id="searchForm">
-          <input type="text" name="search" placeholder="ice cream, tacos..." id="search">
-          <input type="submit" value="Search">
-        </form>
-
         {% if id == "show_fav_on_map" %}
           <form action="/map" method="POST">
             <input type="submit" value="Reset">
           </form>
         {% else %}
-          <button id="resetMap">Reset</button>
+          <button id="resetMap" class="newMap">Reset</button>
         {% endif %}
 
 
@@ -48,9 +59,5 @@
 
     </div>
   </div>
-
-  <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key={{ key }}&callback=initMap&libraries=geometry">
-  </script>
 
 {% endblock %}

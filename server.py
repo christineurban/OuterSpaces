@@ -155,6 +155,14 @@ def view_profile():
 
 
 
+@app.route("/trucks")
+def view_trucks():
+    """View all food trucks."""
+
+    
+
+
+
 
 ################################################################################
 # Add to favorites

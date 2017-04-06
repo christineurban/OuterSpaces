@@ -1,71 +1,74 @@
 {% extends "base.html" %}
-{% block title %} Profile | OuterSpaces {% endblock %}
+{% block title %}Profile | OuterSpaces{% endblock %}
 {% block script %}<script src="../static/scripts/myMapJS.js"></script>{% endblock %}
 {% block body %}
 
   <div class="container">
+    <div class="row">
 
-  <h1>Profile</h1>
+      <h1>Profile</h1>
 
+      <p><strong>Name:</strong> {{ session["first_name"] }} {{ session["last_name"] }}</p>
+      
+      <p><strong>Email:</strong> {{ session["email"] }}</p>
+      <br><br>
+      {% if fav_trucks %}
+      <p><strong>Favorite Food Trucks:</strong></p>
+        {% for fav in fav_trucks %}
+          <p>
+            <p>{{ fav.truck.name }}</p>
+            <strong>Address: </strong>{{ fav.truck.address }}<br>
+            <strong>Hours: </strong>{{ fav.truck.hours }}<br>
+            <strong>Cuisine: </strong>{{ fav.truck.cuisine }}<br>
+            <form action="/fav-on-map" class="favOnMapForm" method="POST">
+              <input type="hidden" name="name" class="name" value="{{ fav.truck.name }}">
+              <input type="hidden" name="address" class="address" value="{{ fav.truck.address }}">
+              <input type="submit" value="show on map">
+            </form>
+          <p>
+        {% endfor %}
+      {% endif %}
+      <br><br>
+      {% if fav_popos %}  
+      <p><strong>Favorite POPOS (Privately Owned Public Open Spaces):</strong></p>    
+          {% for fav in fav_popos %}
+          <p>
+            <p>{{ fav.popos.name }}</p>
+            <strong>Address: </strong>{{ fav.popos.address }}<br>
+            <strong>Hours: </strong>{{ fav.popos.hours }}<br>
+            <strong>Type: </strong>{{ fav.popos.popos_type }}<br>
+            <strong>Location: </strong>{{ fav.popos.location }}<br>
+            <strong>Year: </strong>{{ fav.popos.year }}<br>
+            {{ fav.popos.description }}<br>
+            <form action="/fav-on-map" class="favOnMapForm" method="POST">
+              <input type="hidden" name="name" class="name" value="{{ fav.popos.name }}">
+              <input type="hidden" name="address" class="address" value="{{ fav.popos.address }}">
+              <input type="submit" value="show on map">
+            </form>
+          <p>
+        {% endfor %}
+      {% endif %}
+      <br><br>
+      {% if fav_art %}
+      <p><strong>Favorite Public Art:</strong></p>    
+          {% for fav in fav_art %}
+          <p>
+            <p>{{ fav.art.title }}</p>
+            <strong>Address: </strong>{{ fav.art.address }}<br>
+            <strong>Location: </strong>{{ fav.art.location }}<br>
+            <strong>Type: </strong>{{ fav.art.art_type }}<br>
+            <strong>Medium: </strong>{{ fav.art.medium }}<br>
+            <a target="_blank" href="{{ fav.art.artist_link }}">{{ fav.art.artist_link }}</a><br>
+            <form action="/fav-on-map" class="favOnMapForm" method="POST">
+              <input type="hidden" name="name" class="name" value="{{ fav.art.title }}">
+              <input type="hidden" name="address" class="address" value="{{ fav.art.address }}">
+              <input type="submit" value="show on map">
+            </form>
+          </p>
+        {% endfor %}
+      {% endif %}
 
-  <p><strong>Name:</strong> {{ session["first_name"] }} {{ session["last_name"] }}</p>
-  
-  <p><strong>Email:</strong> {{ session["email"] }}</p>
-  <br><br>
-  {% if fav_trucks %}
-  <p><strong>Favorite Food Trucks:</strong></p>
-    {% for fav in fav_trucks %}
-      <p>
-        <p>{{ fav.truck.name }}</p>
-        <strong>Address: </strong>{{ fav.truck.address }}<br>
-        <strong>Hours: </strong>{{ fav.truck.hours }}<br>
-        <strong>Cuisine: </strong>{{ fav.truck.cuisine }}<br>
-        <form action="/fav-on-map" class="favOnMapForm" method="POST">
-          <input type="hidden" name="name" class="name" value="{{ fav.truck.name }}">
-          <input type="hidden" name="address" class="address" value="{{ fav.truck.address }}">
-          <input type="submit" value="show on map">
-        </form>
-      <p>
-    {% endfor %}
-  {% endif %}
-  <br><br>
-  {% if fav_popos %}  
-  <p><strong>Favorite POPOS (Privately Owned Public Open Spaces):</strong></p>    
-      {% for fav in fav_popos %}
-      <p>
-        <p>{{ fav.popos.name }}</p>
-        <strong>Address: </strong>{{ fav.popos.address }}<br>
-        <strong>Hours: </strong>{{ fav.popos.hours }}<br>
-        <strong>Type: </strong>{{ fav.popos.popos_type }}<br>
-        <strong>Location: </strong>{{ fav.popos.location }}<br>
-        <strong>Year: </strong>{{ fav.popos.year }}<br>
-        {{ fav.popos.description }}<br>
-        <form action="/fav-on-map" class="favOnMapForm" method="POST">
-          <input type="hidden" name="name" class="name" value="{{ fav.popos.name }}">
-          <input type="hidden" name="address" class="address" value="{{ fav.popos.address }}">
-          <input type="submit" value="show on map">
-        </form>
-      <p>
-    {% endfor %}
-  {% endif %}
-  <br><br>
-  {% if fav_art %}
-  <p><strong>Favorite Public Art:</strong></p>    
-      {% for fav in fav_art %}
-      <p>
-        <p>{{ fav.art.title }}</p>
-        <strong>Address: </strong>{{ fav.art.address }}<br>
-        <strong>Location: </strong>{{ fav.art.location }}<br>
-        <strong>Type: </strong>{{ fav.art.art_type }}<br>
-        <strong>Medium: </strong>{{ fav.art.medium }}<br>
-        <a target="_blank" href="{{ fav.art.artist_link }}">{{ fav.art.artist_link }}</a><br>
-        <form action="/fav-on-map" class="favOnMapForm" method="POST">
-          <input type="hidden" name="name" class="name" value="{{ fav.art.title }}">
-          <input type="hidden" name="address" class="address" value="{{ fav.art.address }}">
-          <input type="submit" value="show on map">
-        </form>
-      <p>
-    {% endfor %}
-  {% endif %}
+    </div>
+  </div>
 
 {% endblock %}
