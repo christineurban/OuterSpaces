@@ -8,42 +8,41 @@
       <h1>Public Art</h1>
           
           {% for art in public_art %}
-            
-            <a href=""></a>
-              <p>
-                {% if "title" in art %}
-                  <h3>{{art["title"]}}</h3>
-                {% else %}
-                  <h3>Untitled</h3>
-                {% endif %}
-                
-                {% if "name" in art %}
-                  <strong>Address:</strong>{{art["name"]}}<br>
-                {% endif %}
 
-                {% if "location" in art %}
-                  <strong>Location:</strong>{{art["location"]}}<br>
-                {% endif %}
+            <p>
+              {% if "title" in art %}
+                <h3>{{art["title"]}}</h3>
+              {% else %}
+                <h3>Untitled</h3>
+              {% endif %}
+              
+              {% if "name" in art %}
+                <strong>Address:</strong>{{art["name"]}}<br>
+              {% endif %}
 
-                {% if "type" in art %}
-                  <strong>Type:</strong>{{art["type"]}}<br>
-                {% endif %}
+              {% if "location" in art %}
+                <strong>Location:</strong>{{art["location"]}}<br>
+              {% endif %}
 
-                {% if "medium" in art %}
-                  <strong>Medium:</strong>{{art["medium"]}}<br>
-                {% endif %}
+              {% if "type" in art %}
+                <strong>Type:</strong>{{art["type"]}}<br>
+              {% endif %}
 
-                {% if "artistlink" in art %}
-                  <a target="_blank" href="{{art['artistlink']}}">{{art["artistlink"]}}</a><br>
-                {% endif %}
+              {% if "medium" in art %}
+                <strong>Medium:</strong>{{art["medium"]}}<br>
+              {% endif %}
 
-                <form action="/show_one_on_map" class="showOnMapForm" method="POST">
-                  <input type="hidden" name="lat" class="lat" value="{{ art['the_geom']['coordinates'][1] }}">
-                  <input type="hidden" name="lng" class="lng" value="{{ art['the_geom']['coordinates'][0] }}">
-                  <input type="submit" value="show on map">
-                </form>
-                <br>
-              </p> 
+              {% if "artistlink" in art %}
+                <a target="_blank" href="{{art['artistlink']}}">{{art["artistlink"]}}</a><br>
+              {% endif %}
+
+              <form action="/show_one_on_map" class="showOnMapForm" method="POST">
+                <input type="hidden" name="lat" class="lat" value="{{ art['the_geom']['coordinates'][1] }}">
+                <input type="hidden" name="lng" class="lng" value="{{ art['the_geom']['coordinates'][0] }}">
+                <input type="submit" value="show on map">
+              </form>
+              <br>
+            </p> 
 
           {% endfor %}
     </div>
