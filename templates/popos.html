@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}POPOS | OuterSpaces{% endblock %}
+{% block body %}
+
+  <div class="container">
+    <div class="row">
+      
+      <h2>Privately Owned Public Open Spaces (POPOS)</h2>
+          
+          {% for popo in popos %}
+            
+            <a href=""></a>
+              <p>
+                {% if "name" in popo %}
+                  <h3>{{popo["name"]}}</h3>
+                {% else %}
+                  <h3>Untitled</h3>
+                {% endif %}
+                
+                {% if "popos_addr" in popo %}
+                  <strong>Address:</strong>{{popo["popos_addr"]}}<br>
+                {% endif %}
+
+                {% if "hours" in popo %}
+                  <strong>Hours:</strong>{{popo["hours"]}}<br>
+                {% endif %}
+
+                {% if "location" in popo %}
+                  <strong>Location:</strong>{{popo["location"]}}<br>
+                {% endif %}
+
+                {% if "type" in popo %}
+                  <strong>Type:</strong>{{popo["type"]}}<br>
+                {% endif %}
+
+                {% if "year" in popo %}
+                  <strong>Year:</strong>{{popo["year"]}}<br>
+                {% endif %}
+
+                {% if "desc" in popo %}
+                  {{popo["desc"]}}<br>
+                {% endif %}
+              </p> 
+
+          {% endfor %}
+    </div>
+  </div>
+
+{% endblock %}

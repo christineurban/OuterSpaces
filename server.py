@@ -23,6 +23,10 @@ app.jinja_env.undefined = StrictUndefined
 
 
 
+################################################################################
+# Pages
+
+
 @app.route("/")
 def splash():
     """Splash page."""
@@ -62,6 +66,7 @@ def show_fav_on_map():
                            address=address)
 
 
+
 @app.route("/account")
 def login_or_sign_up():
     """Log in or sign up for an account."""
@@ -97,6 +102,7 @@ def login():
         flash("Sorry, this password does not match our records." + \
               " Please check your spelling and try again.")  # FIXME security
         return redirect("/account")
+
 
 
 @app.route("/signup", methods=["POST"])
@@ -159,8 +165,41 @@ def view_profile():
 def view_trucks():
     """View all food trucks."""
 
-    
+    url = "https://data.sfgov.org/resource/6a9r-agq8.json?$$app_token=" + sf_data
+    response = requests.get(url)
+    if response.status_code == 200:
+        trucks = response.json()
 
+    return render_template("food-trucks.html",
+                           trucks=trucks)
+
+
+
+@app.route("/popos")
+def view_popos():
+    """View all POPOS."""
+
+    url = "https://data.sfgov.org/resource/3ub7-d4yy.json?$$app_token=" + sf_data
+    response = requests.get(url)
+    if response.status_code == 200:
+        popos = response.json()
+
+    return render_template("popos.html",
+                           popos=popos)
+
+
+
+@app.route("/art")
+def view_art():
+    """View all art."""
+
+    url = "https://data.sfgov.org/resource/8fe8-yww8.json?$$app_token=" + sf_data
+    response = requests.get(url)
+    if response.status_code == 200:
+        public_art = response.json()
+
+    return render_template("art.html",
+                           public_art=public_art)
 
 
 
@@ -334,6 +373,8 @@ def add_art_to_favorites():
         return "Oops! You must be logged in to save a favorite."
 
 
+
+
 ################################################################################
 # Get data from API
 
@@ -352,8 +393,8 @@ def get_trucks():
         data = response.json()
     else:
         status = response.status.code
-        raise AssertionError("Route /data/trucks.json status code: {}".format(
-                             status))
+        return jsonify("Truck data request failed")
+        
     return jsonify(data)
 
 
@@ -367,8 +408,8 @@ def get_popos():
         data = response.json()
     else:
         status = response.status.code
-        raise AssertionError("Route /data/popos.json status code: {}".format(
-                             status))
+        return jsonify("POPOS data request failed")
+        
     return jsonify(data)
 
 
@@ -382,8 +423,8 @@ def get_art():
         data = response.json()
     else:
         status = response.status.code
-        raise AssertionError("Route /data/art.json status code: {}".format(
-                             status))
+        return jsonify("Art data request failed")
+        
     return jsonify(data)
 
 

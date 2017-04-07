@@ -18,15 +18,15 @@ var poposMarkers = [];
 
   // get food truck data
   $.get("/data/trucks.json",
-        loopDataTrucks).then(plotFavorite);
+    loopDataTrucks).then(plotFavorite);
 
   // get POPOS data
   $.get("/data/popos.json",
-        loopDataPopos).then(plotFavorite);
+    loopDataPopos).then(plotFavorite);
 
   // get public art data
   $.get("/data/art.json",
-        loopDataArt).then(plotFavorite);
+    loopDataArt).then(plotFavorite);
 
 
 
@@ -35,20 +35,32 @@ var poposMarkers = [];
   ////////////////////////////////////////////////////////////
 
   function loopDataTrucks(data) {
-    for (var i = 0; i < data.length; i++) {
-      plotDataTrucks(data[i]);
+    if (data === "Truck data request failed") {
+      console.log(data);
+    } else {
+      for (var i = 0; i < data.length; i++) {
+        plotDataTrucks(data[i]);
+      }
     }
   }
 
   function loopDataPopos(data) {
-    for (var i = 0; i < data.length; i++) {
-      plotDataPopos(data[i]);
+    if (data === "POPOS data request failed") {
+      console.log(data);
+    } else {
+      for (var i = 0; i < data.length; i++) {
+        plotDataPopos(data[i]);
+      }
     }
   }
 
   function loopDataArt(data) {
-    for (var i = 0; i < data.length; i++) {
-      plotDataArt(data[i]);
+    if (data === "Art data request failed") {
+      console.log(data);
+    } else {
+      for (var i = 0; i < data.length; i++) {
+        plotDataArt(data[i]);
+      }
     }
   }
 
