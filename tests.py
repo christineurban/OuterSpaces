@@ -32,39 +32,38 @@ class OuterSpacesTests(unittest.TestCase):
         self.assertIn('<label for="truckMap">Food Trucks </label>', result.data)
 
 
-    # TODO when database is set up
-
-    # def test_profile(self):
-    #     result = self.client.post("/profile")
-    #     self.assertEqual(result.status_code, 200)
-    #     self.assertIn("<h1>Profile</h1>", result.data)
+    def test_profile(self):
+        result = self.client.post("/profile")
+        self.assertEqual(result.status_code, 200)
+        self.assertIn("<h1>Profile</h1>", result.data)
 
 
-class OuterSpacesTestsDatabase(unittest.TestCase):
-    """Flask tests that use the database."""
 
-    def setUp(self):
-        """Stuff to do before every test."""
+# class OuterSpacesTestsDatabase(unittest.TestCase):
+#     """Flask tests that use the database."""
 
-        # Get the Flask test client
-        self.client = app.test_client()
+#     def setUp(self):
+#         """Stuff to do before every test."""
 
-        # Show Flask errors that happen during tests
-        app.config['TESTING'] = True
+#         # Get the Flask test client
+#         self.client = app.test_client()
 
-        # Connect to test database
-        connect_to_db(app, "postgresql:///outerspacestest")
+#         # Show Flask errors that happen during tests
+#         app.config['TESTING'] = True
 
-        # Create tables and add sample data
-        db.create_all()
-        example_data()
+#         # Connect to test database
+#         connect_to_db(app, "postgresql:///outerspacestest")
+
+#         # Create tables and add sample data
+#         db.create_all()
+#         example_data()
 
 
-    def tearDown(self):
-        """Do at end of every test."""
+#     def tearDown(self):
+#         """Do at end of every test."""
 
-        db.session.close()
-        db.drop_all()
+#         db.session.close()
+#         db.drop_all()
 
 
 

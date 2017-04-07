@@ -2,38 +2,34 @@
 {% block title %}Food Trucks | OuterSpaces{% endblock %}
 {% block body %}
 
-  <div class="container">
-    <div class="row">
+  <h1>Food Trucks</h1>
       
-      <h1>Food Trucks</h1>
+      {% for truck in trucks %}
+        
+        <p>
+          <h3>{{truck["applicant"]}}</h3>
           
-          {% for truck in trucks %}
-            
-            <p>
-              <h3>{{truck["applicant"]}}</h3>
-              
-              {% if "address" in truck %}
-                <strong>Address:</strong>{{truck["address"]}}<br>
-              {% endif %}
+          {% if "address" in truck %}
+            <strong>Address:</strong>{{truck["address"]}}<br>
+          {% endif %}
 
-              {% if "dayshours" in truck %}
-                <strong>Hours:</strong>{{truck["dayshours"]}}<br>
-              {% endif %}
+          {% if "dayshours" in truck %}
+            <strong>Hours:</strong>{{truck["dayshours"]}}<br>
+          {% endif %}
 
-              {% if "fooditems" in truck %}
-                <strong>Cuisine:</strong>{{truck["fooditems"]}}<br>
-              {% endif %}
+          {% if "fooditems" in truck %}
+            <strong>Cuisine:</strong>{{truck["fooditems"]}}<br>
+          {% endif %}
 
-              <form action="/show_one_on_map" class="showOnMapForm" method="POST">
-                <input type="hidden" name="lat" class="lat" value="{{ truck['location']['coordinates'][1] }}">
-                <input type="hidden" name="lng" class="lng" value="{{ truck['location']['coordinates'][0] }}">
-                <input type="submit" value="show on map">
-              </form>
-              <br>
-            </p> 
+          <form action="/show_one_on_map" class="showOnMapForm" method="POST">
+            <input type="hidden" name="lat" class="lat" value="{{ truck['location']['coordinates'][1] }}">
+            <input type="hidden" name="lng" class="lng" value="{{ truck['location']['coordinates'][0] }}">
+            <input type="submit" value="show on map">
+          </form>
+          <br>
+        </p> 
 
-          {% endfor %}
-    </div>
-  </div>
+      {% endfor %}
+
 
 {% endblock %}

@@ -33,11 +33,19 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
           <li><a href="/map">Map</a></li>
-          <li><a href="/profile">Profile</a></li>
-          <li><a href="/account">Account</a></li>
           <li><a href="/trucks">Food Trucks</a></li>
           <li><a href="/popos">POPOS</a></li>
           <li><a href="/art">Public Art</a></li>
+
+          
+          {% if "user_id" in session %}
+            <li><a href="/profile">Profile</a></li>
+            <li><a href="/sign_out">Sign Out</a></li>
+          {% else %}
+            <li><a href="/account">Log In | Sign Up</a></li>
+          {% endif %}
+
+
         </ul>
         
         {% block search %}{% endblock %}
@@ -46,19 +54,23 @@
     </div><!-- /.container-fluid -->
   </nav>
 
+  <div class="container">
+    <div class="row">
 
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <p class=flashes>
+          {% for message in messages %}
+            {{ message }}
+          {% endfor %}
+          </p>
+        {% endif %}
+      {% endwith %}
 
-  {% with messages = get_flashed_messages() %}
-    {% if messages %}
-      <ul class=flashes>
-      {% for message in messages %}
-        <li>{{ message }}</li>
-      {% endfor %}
-      </ul>
-    {% endif %}
-  {% endwith %}
+      {% block body %} BODY GOES HERE {% endblock %}
 
-  {% block body %} BODY GOES HERE {% endblock %}
+    </div>
+  </div>
 
 </body>
 </html>

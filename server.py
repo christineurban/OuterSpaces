@@ -76,22 +76,16 @@ def login_or_sign_up():
 
 
 
-@app.route("/login", methods=["POST"])
-def login():
+@app.route("/log_in", methods=["POST"])
+def log_in():
     """Log in to your account."""
 
-    email = request.form.get("emailLogin")
-    password = request.form.get("pwLogin")
+    email = request.form.get("emailLogIn")
+    password = request.form.get("pwLogIn")
 
     try:
         user = User.query.filter_by(email = email).one()
-
-    except:
-        flash("ASorry, this email does not match our records." + \
-              " Please check your spelling and try again.")  # FIXME security
-        return redirect("/account")
-
-    if user.password == password:
+        user.password == password:
             session["user_id"] = user.user_id
             session["email"] = user.email
             session["first_name"] = user.first_name
@@ -99,21 +93,21 @@ def login():
             flash("Welcome back " + user.first_name + "!")
             return redirect("/profile")
 
-    else:
-        flash("Sorry, this password does not match our records." + \
-              " Please check your spelling and try again.")  # FIXME security
+    except:
+        flash("Sorry, that combination does not match our records." + \
+              " Please check your spelling and try again.")
         return redirect("/account")
 
 
 
-@app.route("/signup", methods=["POST"])
-def signup():
+@app.route("/sign_up", methods=["POST"])
+def sign_up():
     """Sign up for an account."""
 
-    first_name = request.form.get("fNameSignup")
-    last_name = request.form.get("lNameSignup")
-    email = request.form.get("emailSignup")
-    password = request.form.get("pwSignup")
+    first_name = request.form.get("fNameSignUp")
+    last_name = request.form.get("lNameSignUp")
+    email = request.form.get("emailSignUp")
+    password = request.form.get("pwSignUp")
 
     if User.query.filter_by(email = email).first():
         flash("This email address is already registered.")
@@ -142,24 +136,27 @@ def signup():
 def view_profile():
     """View profile and favorites."""
 
-    fav_trucks = FavTruck.query.filter_by(user_id = session["user_id"]).all()
-    fav_popos = FavPopos.query.filter_by(user_id = session["user_id"]).all()
-    fav_art = FavArt.query.filter_by(user_id = session["user_id"]).all()
+    if "user_id" in session:
+        fav_trucks = FavTruck.query.filter_by(user_id = session["user_id"]).all()
+        fav_popos = FavPopos.query.filter_by(user_id = session["user_id"]).all()
+        fav_art = FavArt.query.filter_by(user_id = session["user_id"]).all()
 
-    if not fav_trucks:
-        fav_trucks = []
+        if not fav_trucks:
+            fav_trucks = []
 
-    if not fav_popos:
-        fav_popos = []
+        if not fav_popos:
+            fav_popos = []
 
-    if not fav_art:
-        fav_art = []
+        if not fav_art:
+            fav_art = []
 
-    return render_template("profile.html",
-                           fav_trucks=fav_trucks,
-                           fav_popos=fav_popos,
-                           fav_art=fav_art)
-
+        return render_template("profile.html",
+                               fav_trucks=fav_trucks,
+                               fav_popos=fav_popos,
+                               fav_art=fav_art)
+    else:
+        flash("Please log in or sign up to view your profile.")
+        return redirect("/account")
 
 
 @app.route("/trucks")
@@ -202,6 +199,20 @@ def view_art():
     return render_template("art.html",
                            public_art=public_art)
 
+
+
+@app.route("/sign_out")
+def sign_out():
+    """Sign out of account."""
+
+    if session:
+        del session["user_id"]
+        del session["email"] 
+        del session["first_name"] 
+        del session["last_name"]
+
+        flash("You have successfully signed out.")
+        return redirect("/")
 
 
 ################################################################################

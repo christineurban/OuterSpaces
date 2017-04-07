@@ -2,45 +2,41 @@
 {% block title %}Account | OuterSpaces{% endblock %}
 {% block body %}
 
-<div class="container">
-  <div class="row">
 
-    <h1>Log In Or Sign Up</h1>
+  <h1>Log In Or Sign Up</h1>
 
-    <button id="loginBtn" disabled>Log In</button>&nbsp;
-    <button id="signupBtn">Sign Up</button>
+  <button id="logInBtn" disabled>Log In</button>&nbsp;
+  <button id="signUpBtn">Sign Up</button>
+  <br><br>
+
+  <!--=============-->
+  <!-- LOG IN FORM -->
+  <!--=============-->
+  <form action="/log_in" method="POST" id="logInForm">
+    <input type="text" placeholder="Email" name="emailLogIn" id="emailLogIn">
     <br><br>
+    <input type="text" placeholder="Password" name="pwLogIn" id="pwLogIn">
+    <br><br>
+    <input type="submit" value="Log In" id="submitLogIn">
+  </form>
 
-    <!--============-->
-    <!-- LOGIN FORM -->
-    <!--============-->
-    <form action="/login" method="POST" id="loginForm">
-      <input type="text" placeholder="Email" name="emailLogin" id="emailLogin">
+
+  <!--==============-->
+  <!-- SIGN UP FORM -->
+  <!--==============-->
+  <div id="hideSignUpForm">
+    <form action="/sign_up" method="POST" id="signUpForm">
+      <input type="hidden" placeholder="First Name" name="fNameSignUp" id="fNameSignUp">
       <br><br>
-      <input type="text" placeholder="Password" name="pwLogin" id="pwLogin">
+      <input type="hidden" placeholder="Last Name" name="lNameSignUp" id="lNameSignUp">
       <br><br>
-      <input type="submit" value="Log In" id="submitLogin">
+      <input type="hidden" placeholder="Email" name="emailSignUp" id="emailSignUp">
+      <br><br>
+      <input type="hidden" placeholder="Password" name="pwSignUp" id="pwSignUp">
+      <br><br>
+      <input type="hidden" value="Sign Up" id="submitSignUp">
     </form>
-
-
-    <!--=============-->
-    <!-- SIGNUP FORM -->
-    <!--=============-->
-    <div id="hideSignUpForm">
-      <form action="/signup" method="POST" id="signUpForm">
-        <input type="hidden" placeholder="First Name" name="fNameSignup" id="fNameSignup">
-        <br><br>
-        <input type="hidden" placeholder="Last Name" name="lNameSignup" id="lNameSignup">
-        <br><br>
-        <input type="hidden" placeholder="Email" name="emailSignup" id="emailSignup">
-        <br><br>
-        <input type="hidden" placeholder="Password" name="pwSignup" id="pwSignup">
-        <br><br>
-        <input type="hidden" value="Sign Up" id="submitSignup">
-      </form>
-    </div>
-
   </div>
-</div>
+
 
 {% endblock %}

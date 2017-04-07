@@ -1,55 +1,51 @@
 {% extends "base.html" %}
 {% block title %}POPOS | OuterSpaces{% endblock %}
 {% block body %}
-
-  <div class="container">
-    <div class="row">
       
-      <h1>Privately Owned Public Open Spaces (POPOS)</h1>
+  <h1>Privately Owned Public Open Spaces (POPOS)</h1>
+      
+      {% for popo in popos %}
+        
+        <p>
+          {% if "name" in popo %}
+            <h3>{{popo["name"]}}</h3>
+          {% else %}
+            <h3>Untitled</h3>
+          {% endif %}
           
-          {% for popo in popos %}
-            
-            <p>
-              {% if "name" in popo %}
-                <h3>{{popo["name"]}}</h3>
-              {% else %}
-                <h3>Untitled</h3>
-              {% endif %}
-              
-              {% if "popos_addr" in popo %}
-                <strong>Address:</strong>{{popo["popos_addr"]}}<br>
-              {% endif %}
+          {% if "popos_addr" in popo %}
+            <strong>Address:</strong>{{popo["popos_addr"]}}<br>
+          {% endif %}
 
-              {% if "hours" in popo %}
-                <strong>Hours:</strong>{{popo["hours"]}}<br>
-              {% endif %}
+          {% if "hours" in popo %}
+            <strong>Hours:</strong>{{popo["hours"]}}<br>
+          {% endif %}
 
-              {% if "location" in popo %}
-                <strong>Location:</strong>{{popo["location"]}}<br>
-              {% endif %}
+          {% if "location" in popo %}
+            <strong>Location:</strong>{{popo["location"]}}<br>
+          {% endif %}
 
-              {% if "type" in popo %}
-                <strong>Type:</strong>{{popo["type"]}}<br>
-              {% endif %}
+          {% if "type" in popo %}
+            <strong>Type:</strong>{{popo["type"]}}<br>
+          {% endif %}
 
-              {% if "year" in popo %}
-                <strong>Year:</strong>{{popo["year"]}}<br>
-              {% endif %}
+          {% if "year" in popo %}
+            <strong>Year:</strong>{{popo["year"]}}<br>
+          {% endif %}
 
-              {% if "desc" in popo %}
-                {{popo["desc"]}}<br>
-              {% endif %}
+          {% if "desc" in popo %}
+            {{popo["desc"]}}<br>
+          {% endif %}
 
-              <form action="/show_one_on_map" class="showOnMapForm" method="POST">
-                <input type="hidden" name="lat" class="lat" value="{{ popos['the_geom']['coordinates'][1] }}">
-                <input type="hidden" name="lng" class="lng" value="{{ popos['the_geom']['coordinates'][0] }}">
-                <input type="submit" value="show on map">
-              </form>
-              <br>
-            </p> 
+          <form action="/show_one_on_map" class="showOnMapForm" method="POST">
+            <input type="hidden" name="lat" class="lat" value="{{ popos['the_geom']['coordinates'][1] }}">
+            <input type="hidden" name="lng" class="lng" value="{{ popos['the_geom']['coordinates'][0] }}">
+            <input type="submit" value="show on map">
+          </form>
+          <br>
+        </p> 
 
-          {% endfor %}
-    </div>
-  </div>
+      {% endfor %}
+
 
 {% endblock %}
