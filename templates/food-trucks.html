@@ -5,7 +5,7 @@
   <div class="container">
     <div class="row">
       
-      <h2>Food Trucks</h2>
+      <h1>Food Trucks</h1>
           
           {% for truck in trucks %}
             
@@ -24,6 +24,13 @@
                 {% if "fooditems" in truck %}
                   <strong>Cuisine:</strong>{{truck["fooditems"]}}<br>
                 {% endif %}
+
+                <form action="/show_one_on_map" class="showOnMapForm" method="POST">
+                  <input type="hidden" name="lat" class="lat" value="{{ truck['location']['coordinates'][1] }}">
+                  <input type="hidden" name="lng" class="lng" value="{{ truck['location']['coordinates'][0] }}">
+                  <input type="submit" value="show on map">
+                </form>
+                <br>
               </p> 
 
           {% endfor %}

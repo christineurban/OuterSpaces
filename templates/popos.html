@@ -5,7 +5,7 @@
   <div class="container">
     <div class="row">
       
-      <h2>Privately Owned Public Open Spaces (POPOS)</h2>
+      <h1>Privately Owned Public Open Spaces (POPOS)</h1>
           
           {% for popo in popos %}
             
@@ -40,6 +40,13 @@
                 {% if "desc" in popo %}
                   {{popo["desc"]}}<br>
                 {% endif %}
+
+                <form action="/show_one_on_map" class="showOnMapForm" method="POST">
+                  <input type="hidden" name="lat" class="lat" value="{{ popos['the_geom']['coordinates'][1] }}">
+                  <input type="hidden" name="lng" class="lng" value="{{ popos['the_geom']['coordinates'][0] }}">
+                  <input type="submit" value="show on map">
+                </form>
+                <br>
               </p> 
 
           {% endfor %}

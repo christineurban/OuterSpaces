@@ -10,8 +10,9 @@ function initMap() {
   directionsService = new google.maps.DirectionsService;
   directionsDisplay = new google.maps.DirectionsRenderer;
 
-  // don't make new instance of map upon clicking reset
-  if ($("#resetMap").hasClass("newMap") || document.getElementById("show_fav_on_map")) {
+  // only make new map and info window instance on page reload
+  // (not reset) or show_one route_on_map Flask route
+  if ($("#resetMap").hasClass("newMap") || document.getElementById("show_one_on_map")) {
     map = new google.maps.Map(document.getElementById("map"));
     infoWindow = new google.maps.InfoWindow( {
       maxWidth: 350
@@ -40,7 +41,17 @@ function initMap() {
         position: pos,
         map: map
       });
-      map.setCenter(pos);
+
+      // if show_one_on_map, center on that location
+      if (document.getElementById("lat")) {
+        map.setCenter({
+          lat: parseFloat(document.getElementById("lat").value),
+          lng: parseFloat(document.getElementById("lng").value)
+        });
+      } else {
+        map.setCenter(pos);
+      }
+
     }, function() {
       handleLocationError(true, infoWindow, map.getCenter());
     });

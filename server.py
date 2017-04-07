@@ -45,25 +45,26 @@ def view_map():
     return render_template("map.html",
                            key=key,
                            id=id,
-                           name=None)
+                           lat=None,
+                           lng=None)
 
 
 
-@app.route("/fav-on-map", methods=["POST"])
+@app.route("/show_one_on_map", methods=["POST"])
 def show_fav_on_map():
     """Google Map of specific favorite"""
 
     key = os.environ["GOOGLE_MAPS_API_KEY"]
-    id = "show_fav_on_map"
+    id = "show_one_on_map"
 
-    name = request.form.get("name").lower()
-    address = request.form.get("address").lower()   
+    lat = request.form.get("lat")
+    lng = request.form.get("lng")  
                     
     return render_template("map.html",
                            key=key,
                            id=id,
-                           name=name,
-                           address=address)
+                           lat=lat,
+                           lng=lng)
 
 
 

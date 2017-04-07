@@ -5,7 +5,7 @@
   <div class="container">
     <div class="row">
       
-      <h2>Public Art</h2>
+      <h1>Public Art</h1>
           
           {% for art in public_art %}
             
@@ -36,6 +36,13 @@
                 {% if "artistlink" in art %}
                   <a target="_blank" href="{{art['artistlink']}}">{{art["artistlink"]}}</a><br>
                 {% endif %}
+
+                <form action="/show_one_on_map" class="showOnMapForm" method="POST">
+                  <input type="hidden" name="lat" class="lat" value="{{ art['the_geom']['coordinates'][1] }}">
+                  <input type="hidden" name="lng" class="lng" value="{{ art['the_geom']['coordinates'][0] }}">
+                  <input type="submit" value="show on map">
+                </form>
+                <br>
               </p> 
 
           {% endfor %}

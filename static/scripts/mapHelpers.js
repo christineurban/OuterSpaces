@@ -1,6 +1,7 @@
 "use strict"
 
 $(document).ready(function() {
+
   ////////////////
   // Search box //
   ////////////////
@@ -251,5 +252,6 @@ $(document).ready(function() {
     }
     $("#nearbyArt").on("click", data, getNearbyMarkers);
   });
+
 
 }); // end document.ready

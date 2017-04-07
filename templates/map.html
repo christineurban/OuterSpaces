@@ -23,6 +23,7 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-12 col-sm-8" id="{{ id }}">
+
         <h1>Map</h1>
 
         <div id="map"></div>
@@ -38,22 +39,18 @@
           <input type="checkbox" name="space" value="art" id="artMap" checked>
         </form>
 
-        {% if id == "show_fav_on_map" %}
+        {% if id == "show_one_on_map" %}
           <form action="/map" method="POST">
             <input type="submit" value="Reset">
+          </form>
+          <form>
+            <input type="hidden" id="lat" value="{{ lat }}">
+            <input type="hidden" id="lng" value="{{ lng }}">
           </form>
         {% else %}
           <button id="resetMap" class="newMap">Reset</button>
         {% endif %}
-
-
-        {% if name != None %}
-          <form>
-            <input type="hidden" id="name" value="{{ name }}">
-            <input type="hidden" id="address" value="{{ address }}">
-          </form>
-        {% endif %}
-
+        
         <div id="textDirections"></div>
 
       </div>

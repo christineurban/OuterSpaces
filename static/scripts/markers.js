@@ -18,15 +18,15 @@ var poposMarkers = [];
 
   // get food truck data
   $.get("/data/trucks.json",
-    loopDataTrucks).then(plotFavorite);
+    loopDataTrucks).then(plotOne);
 
   // get POPOS data
   $.get("/data/popos.json",
-    loopDataPopos).then(plotFavorite);
+    loopDataPopos).then(plotOne);
 
   // get public art data
   $.get("/data/art.json",
-    loopDataArt).then(plotFavorite);
+    loopDataArt).then(plotOne);
 
 
 
@@ -261,21 +261,20 @@ var poposMarkers = [];
 
 
 
-  //////////////////////////
-  // Show favorite on map //
-  //////////////////////////
+  /////////////////////
+  // Show one on map //
+  /////////////////////
 
-  function plotFavorite() {
-    if (document.getElementById("show_fav_on_map")) {
+  function plotOne() {
+    if (document.getElementById("show_one_on_map")) {
 
-      var name = $("#name").val();
-      var address = $("#address").val();
+      var lat = $("#lat").val();
+      var lng = $("#lng").val();
 
       var allMarkers = truckMarkers.concat((poposMarkers.concat(artMarkers)));
 
       for (var marker of allMarkers) {
-        if (String(marker.searchDetails).includes(name) && 
-            String(marker.searchDetails).includes(address)) {
+        if (marker.lat == lat && marker.lng == lng) {
           marker.setVisible(true);
         } else {
           marker.setVisible(false);
