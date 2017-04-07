@@ -85,7 +85,7 @@ def log_in():
 
     try:
         user = User.query.filter_by(email = email).one()
-        user.password == password:
+        if user.password == password:
             session["user_id"] = user.user_id
             session["email"] = user.email
             session["first_name"] = user.first_name
@@ -205,7 +205,7 @@ def view_art():
 def sign_out():
     """Sign out of account."""
 
-    if session:
+    if "user_id" in session:
         del session["user_id"]
         del session["email"] 
         del session["first_name"] 
@@ -213,6 +213,7 @@ def sign_out():
 
         flash("You have successfully signed out.")
         return redirect("/")
+
 
 
 ################################################################################

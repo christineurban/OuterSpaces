@@ -199,7 +199,7 @@ $(document).ready(function() {
     $("#addToFavPopos").on("click", favorite, addToFavPopos);
   });  
 
-  google.maps.event.addListener(infoWindow, 'domready', function() {
+  google.maps.event.addListener(infoWindow, 'domready', function() { 
     var favorite = this.marker;
     $("#addToFavArt").on("click", favorite, addToFavArt);
   });

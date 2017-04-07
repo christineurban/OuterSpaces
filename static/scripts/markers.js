@@ -18,15 +18,15 @@ var poposMarkers = [];
 
   // get food truck data
   $.get("/data/trucks.json",
-    loopDataTrucks).then(plotOne);
+    loopDataTrucks).then(plotMarker);
 
   // get POPOS data
   $.get("/data/popos.json",
-    loopDataPopos).then(plotOne);
+    loopDataPopos).then(plotMarker);
 
   // get public art data
   $.get("/data/art.json",
-    loopDataArt).then(plotOne);
+    loopDataArt).then(plotMarker);
 
 
 
@@ -152,8 +152,8 @@ var poposMarkers = [];
         "<p><strong>Hours:</strong> " + hours + "</p>" +
         "<p><strong>Type:</strong> " + type + "</p>" +
         "<p><strong>Location:</strong> " + location + "</p>" +
+        "<p><strong>Year:</strong> " + year + "</p>" +
         "<p>" + desc + "</p>" +
-        "<p>" + year + "</p>" +
         "<p><button id='nearbyTrucks'>Nearby Food Trucks</button> " +
         "<button id='nearbyPopos'>Nearby Popos</button> " +
         "<button id='nearbyArt'>Nearby Art</button></p>" +
@@ -265,7 +265,7 @@ var poposMarkers = [];
   // Show one on map //
   /////////////////////
 
-  function plotOne() {
+  function plotMarker() {
     if (document.getElementById("show_one_on_map")) {
 
       var lat = $("#lat").val();
@@ -277,7 +277,7 @@ var poposMarkers = [];
         if (marker.lat == lat && marker.lng == lng) {
           marker.setVisible(true);
         } else {
-          marker.setVisible(false);
+          alert("Uh oh! It looks like this space has moved or no longer exists.")
         }
       }
     }
