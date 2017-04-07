@@ -11,13 +11,13 @@ function initMap() {
   directionsDisplay = new google.maps.DirectionsRenderer;
 
   // don't make new instance of map upon clicking reset
-  if ($("#resetMap").hasClass("newMap")) {
+  if ($("#resetMap").hasClass("newMap") || document.getElementById("show_fav_on_map")) {
     map = new google.maps.Map(document.getElementById("map"));
     infoWindow = new google.maps.InfoWindow( {
       maxWidth: 350
     });
   }
-  
+
   var sanFrancisco = {lat: 37.7599, lng: -122.440558};
   map.setZoom(13);
   map.setCenter(sanFrancisco);
@@ -56,6 +56,8 @@ function initMap() {
                                 'Error: The Geolocation service failed.' :
                                 'Error: Your browser doesn\'t support geolocation.');
   }
+
+  $("#resetMap").addClass("newMap")
 
 } // end initMap()
 
