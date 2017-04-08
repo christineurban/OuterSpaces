@@ -11,7 +11,7 @@ function initMap() {
   directionsDisplay = new google.maps.DirectionsRenderer;
 
   // only make new map and info window instance on page reload
-  // (not reset) or show_one route_on_map Flask route
+  // (not reset) or show_one_on_map Flask route
   if ($("#resetMap").hasClass("newMap") || document.getElementById("show_one_on_map")) {
     map = new google.maps.Map(document.getElementById("map"));
     infoWindow = new google.maps.InfoWindow( {
@@ -68,6 +68,7 @@ function initMap() {
                                 'Error: Your browser doesn\'t support geolocation.');
   }
 
+  // add class to indicate page has reloaded
   $("#resetMap").addClass("newMap")
 
 } // end initMap()

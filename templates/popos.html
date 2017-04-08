@@ -8,38 +8,39 @@
         
         <p>
           {% if "name" in popo %}
-            <h3>{{popo["name"]}}</h3>
+            <h3>{{popo.name}}</h3>
           {% else %}
             <h3>Untitled</h3>
           {% endif %}
           
           {% if "popos_addr" in popo %}
-            <strong>Address:</strong>{{popo["popos_addr"]}}<br>
+            <strong>Address:</strong>{{popo.popos_addr}}<br>
           {% endif %}
 
           {% if "hours" in popo %}
-            <strong>Hours:</strong>{{popo["hours"]}}<br>
+            <strong>Hours:</strong>{{popo.hours}}<br>
           {% endif %}
 
           {% if "location" in popo %}
-            <strong>Location:</strong>{{popo["location"]}}<br>
+            <strong>Location:</strong>{{popo.location}}<br>
           {% endif %}
 
           {% if "type" in popo %}
-            <strong>Type:</strong>{{popo["type"]}}<br>
+            <strong>Type:</strong>{{popo.type}}<br>
           {% endif %}
 
           {% if "year" in popo %}
-            <strong>Year:</strong>{{popo["year"]}}<br>
+            <strong>Year:</strong>{{popo.year}}<br>
           {% endif %}
 
           {% if "desc" in popo %}
-            {{popo["desc"]}}<br>
+            {{popo.desc}}<br>
           {% endif %}
 
           <form action="/show_one_on_map" class="showOnMapForm" method="POST">
-            <input type="hidden" name="lat" class="lat" value="{{ popos['the_geom']['coordinates'][1] }}">
-            <input type="hidden" name="lng" class="lng" value="{{ popos['the_geom']['coordinates'][0] }}">
+            <input type="hidden" name="lat" class="lat" value="{{ popo.the_geom.coordinates[1] }}">
+            <input type="hidden" name="lng" class="lng" value="{{ popo.the_geom.coordinates[0] }}">
+            <input type="hidden" name="space" class="space" value="popos">
             <input type="submit" value="show on map">
           </form>
           <br>

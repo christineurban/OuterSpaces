@@ -8,6 +8,8 @@ from flask_debugtoolbar import DebugToolbarExtension
 from model import (User, Truck, FavTruck, Popos, FavPopos, 
                    Art, FavArt, db, connect_to_db)
 
+from flask_cache import Cache
+
 import os           # Access OS environment variables
 import requests     # HTTP requests to Socrata API endpoints
 
@@ -20,6 +22,7 @@ app.secret_key = os.environ["FLASK_SECRET_KEY"]
 # raise an error if variable is undefined
 app.jinja_env.undefined = StrictUndefined
 
+cache = Cache(app,config={'CACHE_TYPE': 'simple'})
 
 
 
@@ -46,7 +49,8 @@ def view_map():
                            key=key,
                            id=id,
                            lat=None,
-                           lng=None)
+                           lng=None,
+                           space=None)
 
 
 
@@ -58,13 +62,15 @@ def show_fav_on_map():
     id = "show_one_on_map"
 
     lat = request.form.get("lat")
-    lng = request.form.get("lng")  
+    lng = request.form.get("lng")
+    space = request.form.get("space")
                     
     return render_template("map.html",
                            key=key,
                            id=id,
                            lat=lat,
-                           lng=lng)
+                           lng=lng,
+                           space=space)
 
 
 
@@ -159,14 +165,45 @@ def view_profile():
         return redirect("/account")
 
 
-@app.route("/trucks")
-def view_trucks():
-    """View all food trucks."""
+
+@cache.cached(timeout=3600, key_prefix="truck_data_cached")
+def get_truck_data_cached():
+    """Get food truck data from API."""
 
     url = "https://data.sfgov.org/resource/6a9r-agq8.json?$$app_token=" + sf_data
     response = requests.get(url)
     if response.status_code == 200:
         trucks = response.json()
+    return trucks
+
+
+@cache.cached(timeout=3600, key_prefix="popos_data_cached")
+def get_popos_data_cached():
+    """Get POPOS data from API."""
+
+    url = "https://data.sfgov.org/resource/3ub7-d4yy.json?$$app_token=" + sf_data
+    response = requests.get(url)
+    if response.status_code == 200:
+        popos = response.json()
+    return popos
+
+
+@cache.cached(timeout=3600, key_prefix="art_data_cached")
+def get_art_data_cached():
+    """Get art data from API."""
+
+    url = "https://data.sfgov.org/resource/8fe8-yww8.json?$$app_token=" + sf_data
+    response = requests.get(url)
+    if response.status_code == 200:
+        art = response.json()
+    return art
+
+
+@app.route("/trucks")
+def view_trucks():
+    """View all food trucks."""
+
+    trucks = get_truck_data_cached()
 
     return render_template("food-trucks.html",
                            trucks=trucks)
@@ -177,10 +214,7 @@ def view_trucks():
 def view_popos():
     """View all POPOS."""
 
-    url = "https://data.sfgov.org/resource/3ub7-d4yy.json?$$app_token=" + sf_data
-    response = requests.get(url)
-    if response.status_code == 200:
-        popos = response.json()
+    popos = get_popos_data_cached()
 
     return render_template("popos.html",
                            popos=popos)
@@ -191,10 +225,7 @@ def view_popos():
 def view_art():
     """View all art."""
 
-    url = "https://data.sfgov.org/resource/8fe8-yww8.json?$$app_token=" + sf_data
-    response = requests.get(url)
-    if response.status_code == 200:
-        public_art = response.json()
+    public_art = get_art_data_cached()
 
     return render_template("art.html",
                            public_art=public_art)
@@ -400,45 +431,51 @@ sf_data = os.environ["SF_DATA_APP_TOKEN"]
 def get_trucks():
     """Get food truck data from API as JSON."""
 
-    url = "https://data.sfgov.org/resource/6a9r-agq8.json?$$app_token=" + sf_data
-    response = requests.get(url)
-    if response.status_code == 200:
-        data = response.json()
-    else:
-        status = response.status.code
-        return jsonify("Truck data request failed")
+    # url = "https://data.sfgov.org/resource/6a9r-agq8.json?$$app_token=" + sf_data
+    # response = requests.get(url)
+    # if response.status_code == 200:
+    #     data = response.json()
+    # else:
+    #     status = response.status.code
+    #     return jsonify("Truck data request failed")
+
+    trucks = get_truck_data_cached()
         
-    return jsonify(data)
+    return jsonify(trucks)
 
 
 @app.route("/data/popos.json")
 def get_popos():
     """Get POPOS data from API as JSON."""
 
-    url = "https://data.sfgov.org/resource/3ub7-d4yy.json?$$app_token=" + sf_data
-    response = requests.get(url)
-    if response.status_code == 200:
-        data = response.json()
-    else:
-        status = response.status.code
-        return jsonify("POPOS data request failed")
+    popos = get_popos_data_cached()
+
+    # url = "https://data.sfgov.org/resource/3ub7-d4yy.json?$$app_token=" + sf_data
+    # response = requests.get(url)
+    # if response.status_code == 200:
+    #     data = response.json()
+    # else:
+    #     status = response.status.code
+    #     return jsonify("POPOS data request failed")
         
-    return jsonify(data)
+    return jsonify(popos)
 
 
 @app.route("/data/art.json")
 def get_art():
     """Get public art data from API as JSON."""
 
-    url = "https://data.sfgov.org/resource/8fe8-yww8.json?$$app_token=" + sf_data
-    response = requests.get(url)
-    if response.status_code == 200:
-        data = response.json()
-    else:
-        status = response.status.code
-        return jsonify("Art data request failed")
+    art = get_art_data_cached()
+
+    # url = "https://data.sfgov.org/resource/8fe8-yww8.json?$$app_token=" + sf_data
+    # response = requests.get(url)
+    # if response.status_code == 200:
+    #     data = response.json()
+    # else:
+    #     status = response.status.code
+    #     return jsonify("Art data request failed")
         
-    return jsonify(data)
+    return jsonify(art)
 
 
 
