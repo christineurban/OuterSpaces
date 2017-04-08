@@ -13,9 +13,7 @@
             <h3>Untitled</h3>
           {% endif %}
           
-          {% if "name" in art %}
-            <strong>Address:</strong>{{art.name}}<br>
-          {% endif %}
+          <strong>Address:</strong>{{art.name}}<br>
 
           {% if "location" in art %}
             <strong>Location:</strong>{{art.location}}<br>
@@ -36,7 +34,7 @@
           <form action="/show_one_on_map" class="showOnMapForm" method="POST">
             <input type="hidden" name="lat" class="lat" value="{{ art.the_geom.coordinates[1] }}">
             <input type="hidden" name="lng" class="lng" value="{{ art.the_geom.coordinates[0] }}">
-            <input type="hidden" name="space" class="space" value="art">
+            <input type="hidden" name="identifier" class="identifier" value="{{art.name}}">
             <input type="submit" value="show on map">
           </form>
           <br>

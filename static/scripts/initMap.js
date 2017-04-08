@@ -49,7 +49,7 @@ function initMap() {
           lng: parseFloat(document.getElementById("lng").value)
         });
       } else {
-        map.setCenter(pos);
+        map.setCenter(sanFrancisco);
       }
 
     }, function() {

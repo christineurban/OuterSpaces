@@ -29,14 +29,13 @@
       </div>
 
       <div class="col-xs-12 col-sm-4">
-        <form>
-          <label for="truckMap">Food Trucks </label>
-          <input type="checkbox" name="space" value="truck" id="truckMap" checked>
-          <label for="poposMap">POPOS </label>
-          <input type="checkbox" name="space" value="popos" id="poposMap" checked>
-          <label for="artMap">Public Art </label>
-          <input type="checkbox" name="space" value="art" id="artMap" checked>
-        </form>
+
+          <input type="checkbox" name="space" value="truck" class="truckMap checkbox-circle" id="truckMap" checked>
+          <label for="truckMap"> Food Trucks</label><br>
+          <input type="checkbox" name="space" value="popos" class="poposMap checkbox-circle" id="poposMap" checked>
+          <label for="poposMap"> POPOS</label><br>
+          <input type="checkbox" name="space" value="art" class="artMap checkbox-circle" id="artMap" checked>
+          <label for="artMap"> Public Art</label><br>
 
         {% if id == "show_one_on_map" %}
           <form action="/map" method="POST">
@@ -45,7 +44,7 @@
           <form>
             <input type="hidden" id="lat" value="{{ lat }}">
             <input type="hidden" id="lng" value="{{ lng }}">
-            <input type="hidden" id="space" value="{{ space }}">
+            <input type="hidden" id="identifier" value="{{ identifier }}">
           </form>
         {% else %}
           <button id="resetMap" class="newMap">Reset</button>

@@ -50,7 +50,7 @@ def view_map():
                            id=id,
                            lat=None,
                            lng=None,
-                           space=None)
+                           identifier=None)
 
 
 
@@ -63,14 +63,14 @@ def show_fav_on_map():
 
     lat = request.form.get("lat")
     lng = request.form.get("lng")
-    space = request.form.get("space")
+    identifier = request.form.get("identifier").lower()
                     
     return render_template("map.html",
                            key=key,
                            id=id,
                            lat=lat,
                            lng=lng,
-                           space=space)
+                           identifier=identifier)
 
 
 
@@ -168,7 +168,7 @@ def view_profile():
 
 @cache.cached(timeout=3600, key_prefix="truck_data_cached")
 def get_truck_data_cached():
-    """Get food truck data from API."""
+    """Get food truck data from API and cache for 1 hour."""
 
     url = "https://data.sfgov.org/resource/6a9r-agq8.json?$$app_token=" + sf_data
     response = requests.get(url)
@@ -179,7 +179,7 @@ def get_truck_data_cached():
 
 @cache.cached(timeout=3600, key_prefix="popos_data_cached")
 def get_popos_data_cached():
-    """Get POPOS data from API."""
+    """Get POPOS data from API and cache for 1 hour."""
 
     url = "https://data.sfgov.org/resource/3ub7-d4yy.json?$$app_token=" + sf_data
     response = requests.get(url)
@@ -190,7 +190,7 @@ def get_popos_data_cached():
 
 @cache.cached(timeout=3600, key_prefix="art_data_cached")
 def get_art_data_cached():
-    """Get art data from API."""
+    """Get art data from API and cache for 1 hour."""
 
     url = "https://data.sfgov.org/resource/8fe8-yww8.json?$$app_token=" + sf_data
     response = requests.get(url)
@@ -493,4 +493,4 @@ if __name__ == "__main__":
 
 
 
-    app.run(port=5000, host='0.0.0.0')
+    app.run(port=5000, host='0.0.0.0', threaded=True)

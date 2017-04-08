@@ -35,32 +35,20 @@ $.get("/data/art.json",
 ////////////////////////////////////////////////////////////
 
 function loopDataTrucks(data) {
-  if (data === "Truck data request failed") {
-    console.log(data);
-  } else {
-    for (var i = 0; i < data.length; i++) {
-      plotDataTrucks(data[i]);
-    }
+  for (var i = 0; i < data.length; i++) {
+    plotDataTrucks(data[i]);
   }
 }
 
 function loopDataPopos(data) {
-  if (data === "POPOS data request failed") {
-    console.log(data);
-  } else {
-    for (var i = 0; i < data.length; i++) {
-      plotDataPopos(data[i]);
-    }
+  for (var i = 0; i < data.length; i++) {
+    plotDataPopos(data[i]);
   }
 }
 
 function loopDataArt(data) {
-  if (data === "Art data request failed") {
-    console.log(data);
-  } else {
-    for (var i = 0; i < data.length; i++) {
-      plotDataArt(data[i]);
-    }
+  for (var i = 0; i < data.length; i++) {
+    plotDataArt(data[i]);
   }
 }
 
@@ -273,13 +261,14 @@ function plotMarker() {
 
     var lat = $("#lat").val();
     var lng = $("#lng").val();
-    var space = $("#space").val();
-    var noMarker;
+    var identifier = $("#identifier").val();
 
     for (var marker of allMarkers) {
-      if (marker.lat == lat && marker.lng == lng) {
+      if (marker.lat == lat && 
+          marker.lng == lng && 
+          marker.searchDetails.includes(identifier) ) {
         marker.setVisible(true);
-        noMarker = marker;
+        console.log(marker);
       } else {
         marker.setVisible(false);
       }
