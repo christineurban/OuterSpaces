@@ -7,39 +7,35 @@
   <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ key }}&callback=initMap&libraries=geometry"></script>
 {% endblock %}
 
-  {% block search %}
-    <ul class="nav navbar-nav navbar-right">
-      <form class="navbar-form navbar-left" id="searchForm">
-      <div class="form-group">
-        <input type="text" class="form-control"  name="search" placeholder="ice cream, tacos..." id="search">
-      </div>
-      <button type="submit" class="btn btn-default">Search</button>
-    </form>
-    </ul>
-  {% endblock %}
+{% block body %}
 
-  {% block body %}
 
-  
-      <div class="col-xs-12 col-sm-8" id="{{ id }}">
+  <div class="col-xs-12 col-sm-8" id="{{ id }}">
 
-        <h1>Map</h1>
+    <h1>Map</h1>
+    <div id="map"></div>
 
-        <div id="map"></div>
-      </div>
+  </div>
 
-      <div class="col-xs-12 col-sm-4">
+  <div class="col-xs-12 col-sm-4 text-center">
+    
 
-          <input type="checkbox" name="space" value="truck" class="truckMap checkbox-circle" id="truckMap" checked>
-          <label for="truckMap"> Food Trucks</label><br>
-          <input type="checkbox" name="space" value="popos" class="poposMap checkbox-circle" id="poposMap" checked>
-          <label for="poposMap"> POPOS</label><br>
-          <input type="checkbox" name="space" value="art" class="artMap checkbox-circle" id="artMap" checked>
-          <label for="artMap"> Public Art</label><br>
-
+      <input type="checkbox" name="space" value="truck" class="truckMap checkbox-circle" id="truckMap" checked>
+      <label for="truckMap"> Food Trucks </label>
+      <input type="checkbox" name="space" value="popos" class="poposMap checkbox-circle" id="poposMap" checked>
+      <label for="poposMap"> POPOS </label>
+      <input type="checkbox" name="space" value="art" class="artMap checkbox-circle" id="artMap" checked>
+      <label for="artMap"> Public Art </label>
+    
+      <form id="searchForm">
+        <div class="form-group">
+          <input type="text" class="form-control"  name="search" placeholder="ice cream, tacos..." id="search">
+        </div>
+        <button type="submit" class="btn btn-default">Search</button>
+        
         {% if id == "show_one_on_map" %}
           <form action="/map" method="POST">
-            <input type="submit" value="Reset">
+            <button type="submit" class="btn btn-default">Reset</button>
           </form>
           <form>
             <input type="hidden" id="lat" value="{{ lat }}">
@@ -47,11 +43,13 @@
             <input type="hidden" id="identifier" value="{{ identifier }}">
           </form>
         {% else %}
-          <button id="resetMap" class="newMap">Reset</button>
+          <button id="resetMap" class="newMap btn btn-default">Reset</button>
         {% endif %}
         
-        <div id="textDirections"></div>
+      </form>
+    
+    <div id="textDirections"></div>
 
-      </div>
+  </div>
 
 {% endblock %}

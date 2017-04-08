@@ -15,19 +15,21 @@ var poposMarkers = [];
 // Retrieve data from server, send to loop function //
 //////////////////////////////////////////////////////
 
-// get food truck data
-$.get("/data/trucks.json",
-  loopDataTrucks).then(plotMarker);
+function getData() {
 
-// get POPOS data
-$.get("/data/popos.json",
-  loopDataPopos).then(plotMarker);
+  // get food truck data
+  $.get("/data/trucks.json",
+    loopDataTrucks).then(plotMarker);
 
-// get public art data
-$.get("/data/art.json",
-  loopDataArt).then(plotMarker);
+  // get POPOS data
+  $.get("/data/popos.json",
+    loopDataPopos).then(plotMarker);
 
+  // get public art data
+  $.get("/data/art.json",
+    loopDataArt).then(plotMarker);
 
+}
 
 
 ////////////////////////////////////////////////////////////

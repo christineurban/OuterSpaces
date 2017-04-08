@@ -7,7 +7,6 @@ input[type=checkbox] {
     height: .9em;
     background-color: white;
     border-radius: 50%;
-    vertical-align: top;
     -webkit-appearance: none;
     outline: none;
     cursor: pointer;

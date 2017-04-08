@@ -9,19 +9,14 @@ function initMap() {
   
   directionsService = new google.maps.DirectionsService;
   directionsDisplay = new google.maps.DirectionsRenderer;
-
-  // only make new map and info window instance on page reload
-  // (not reset) or show_one_on_map Flask route
-  if ($("#resetMap").hasClass("newMap") || document.getElementById("show_one_on_map")) {
-    map = new google.maps.Map(document.getElementById("map"));
-    infoWindow = new google.maps.InfoWindow( {
-      maxWidth: 350
-    });
-  }
-
   var sanFrancisco = {lat: 37.7599, lng: -122.440558};
-  map.setZoom(13);
-  map.setCenter(sanFrancisco);
+  map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 13,
+    center: sanFrancisco
+  });
+  infoWindow = new google.maps.InfoWindow({
+    maxWidth: 350
+  });
   directionsDisplay.setMap(map);
   directionsDisplay.setPanel(document.getElementById("textDirections"));
 
@@ -68,8 +63,10 @@ function initMap() {
                                 'Error: Your browser doesn\'t support geolocation.');
   }
 
-  // add class to indicate page has reloaded
-  $("#resetMap").addClass("newMap")
+  // // add class to indicate page has reloaded
+  // $("#resetMap").addClass("newMap")
+
+  getData();
 
 } // end initMap()
 

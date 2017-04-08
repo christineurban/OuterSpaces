@@ -1,6 +1,6 @@
 "use strict"
 
-$(document).ready(function() {
+$( window ).load(function() {
 
   ////////////////
   // Search box //
@@ -30,27 +30,8 @@ $(document).ready(function() {
   // Reset map //
   ///////////////
 
-
-  $("#resetMap").on("click", function() {
-    
-    var allMarkers = truckMarkers.concat((poposMarkers.concat(artMarkers)));
-    for (var marker of allMarkers) {
-      marker.setVisible(true);
-    }
-    
-    // DOM indicator that reset has been clicked, prevents
-    // new map from being made in initMap()
-    $("#resetMap").removeClass("newMap");
-
-    $("#truckMap, #poposMap, #artMap").prop("checked", true);
-    $("#search").val("");
-    infoWindow.close();
-
-    directionsDisplay.setMap(null);
-    directionsDisplay.setPanel(null);
-    
+  $("#resetMap").on("click", function() {    
     initMap();
-
   });
 
 
@@ -254,4 +235,4 @@ $(document).ready(function() {
   });
 
 
-}); // end document.ready
+});
