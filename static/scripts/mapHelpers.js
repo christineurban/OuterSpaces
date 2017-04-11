@@ -92,14 +92,10 @@ $(window).load(function() {
 
       // http://stackoverflow.com/questions/18954463/
       //modifying-google-maps-default-directions-title
-      var title = [
-        "<div style='font-weight:bold'>YOU ARE HERE</div>Get me to OuterSpace!",
-        "<div style='font-weight:bold'>" + evt.data.title + "</div>" + 
-          evt.data.address
-      ]
-
+      // first hide the panel
       directionsDisplay.getPanel().style.visibility="hidden";
 
+      // set the directions
       directionsService.route(request, function (response, status) {
         if (status == google.maps.DirectionsStatus.OK) {
           directionsDisplay.setDirections(response);
@@ -108,21 +104,27 @@ $(window).load(function() {
         }
        });
 
+      // custom titles for directions panel
+      var title = [
+        "<div style='font-weight:bold'>YOU ARE HERE</div>Get me to OuterSpace!",
+        "<div style='font-weight:bold'>" + evt.data.title + "</div>" + 
+          evt.data.address
+      ]
+
       setTimeout(function(){
-        //fetch the elements
+        // fetch the elements
         var nodes = 
             directionsDisplay.getPanel().querySelectorAll("td.adp-text");
         for (var n = 0; n < nodes.length; ++n) {
-          //assign the text-content of the element to the innerHTML-property
+          // assign the text-content of the element to the innerHTML-property
           nodes[n].innerHTML = title[n];
       }
-        //show the panel
+        // show the panel
         directionsDisplay.getPanel().style.visibility="visible";
       }, 500);
 
     });
   }
-
 
   // http://stackoverflow.com/questions/6378007/
   // adding-event-to-element-inside-google-maps-api-infowindow
@@ -330,8 +332,6 @@ $(window).load(function() {
       p3 = new google.maps.LatLng(closestPopos.marker.lat, 
                                   closestPopos.marker.lng);
 
-      console.log(closestPopos);
-
 
       //////////////////////
       // plot nearest art //
@@ -359,8 +359,31 @@ $(window).load(function() {
       // directions between points //
       ///////////////////////////////
 
+      var request = {
+        origin: p1,
+        destination: p4,
+        waypoints: [
+          {location: p2, stopover: true}, 
+          {location: p3, stopover: true}
+           ],
+        travelMode: google.maps.DirectionsTravelMode.WALKING
+      };
+
+      // first hide the panel
+      directionsDisplay.getPanel().style.visibility="hidden";
+
+      // set the directions
+      directionsService.route(request, function (response, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+          directionsDisplay.setDirections(response);
+        } else {
+          window.alert("Directions request failed due to " + status);
+        }
+       });
+
+      // custom titles for directions panel
       var title = [
-        "First, Food! Follow the directions below to get to the food truck \
+        "First, Food!<br>Follow the directions below to get to the food truck \
           nearest you.",
         "You have arrived to:<div style='font-weight:bold'>" + 
           closestTruck.marker.title + " on " + closestTruck.marker.address + 
@@ -372,38 +395,18 @@ $(window).load(function() {
           closest Public Art.",
         "You have arrived to:<div style='font-weight:bold'>" + 
           closestArt.marker.title + " on " + closestArt.marker.address + 
-          "</div>Enjoy!"
+          "</div>Enjoy, you Space Cadet you!"
       ]
 
-      var request = {
-        origin: p1,
-        destination: p4,
-        waypoints: [
-          {location: p2, stopover: true}, 
-          {location: p3, stopover: true}
-           ],
-        travelMode: google.maps.DirectionsTravelMode.WALKING
-      };
-
-      directionsDisplay.getPanel().style.visibility="hidden";
-
-      directionsService.route(request, function (response, status) {
-        if (status == google.maps.DirectionsStatus.OK) {
-          directionsDisplay.setDirections(response);
-        } else {
-          window.alert("Directions request failed due to " + status);
-        }
-       });
-
       setTimeout(function(){
-        //fetch the elements
+        // fetch the elements
         var nodes = 
             directionsDisplay.getPanel().querySelectorAll("td.adp-text");
         for (var n = 0; n < nodes.length; ++n) {
-          //assign the text-content of the element to the innerHTML-property
+          // assign the text-content of the element to the innerHTML-property
           nodes[n].innerHTML = title[n];
       }
-        //show the panel
+        // show the panel
         directionsDisplay.getPanel().style.visibility="visible";
       }, 500);
 
