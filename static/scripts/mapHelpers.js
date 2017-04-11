@@ -86,17 +86,40 @@ $(window).load(function() {
       map.setCenter(pos);
       var request = {
        origin: pos,
-       destination: evt.data,
+       destination: evt.data.position,
        travelMode: google.maps.DirectionsTravelMode.DRIVING
-     };
+      };
 
-    directionsService.route(request, function (response, status) {
-      if (status == google.maps.DirectionsStatus.OK) {
-        directionsDisplay.setDirections(response);
-      } else {
-        window.alert("Directions request failed due to " + status);
+      // http://stackoverflow.com/questions/18954463/
+      //modifying-google-maps-default-directions-title
+      var title = [
+        "<div style='font-weight:bold'>YOU ARE HERE</div>Get me to OuterSpace!",
+        "<div style='font-weight:bold'>" + evt.data.title + "</div>" + 
+          evt.data.address
+      ]
+
+      directionsDisplay.getPanel().style.visibility="hidden";
+
+      directionsService.route(request, function (response, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+          directionsDisplay.setDirections(response);
+        } else {
+          window.alert("Directions request failed due to " + status);
+        }
+       });
+
+      setTimeout(function(){
+        //fetch the elements
+        var nodes = 
+            directionsDisplay.getPanel().querySelectorAll("td.adp-text");
+        for (var n = 0; n < nodes.length; ++n) {
+          //assign the text-content of the element to the innerHTML-property
+          nodes[n].innerHTML = title[n];
       }
-     });
+        //show the panel
+        directionsDisplay.getPanel().style.visibility="visible";
+      }, 500);
+
     });
   }
 
@@ -104,7 +127,7 @@ $(window).load(function() {
   // http://stackoverflow.com/questions/6378007/
   // adding-event-to-element-inside-google-maps-api-infowindow
   google.maps.event.addListener(infoWindow, 'domready', function() {
-    var destination = $(this).attr("position");
+    var destination = this.marker;
     $(".directions").on("click", destination, showDirections);
   });
 
@@ -199,7 +222,7 @@ $(window).load(function() {
     var allMarkers = truckMarkers.concat((poposMarkers.concat(artMarkers)));
     for (var marker of allMarkers) {
         marker.setVisible(false);
-      }
+    }
 
     // show current marker
     var p1 = evt.data.currentMarker.position;
@@ -350,7 +373,7 @@ $(window).load(function() {
         "You have arrived to:<div style='font-weight:bold'>" + 
           closestArt.marker.title + " on " + closestArt.marker.address + 
           "</div>Enjoy!"
-        ]
+      ]
 
       var request = {
         origin: p1,
@@ -382,18 +405,7 @@ $(window).load(function() {
       }
         //show the panel
         directionsDisplay.getPanel().style.visibility="visible";
-      },1000);
-
-
-
-
-      // directionsService.route(request, function (response, status) {
-      //   if (status == google.maps.DirectionsStatus.OK) {
-      //     directionsDisplay.setDirections(response);
-      //   } else {
-      //     window.alert("Directions request failed due to " + status);
-      //   }
-      //  });
+      }, 500);
 
     });
   }
