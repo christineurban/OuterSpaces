@@ -8,22 +8,25 @@ from flask_debugtoolbar import DebugToolbarExtension
 from model import (User, Truck, FavTruck, Popos, FavPopos, 
                    Art, FavArt, db, connect_to_db)
 
+from server_utilities import yelp_search
+
 from flask_cache import Cache
 
 import os           # Access OS environment variables
-import requests     # HTTP requests to Socrata API endpoints
-
+import requests     # HTTP requests to Socrata API and YELP API endpoints
 
 
 app = Flask(__name__)
-
 app.secret_key = os.environ["FLASK_SECRET_KEY"]
 
 # raise an error if variable is undefined
 app.jinja_env.undefined = StrictUndefined
 
-cache = Cache(app,config={'CACHE_TYPE': 'simple'})
+# get SF DATA app token 
+sf_data = os.environ["SF_DATA_APP_TOKEN"]
 
+# data caching from API
+cache = Cache(app,config={'CACHE_TYPE': 'simple'})
 
 
 ################################################################################
@@ -219,7 +222,7 @@ def get_art_data_cached():
 def view_trucks():
     """View all food trucks."""
 
-    trucks = get_truck_data_cached()
+    trucks = myfile.get_truck_data_cached()
 
     return render_template("food-trucks.html",
                            trucks=trucks)
@@ -439,21 +442,9 @@ def add_art_to_favorites():
 # Get data from API
 
 
-# get SF DATA app token 
-sf_data = os.environ["SF_DATA_APP_TOKEN"]
-
-
 @app.route("/data/trucks.json")
 def get_trucks():
     """Get food truck data from API as JSON."""
-
-    # url = "https://data.sfgov.org/resource/6a9r-agq8.json?$$app_token=" + sf_data
-    # response = requests.get(url)
-    # if response.status_code == 200:
-    #     data = response.json()
-    # else:
-    #     status = response.status.code
-    #     return jsonify("Truck data request failed")
 
     trucks = get_truck_data_cached()
         
@@ -465,14 +456,6 @@ def get_popos():
     """Get POPOS data from API as JSON."""
 
     popos = get_popos_data_cached()
-
-    # url = "https://data.sfgov.org/resource/3ub7-d4yy.json?$$app_token=" + sf_data
-    # response = requests.get(url)
-    # if response.status_code == 200:
-    #     data = response.json()
-    # else:
-    #     status = response.status.code
-    #     return jsonify("POPOS data request failed")
         
     return jsonify(popos)
 
@@ -482,18 +465,18 @@ def get_art():
     """Get public art data from API as JSON."""
 
     art = get_art_data_cached()
-
-    # url = "https://data.sfgov.org/resource/8fe8-yww8.json?$$app_token=" + sf_data
-    # response = requests.get(url)
-    # if response.status_code == 200:
-    #     data = response.json()
-    # else:
-    #     status = response.status.code
-    #     return jsonify("Art data request failed")
         
     return jsonify(art)
 
 
+
+@app.route("/yelp/trucks.json")
+def get_yelp_trucks():
+    """Get food truck data from Yelp as JSON."""    
+
+    yelp_trucks = yelp_search("food truck", "San Francisco, CA")
+
+    print yelp_trucks
 
 
 
