@@ -94,14 +94,15 @@ $(window).load(function() {
       if (status == google.maps.DirectionsStatus.OK) {
         directionsDisplay.setDirections(response);
       } else {
-        window.alert('Directions request failed due to ' + status);
+        window.alert("Directions request failed due to " + status);
       }
      });
     });
   }
 
 
-  // http://stackoverflow.com/questions/6378007/adding-event-to-element-inside-google-maps-api-infowindow
+  // http://stackoverflow.com/questions/6378007/
+  // adding-event-to-element-inside-google-maps-api-infowindow
   google.maps.event.addListener(infoWindow, 'domready', function() {
     var destination = $(this).attr("position");
     $(".directions").on("click", destination, showDirections);
@@ -207,7 +208,8 @@ $(window).load(function() {
     for (var marker of evt.data.markers) {
       var p2 = marker.position;
       // calucate distance between in meters/ divide by 1600 to get to miles
-      var distance = (google.maps.geometry.spherical.computeDistanceBetween(p1, p2) / 1600);
+      var distance = 
+          (google.maps.geometry.spherical.computeDistanceBetween(p1, p2) / 1600);
 
       // show markers within half a mile
       if (distance < 0.5) {
@@ -247,20 +249,15 @@ $(window).load(function() {
 
     // get current location
     navigator.geolocation.getCurrentPosition(function(position) {
-      var pos = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      };
+      var p1 = new google.maps.LatLng(position.coords.latitude,
+                                      position.coords.longitude);
       var currentMarker = new google.maps.Marker({
-        position: pos,
+        position: p1,
         map: map
       });
       // show current location
       currentMarker.setVisible(true);
       
-
-      var p1 = new google.maps.LatLng(pos.lat, pos.lng);
-
       // hide all markers
       var allMarkers = truckMarkers.concat((poposMarkers.concat(artMarkers)));
       for (var marker of allMarkers) {
@@ -275,7 +272,8 @@ $(window).load(function() {
 
       for (var marker of truckMarkers) {
         var p2 = new google.maps.LatLng(marker.lat, marker.lng);
-        var distance = (google.maps.geometry.spherical.computeDistanceBetween(p1, p2));
+        var distance = 
+            (google.maps.geometry.spherical.computeDistanceBetween(p1, p2));
         if (!closestTruck || closestTruck.distance > distance) {
           closestTruck = {
             marker: marker,
@@ -284,7 +282,8 @@ $(window).load(function() {
         }
       }
       closestTruck.marker.setVisible(true);
-      p2 = new google.maps.LatLng(closestTruck.marker.lat, closestTruck.marker.lng);
+      p2 = new google.maps.LatLng(closestTruck.marker.lat,
+                                  closestTruck.marker.lng);
 
 
       ////////////////////////
@@ -295,7 +294,8 @@ $(window).load(function() {
 
       for (var marker of poposMarkers) {
         var p3 = new google.maps.LatLng(marker.lat, marker.lng);
-        var distance = (google.maps.geometry.spherical.computeDistanceBetween(p2, p3));
+        var distance = 
+            (google.maps.geometry.spherical.computeDistanceBetween(p2, p3));
         if (!closestPopos || closestPopos.distance > distance) {
           closestPopos = {
             marker: marker,
@@ -304,7 +304,10 @@ $(window).load(function() {
         }
       }
       closestPopos.marker.setVisible(true);
-      p3 = new google.maps.LatLng(closestPopos.marker.lat, closestPopos.marker.lng);
+      p3 = new google.maps.LatLng(closestPopos.marker.lat, 
+                                  closestPopos.marker.lng);
+
+      console.log(closestPopos);
 
 
       //////////////////////
@@ -315,7 +318,8 @@ $(window).load(function() {
 
       for (var marker of artMarkers) {
         var p4 = new google.maps.LatLng(marker.lat, marker.lng);
-        var distance = (google.maps.geometry.spherical.computeDistanceBetween(p3, p4));
+        var distance = 
+            (google.maps.geometry.spherical.computeDistanceBetween(p3, p4));
         if (!closestArt || closestArt.distance > distance) {
           closestArt = {
             marker: marker,
@@ -324,12 +328,29 @@ $(window).load(function() {
         }
       }
       closestArt.marker.setVisible(true);
-      p4 = new google.maps.LatLng(closestArt.marker.lat, closestArt.marker.lng);
+      p4 = new google.maps.LatLng(closestArt.marker.lat, 
+                                  closestArt.marker.lng);
 
 
       ///////////////////////////////
       // directions between points //
       ///////////////////////////////
+
+      var title = [
+        "First, Food! Follow the directions below to get to the food truck \
+          nearest you.",
+        "You have arrived to:<div style='font-weight:bold'>" + 
+          closestTruck.marker.title + " on " + closestTruck.marker.address + 
+          "</div>Next, bring your food to the nearest POPOS by following the \
+          directions below.",
+        "You have arrived to:<div style='font-weight:bold'>" + 
+          closestPopos.marker.title + " on " + closestPopos.marker.address + 
+          "</div>Lastly, follow the next set of directions to get to the \
+          closest Public Art.",
+        "You have arrived to:<div style='font-weight:bold'>" + 
+          closestArt.marker.title + " on " + closestArt.marker.address + 
+          "</div>Enjoy!"
+        ]
 
       var request = {
         origin: p1,
@@ -338,16 +359,41 @@ $(window).load(function() {
           {location: p2, stopover: true}, 
           {location: p3, stopover: true}
            ],
-        travelMode: google.maps.DirectionsTravelMode.DRIVING
+        travelMode: google.maps.DirectionsTravelMode.WALKING
       };
+
+      directionsDisplay.getPanel().style.visibility="hidden";
 
       directionsService.route(request, function (response, status) {
         if (status == google.maps.DirectionsStatus.OK) {
           directionsDisplay.setDirections(response);
         } else {
-          window.alert('Directions request failed due to ' + status);
+          window.alert("Directions request failed due to " + status);
         }
        });
+
+      setTimeout(function(){
+        //fetch the elements
+        var nodes = 
+            directionsDisplay.getPanel().querySelectorAll("td.adp-text");
+        for (var n = 0; n < nodes.length; ++n) {
+          //assign the text-content of the element to the innerHTML-property
+          nodes[n].innerHTML = title[n];
+      }
+        //show the panel
+        directionsDisplay.getPanel().style.visibility="visible";
+      },1000);
+
+
+
+
+      // directionsService.route(request, function (response, status) {
+      //   if (status == google.maps.DirectionsStatus.OK) {
+      //     directionsDisplay.setDirections(response);
+      //   } else {
+      //     window.alert("Directions request failed due to " + status);
+      //   }
+      //  });
 
     });
   }
