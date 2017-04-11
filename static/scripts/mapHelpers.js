@@ -324,6 +324,30 @@ $(window).load(function() {
         }
       }
       closestArt.marker.setVisible(true);
+      p4 = new google.maps.LatLng(closestArt.marker.lat, closestArt.marker.lng);
+
+
+      ///////////////////////////////
+      // directions between points //
+      ///////////////////////////////
+
+      var request = {
+        origin: p1,
+        destination: p4,
+        waypoints: [
+          {location: p2, stopover: true}, 
+          {location: p3, stopover: true}
+           ],
+        travelMode: google.maps.DirectionsTravelMode.DRIVING
+      };
+
+      directionsService.route(request, function (response, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+          directionsDisplay.setDirections(response);
+        } else {
+          window.alert('Directions request failed due to ' + status);
+        }
+       });
 
     });
   }
