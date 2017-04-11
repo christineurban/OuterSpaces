@@ -31,7 +31,7 @@
             <a target="_blank" href="{{art.artistlink}}">{{art.artistlink}}</a><br>
           {% endif %}
 
-          <form action="/show_one_on_map" class="showOnMapForm" method="POST">
+          <form action="/one" method="POST">
             <input type="hidden" name="lat" class="lat" value="{{ art.the_geom.coordinates[1] }}">
             <input type="hidden" name="lng" class="lng" value="{{ art.the_geom.coordinates[0] }}">
             <input type="hidden" name="identifier" class="identifier" value="{{art.name}}">

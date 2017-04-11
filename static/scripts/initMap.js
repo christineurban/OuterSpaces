@@ -9,7 +9,7 @@ function initMap() {
   
   directionsService = new google.maps.DirectionsService;
   directionsDisplay = new google.maps.DirectionsRenderer;
-  var sanFrancisco = {lat: 37.7599, lng: -122.440558};
+  var sanFrancisco = {lat: 37.7589, lng: -122.433558};
   map = new google.maps.Map(document.getElementById("map"), {
     zoom: 13,
     center: sanFrancisco
@@ -37,7 +37,7 @@ function initMap() {
         map: map
       });
 
-      // if show_one_on_map, center on that location
+      // if map_one, center on that location
       if (document.getElementById("lat")) {
         map.setCenter({
           lat: parseFloat(document.getElementById("lat").value),

@@ -54,12 +54,12 @@ def view_map():
 
 
 
-@app.route("/show_one_on_map", methods=["POST"])
-def show_fav_on_map():
+@app.route("/one", methods=["POST"])
+def map_one():
     """Google Map of specific favorite"""
 
     key = os.environ["GOOGLE_MAPS_API_KEY"]
-    id = "show_one_on_map"
+    id = "map_one"
 
     lat = request.form.get("lat")
     lng = request.form.get("lng")
@@ -72,6 +72,22 @@ def show_fav_on_map():
                            lng=lng,
                            identifier=identifier)
 
+
+
+@app.route("/plan")
+def plan_trip():
+    """Plan trip based on current location."""
+
+    key = os.environ["GOOGLE_MAPS_API_KEY"]
+    id = "plan_trip"
+
+
+    return render_template("map.html",
+                           key=key,
+                           id=id,
+                           lat=None,
+                           lng=None,
+                           identifier=None)
 
 
 @app.route("/account")

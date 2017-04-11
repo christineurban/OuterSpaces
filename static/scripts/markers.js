@@ -99,8 +99,9 @@ function plotDataTrucks(data) {
     icon: "../static/images/green-dot.png"
     });
 
-  // hide all markers if showing favorite on map
-  if (document.getElementById("show_fav_on_map")) {
+  // hide all markers if map_one or plan_trip
+  if (document.getElementById("map_one") || 
+      document.getElementById("plan_trip")) {
     marker.setVisible(false);
   }
   
@@ -166,8 +167,9 @@ function plotDataPopos(data) {
     icon: "../static/images/blue-dot.png"
   });
 
-  // hide all markers if showing favorite on map
-  if (document.getElementById("show_fav_on_map")) {
+  // hide all markers if map_one or plan_trip
+  if (document.getElementById("map_one") || 
+      document.getElementById("plan_trip")) {
     marker.setVisible(false);
   }
 
@@ -230,8 +232,9 @@ function plotDataArt(data) {
     icon: "../static/images/pink-dot.png"
   });
 
-  // hide all markers if showing favorite on map
-  if (document.getElementById("show_fav_on_map")) {
+  // hide all markers if map_one or plan_trip
+  if (document.getElementById("map_one") || 
+      document.getElementById("plan_trip")) {
     marker.setVisible(false);
   }
   
@@ -251,12 +254,12 @@ function plotDataArt(data) {
 
 
 
-/////////////////////
-// Show one on map //
-/////////////////////
+/////////////
+// Map one //
+/////////////
 
 function plotMarker() {
-  if (document.getElementById("show_one_on_map")) {
+  if (document.getElementById("map_one")) {
 
     $("#truckMap, #poposMap, #artMap").prop("checked", false);
     var allMarkers = truckMarkers.concat((poposMarkers.concat(artMarkers)));
@@ -282,3 +285,4 @@ function plotMarker() {
     // }
   }
 }
+

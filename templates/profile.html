@@ -18,7 +18,7 @@
         <strong>Address: </strong>{{ fav.truck.address }}<br>
         <strong>Hours: </strong>{{ fav.truck.hours }}<br>
         <strong>Cuisine: </strong>{{ fav.truck.cuisine }}<br>
-        <form action="/show_one_on_map" class="favOnMapForm" method="POST">
+        <form action="/one" class="favOnMapForm" method="POST">
           <input type="hidden" name="lat" class="lat" value="{{ fav.truck.lat }}">
           <input type="hidden" name="lng" class="lng" value="{{ fav.truck.lng }}">
           <input type="hidden" name="space" class="space" value="truck">
@@ -42,7 +42,7 @@
         <strong>Location: </strong>{{ fav.popos.location }}<br>
         <strong>Year: </strong>{{ fav.popos.year }}<br>
         {{ fav.popos.description }}<br>
-        <form action="/show_one_on_map" class="favOnMapForm" method="POST">
+        <form action="/one" class="favOnMapForm" method="POST">
           <input type="hidden" name="lat" class="lat" value="{{ fav.popos.lat }}">
           <input type="hidden" name="lng" class="lng" value="{{ fav.popos.lng }}">
           <input type="hidden" name="space" class="space" value="popos">
@@ -65,7 +65,7 @@
         <strong>Type: </strong>{{ fav.art.art_type }}<br>
         <strong>Medium: </strong>{{ fav.art.medium }}<br>
         <a target="_blank" href="{{ fav.art.artist_link }}">{{ fav.art.artist_link }}</a><br>
-        <form action="/show_one_on_map" class="favOnMapForm" method="POST">
+        <form action="/one" class="favOnMapForm" method="POST">
           <input type="hidden" name="lat" class="lat" value="{{ fav.art.lat }}">
           <input type="hidden" name="lng" class="lng" value="{{ fav.art.lng }}">
           <input type="hidden" name="space" class="space" value="art">

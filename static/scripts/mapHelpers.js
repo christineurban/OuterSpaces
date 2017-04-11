@@ -1,6 +1,6 @@
 "use strict"
 
-$( window ).load(function() {
+$(window).load(function() {
 
   ////////////////
   // Search box //
@@ -194,20 +194,23 @@ $( window ).load(function() {
 
   function getNearbyMarkers(evt) {
 
+    // hide all markers
     var allMarkers = truckMarkers.concat((poposMarkers.concat(artMarkers)));
-
     for (var marker of allMarkers) {
         marker.setVisible(false);
       }
 
+    // show current marker
     var p1 = evt.data.currentMarker.position;
     evt.data.currentMarker.setVisible(true);
 
     for (var marker of evt.data.markers) {
       var p2 = marker.position;
-      var distance = (google.maps.geometry.spherical.computeDistanceBetween(p1, p2) / 1000);
+      // calucate distance between in meters/ divide by 1600 to get to miles
+      var distance = (google.maps.geometry.spherical.computeDistanceBetween(p1, p2) / 1600);
 
-      if (distance < 1.6) {
+      // show markers within half a mile
+      if (distance < 0.5) {
         marker.setVisible(true);
       }
     }
@@ -235,4 +238,95 @@ $( window ).load(function() {
   });
 
 
-});
+
+  //////////////////
+  // Plan My Trip //
+  //////////////////
+
+  if (document.getElementById("plan_trip")) {
+
+    // get current location
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+      var currentMarker = new google.maps.Marker({
+        position: pos,
+        map: map
+      });
+      // show current location
+      currentMarker.setVisible(true);
+      
+
+      var p1 = new google.maps.LatLng(pos.lat, pos.lng);
+
+      // hide all markers
+      var allMarkers = truckMarkers.concat((poposMarkers.concat(artMarkers)));
+      for (var marker of allMarkers) {
+        marker.setVisible(false);
+      }
+
+      ////////////////////////
+      // plot nearest truck //
+      ////////////////////////
+
+      var closestTruck;
+
+      for (var marker of truckMarkers) {
+        var p2 = new google.maps.LatLng(marker.lat, marker.lng);
+        var distance = (google.maps.geometry.spherical.computeDistanceBetween(p1, p2));
+        if (!closestTruck || closestTruck.distance > distance) {
+          closestTruck = {
+            marker: marker,
+            distance: distance
+          }
+        }
+      }
+      closestTruck.marker.setVisible(true);
+      p2 = new google.maps.LatLng(closestTruck.marker.lat, closestTruck.marker.lng);
+
+
+      ////////////////////////
+      // plot nearest POPOS //
+      ////////////////////////
+
+      var closestPopos;
+
+      for (var marker of poposMarkers) {
+        var p3 = new google.maps.LatLng(marker.lat, marker.lng);
+        var distance = (google.maps.geometry.spherical.computeDistanceBetween(p2, p3));
+        if (!closestPopos || closestPopos.distance > distance) {
+          closestPopos = {
+            marker: marker,
+            distance: distance
+          }
+        }
+      }
+      closestPopos.marker.setVisible(true);
+      p3 = new google.maps.LatLng(closestPopos.marker.lat, closestPopos.marker.lng);
+
+
+      //////////////////////
+      // plot nearest art //
+      //////////////////////
+
+      var closestArt;
+
+      for (var marker of artMarkers) {
+        var p4 = new google.maps.LatLng(marker.lat, marker.lng);
+        var distance = (google.maps.geometry.spherical.computeDistanceBetween(p3, p4));
+        if (!closestArt || closestArt.distance > distance) {
+          closestArt = {
+            marker: marker,
+            distance: distance
+          }
+        }
+      }
+      closestArt.marker.setVisible(true);
+
+    });
+  }
+
+
+}); // end of window.load
