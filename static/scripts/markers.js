@@ -18,18 +18,21 @@ var poposMarkers = [];
 function getData() {
 
   // get food truck data
-  $.get("/data/trucks.json",
-    loopDataTrucks).then(plotMarker);
+  var truckRequest = $.get("/data/trucks.json", loopDataTrucks);
 
   // get POPOS data
-  $.get("/data/popos.json",
-    loopDataPopos).then(plotMarker);
+  var poposRequest = $.get("/data/popos.json", loopDataPopos);
 
   // get public art data
-  $.get("/data/art.json",
-    loopDataArt).then(plotMarker);
+  var artRequest = $.get("/data/art.json", loopDataArt);
+
+  $.when(truckRequest, poposRequest, artRequest).then(function() {
+    plotMarker();
+    planMyTrip();
+  });
 
 }
+
 
 
 ////////////////////////////////////////////////////////////

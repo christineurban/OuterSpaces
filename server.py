@@ -222,7 +222,7 @@ def get_art_data_cached():
 def view_trucks():
     """View all food trucks."""
 
-    trucks = myfile.get_truck_data_cached()
+    trucks = get_truck_data_cached()
 
     return render_template("food-trucks.html",
                            trucks=trucks)
@@ -474,9 +474,41 @@ def get_art():
 def get_yelp_trucks():
     """Get food truck data from Yelp as JSON."""    
 
+    trucks = get_truck_data_cached()
     yelp_trucks = yelp_search("food truck", "San Francisco, CA")
 
-    print yelp_trucks
+    print "\n\n"
+    print yelp_trucks["total"]
+    print "\n\n"
+
+    return "hi"
+
+
+@app.route("/yelp/popos.json")
+def get_yelp_popos():
+    """Get food truck data from Yelp as JSON."""    
+
+    yelp_popos = yelp_search("popos", "San Francisco, CA")
+
+    print "\n\n"
+    print yelp_popos["total"]
+    print "\n\n"
+
+    return "hi"
+
+
+
+@app.route("/yelp/art.json")
+def get_yelp_art():
+    """Get food truck data from Yelp as JSON."""    
+
+    yelp_art = yelp_search("public art", "San Francisco, CA")
+
+    print "\n\n"
+    print yelp_art["total"]
+    print "\n\n"
+
+    return "hi"
 
 
 

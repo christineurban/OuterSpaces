@@ -63,9 +63,6 @@ function initMap() {
                                 'Error: Your browser doesn\'t support geolocation.');
   }
 
-  // // add class to indicate page has reloaded
-  // $("#resetMap").addClass("newMap")
-
   getData();
 
 } // end initMap()

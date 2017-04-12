@@ -1,6 +1,6 @@
 "use strict"
 
-$(window).load(function() {
+$(document).ready(function() {
 
   ////////////////
   // Search box //
@@ -264,12 +264,14 @@ $(window).load(function() {
     $("#nearbyArt").on("click", data, getNearbyMarkers);
   });
 
+}); // end of document.ready
 
 
-  //////////////////
-  // Plan My Trip //
-  //////////////////
+//////////////////
+// Plan My Trip //
+//////////////////
 
+function planMyTrip() {
   if (document.getElementById("plan_trip")) {
 
     // get current location
@@ -280,8 +282,6 @@ $(window).load(function() {
         position: p1,
         map: map
       });
-      // show current location
-      currentMarker.setVisible(true);
       
       // hide all markers
       var allMarkers = truckMarkers.concat((poposMarkers.concat(artMarkers)));
@@ -412,6 +412,6 @@ $(window).load(function() {
 
     });
   }
+}
 
 
-}); // end of window.load
