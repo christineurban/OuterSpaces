@@ -130,7 +130,7 @@ $(document).ready(function() {
   // adding-event-to-element-inside-google-maps-api-infowindow
   google.maps.event.addListener(infoWindow, 'domready', function() {
     var destination = this.marker;
-    $(".directions").on("click", destination, showDirections);
+    $("#directions").on("click", destination, showDirections);
   });
 
 

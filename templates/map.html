@@ -4,7 +4,9 @@
   <script src="../static/scripts/markers.js"></script>
   <script src="../static/scripts/initMap.js"></script>
   <script src="../static/scripts/mapHelpers.js"></script>
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ key }}&callback=initMap&libraries=geometry"></script>
+  <script async defer 
+  src="https://maps.googleapis.com/maps/api/js?key={{ key }}&callback=initMap&libraries=geometry">
+  </script>
 {% endblock %}
 
 {% block body %}
@@ -14,7 +16,9 @@
 
     <h1>Map</h1>
 
-    <p>Click on a marker to see detailed information about the OuterSpace.</p>
+    <p>Click on an OuterSpace marker on the map below to see detailed 
+    information, get directions, show nearby locations, or add to your 
+    favorites!</p>
 
     <div id="map"></div>
 
@@ -22,24 +26,28 @@
 
   <div class="col-xs-12 col-sm-4 text-center">
     
-    <p>Click on the colored icons below to show/hide markers on the map.</p>
+    <p>Click on the icons below to show/hide map markers.</p>
       
     <span class="nobreak">
-      <input type="checkbox" name="space" value="truck" class="truckMap checkbox-circle" id="truckMap" checked>
+      <input type="checkbox" name="space" value="truck" class="truckMap 
+      checkbox-circle" id="truckMap" checked>
       <label for="truckMap">&nbsp;Food Trucks&nbsp;&nbsp;</label>
     </span>
     <span class="nobreak">
-      <input type="checkbox" name="space" value="popos" class="poposMap checkbox-circle" id="poposMap" checked>
+      <input type="checkbox" name="space" value="popos" class="poposMap 
+      checkbox-circle" id="poposMap" checked>
       <label for="poposMap">&nbsp;POPOS&nbsp;&nbsp;</label>
     </span>
     <span class="nobreak">
-      <input type="checkbox" name="space" value="art" class="artMap checkbox-circle" id="artMap" checked>
+      <input type="checkbox" name="space" value="art" class="artMap 
+      checkbox-circle" id="artMap" checked>
       <label for="artMap">&nbsp;Public Art&nbsp;&nbsp;</label>
     </span>
   
     <form id="searchForm">
       <div class="form-group">
-        <input type="text" class="form-control"  name="search" placeholder="ice cream, tacos..." id="search">
+        <input type="text" class="form-control"  name="search" 
+        placeholder="ice cream, tacos..." id="search">
       </div>
       <button type="submit" class="btn btn-default">Search</button>
       
