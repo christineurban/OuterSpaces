@@ -8,24 +8,18 @@ from flask_debugtoolbar import DebugToolbarExtension
 from model import (User, Truck, FavTruck, Popos, FavPopos, 
                    Art, FavArt, db, connect_to_db)
 
-from flask_cache import Cache
+from server_utilities import (app, get_truck_data_cached, get_popos_data_cached,
+    get_art_data_cached, display_trucks, display_popos, display_art)
 
 import os           # Access OS environment variables
-import requests     # HTTP requests to Socrata API and YELP API endpoints
 import string
 
 
-app = Flask(__name__)
+# app = Flask(__name__)
 app.secret_key = os.environ["FLASK_SECRET_KEY"]
 
 # raise an error if variable is undefined
 app.jinja_env.undefined = StrictUndefined
-
-# get SF DATA app token 
-sf_data = os.environ["SF_DATA_APP_TOKEN"]
-
-# data caching from API
-cache = Cache(app,config={'CACHE_TYPE': 'simple'})
 
 
 ################################################################################
@@ -184,84 +178,15 @@ def view_profile():
 
 
 
-@cache.cached(timeout=3600, key_prefix="truck_data_cached")
-def get_truck_data_cached():
-    """Get food truck data from API and cache for 1 hour."""
-
-    url = "https://data.sfgov.org/resource/6a9r-agq8.json?$$app_token=" + sf_data
-    response = requests.get(url)
-    if response.status_code == 200:
-        trucks = response.json()
-    return trucks
-
-
-@cache.cached(timeout=3600, key_prefix="popos_data_cached")
-def get_popos_data_cached():
-    """Get POPOS data from API and cache for 1 hour."""
-
-    url = "https://data.sfgov.org/resource/3ub7-d4yy.json?$$app_token=" + sf_data
-    response = requests.get(url)
-    if response.status_code == 200:
-        popos = response.json()
-    return popos
-
-
-@cache.cached(timeout=3600, key_prefix="art_data_cached")
-def get_art_data_cached():
-    """Get art data from API and cache for 1 hour."""
-
-    url = "https://data.sfgov.org/resource/8fe8-yww8.json?$$app_token=" + sf_data
-    response = requests.get(url)
-    if response.status_code == 200:
-        art = response.json()
-    return art
-
 
 @app.route("/trucks")
 def view_trucks():
     """View all food trucks."""
 
-    trucks = get_truck_data_cached()
-    truck_dict = {}
-
-    for letter in "abcdefghijklmnopqrstuvwxyz":
-        truck_dict[letter] = []
-
-    for truck in trucks:
-        if "applicant" in truck:
-            alpha = truck["applicant"].lstrip("\"'1234567890")[0].lower()
-        else:
-            alpha = "u"
-        truck_dict[alpha].append(truck)
-
-    for letter, trucks in truck_dict.items():
-        trucks.sort(key=lambda truck: truck["applicant"])
-
-    for letter, trucks in truck_dict.items():
-        previous_truck = None
-        locations = []
-        display_trucks = []
-        for truck in trucks:
-            if previous_truck is None:
-                locations.append(truck)
-            elif previous_truck["applicant"] != truck["applicant"]:
-                previous_truck["locations"] = locations
-                display_trucks.append(previous_truck)
-                locations = [truck]
-            else:
-                locations.append(truck)
-            previous_truck = truck
-
-        if trucks:
-            previous_truck["locations"] = locations
-            display_trucks.append(previous_truck)
-
-        truck_dict[letter] = display_trucks
-
-
-                
+    total_trucks, truck_dict = display_trucks()
 
     return render_template("food-trucks.html",
+                           total_trucks=total_trucks,
                            truck_dict=truck_dict)
 
 
@@ -270,26 +195,10 @@ def view_trucks():
 def view_popos():
     """View all POPOS."""
 
-    popos = get_popos_data_cached()
-    popos_types = ["atrium", "greenhouse", "indoor park", "lobby", "plaza",
-        "pedestrian", "sitting area", "snippet", "sun terrace", "garden",
-        "urban park", "view terrace", "other"]
-    popos_dict = {}
-
-    for popos_type in popos_types:
-        popos_dict[popos_type] = []
-
-    for popo in popos:
-        if "type" in popo:
-            this_type = str(popo["type"].lower())
-            for popos_type in popos_types:
-                if popos_type in this_type:
-                    popos_dict[popos_type].append(popo)
-        else:
-            this_type = "other"
-            popos_dict[popos_type].append(popo)
+    total_popos, popos_dict = display_popos()
 
     return render_template("popos.html",
+                           total_popos=total_popos,
                            popos_dict=popos_dict)
 
 
@@ -298,20 +207,10 @@ def view_popos():
 def view_art():
     """View all art."""
 
-    public_art = get_art_data_cached()
-    art_dict = {}
-
-    for letter in "abcdefghijklmnopqrstuvwxyz":
-        art_dict[letter] = []
-
-    for art in public_art:
-        if "title" in art:
-            alpha = art["title"].lstrip("\"'1234567890")[0].lower()
-        else:
-            alpha = "u"
-        art_dict[alpha].append(art)
+    total_art, art_dict = display_art()
 
     return render_template("art.html",
+                           total_art=total_art,
                            art_dict=art_dict)
 
 

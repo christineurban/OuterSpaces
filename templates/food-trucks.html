@@ -2,7 +2,16 @@
 {% block title %}Food Trucks | OuterSpaces{% endblock %}
 {% block body %}
 
-  <h1>Food Trucks</h1>
+  <h1>Food Trucks &mdash; {{ total_trucks }} Locations</h1>
+
+  <figure>
+    <blockquote cite="https://en.wikipedia.org/wiki/Food_truck">
+      A food truck is a large vehicle equipped to cook and sell food. Some, including ice cream trucks, sell frozen or prepackaged food; others have on-board kitchens and prepare food from scratch. Sandwiches, hamburgers, french fries, and other regional fast food fare is common. In recent years, associated with the pop-up restaurant phenomenon, food trucks offering gourmet cuisine and a variety of specialties and ethnic menus, have become particularly popular. Food trucks, along with portable food booths and food carts, are on the front line of the street food industry that serves an estimated 2.5 billion people every day.
+    </blockquote>
+
+    <figcaption>Retrieved from <a href="https://en.wikipedia.org/wiki/Food_truck" target="_blank">https://en.wikipedia.org/wiki/Food_truck</a></figcaption>
+  </figure>
+  
   <h2>
     <a class="alpha">a</a> <a class="alpha">b</a> <a class="alpha">c</a>
     <a class="alpha">d</a> <a class="alpha">e</a> <a class="alpha">f</a> 
@@ -20,38 +29,71 @@
 
           {% for truck in truck_dict[alpha] %}
 
-            <h3>{{truck.applicant}}</h3>
-
             {% if truck.locations | length == 1 %}
-              <strong>Address:</strong>{{truck.locations[0].address}}<br>
+
+              <h3>{{truck.applicant}}</h3>
+
+              {% if "fooditems" in truck.locations[0] %}
+                <h4>{{truck.locations[0].fooditems}}</h4>
+              {% endif %}
+              
+              <p>
+                <strong>Address: </strong>{{truck.locations[0].address}}<br>
+
+                {% if "dayshours" in truck.locations[0] %}
+                  <strong>Hours: </strong>{{truck.locations[0].dayshours}}<br>
+                {% endif %}
+
+                <form action="/one" method="POST">
+                  <input type="hidden" name="lat" class="lat" 
+                  value="{{ truck.location.coordinates[1] }}">
+
+                  <input type="hidden" name="lng" class="lng" 
+                  value="{{ truck.location.coordinates[0] }}">
+
+                  <input type="hidden" name="identifier" 
+                  class="identifier" value="{{truck.applicant}}">
+
+                  <input type="submit" value="show on map">
+                </form>
+                <br>
+              </p>
             {% else %}
-              {{ truck.locations | length }} Locations<br>
+              {% if truck.applicant != "BSM - TEST1" %} <!-- exclude test data -->
+                <h3>{{truck.applicant}} &mdash; 
+                {{ truck.locations | length }} Locations</h3>
+
+                {% if "fooditems" in truck %}
+                  <h4>{{truck.fooditems}}</h4>
+                {% endif %}
+
+                {% for truck in truck.locations %}
+                  <p>
+                    {% if "address" in truck %}
+                      <strong>Address: </strong>{{truck.address}}<br>
+                    {% endif %}
+                    {% if "dayshours" in truck %}
+                      <strong>Hours: </strong>{{truck.dayshours}}<br>
+                    {% endif %}
+
+                    <form action="/one" method="POST">
+                      <input type="hidden" name="lat" class="lat" 
+                      value="{{ truck.location.coordinates[1] }}">
+
+                      <input type="hidden" name="lng" class="lng" 
+                      value="{{ truck.location.coordinates[0] }}">
+
+                      <input type="hidden" name="identifier" 
+                      class="identifier" value="{{truck.applicant}}">
+
+                      <input type="submit" value="show on map">
+                    </form>
+                    <br>
+                  </p>
+                {% endfor %}
+              {% endif %}
             {% endif %}
-
-            <!-- {% if "address" in truck %}
-              <strong>Address:</strong>{{truck.address}}<br>
-            {% endif %} -->
-
-            {% if "dayshours" in truck %}
-              <strong>Hours:</strong>{{truck.dayshours}}<br>
-            {% endif %}
-
-            {% if "fooditems" in truck %}
-              <strong>Cuisine:</strong>{{truck.fooditems}}<br>
-            {% endif %}
-
-            <form action="/one" method="POST">
-              <input type="hidden" name="lat" class="lat" value="{{ truck.location.coordinates[1] }}">
-              <input type="hidden" name="lng" class="lng" value="{{ truck.location.coordinates[0] }}">
-              <input type="hidden" name="identifier" class="identifier" value="{{truck.applicant}}">
-              <input type="submit" value="show on map">
-            </form>
-            <br>
-
           {% endfor %}
         </div> 
-
       {% endfor %}
-
-
 {% endblock %}

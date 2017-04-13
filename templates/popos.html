@@ -2,8 +2,17 @@
 {% block title %}POPOS | OuterSpaces{% endblock %}
 {% block body %}
       
-  <h1>Privately Owned Public Open Spaces (POPOS)</h1>
-  <h2>
+  <h1>Privately Owned Public Open Spaces (POPOS) &mdash; {{ total_popos }} Locations</h1>
+
+  <figure>
+    <blockquote cite="http://sf-planning.org/privately-owned-public-open-space-and-public-art-popos">
+      Privately-owned public open spaces (POPOS) are publicly accessible spaces in forms of plazas, terraces, atriums, small parks, and even snippets which are provided and maintained by private developers. In San Francisco, POPOS mostly appear in the Downtown office district area. Prior to 1985, developers provided POPOS under three general circumstances: voluntarily, in exchange for a density bonus, or as a condition of approval. The 1985 <a href="http://sf-planning.org/privately-owned-public-open-space-and-public-art-popos#downtown_plan">Downtown Plan</a> created the first systemic requirements for developers to provide publicly accessible open space as a part of projects in C-3 Districts. The goal was to "provide in the downtown quality open space in sufficient quantity and variety to meet the needs of downtown workers, residents and visitors." (<a href="http://library.amlegal.com/nxt/gateway.dll/California/planning/article12dimensionsareasandopenspaces?f=templates$fn=default.htm$3.0$vid=amlegal:sanfrancisco_ca$anc=JD_138" target="_blank">See Planning Code Section 138 for regulations</a>). Since then, project sponsors for residential projects may provide POPOS instead of their required open spaces in the Downtown Residential (DTR) and Eastern Neighborhoods (<a href="http://library.amlegal.com/nxt/gateway.dll/California/planning/article12dimensionsareasandopenspaces?f=templates$fn=default.htm$3.0$vid=amlegal:sanfrancisco_ca$anc=JD_135" target="_blank">Section 135 of the Planning Code</a>).
+    </blockquote>
+
+    <figcaption>Retrieved from <a href="http://sf-planning.org/privately-owned-public-open-space-and-public-art-popos" target="_blank">http://sf-planning.org/privately-owned-public-open-space-and-public-art-popos</a></figcaption>
+  </figure>
+
+  <h3>
     <a class="alpha">atrium</a> | <a class="alpha">greenhouse</a> | 
     <a class="alpha">indoor park</a> | <a class="alpha">lobby</a> | 
     <a class="alpha">plaza</a> | <a class="alpha">pedestrian</a> | 
@@ -11,7 +20,7 @@
     <a class="alpha">sun terrace</a> | <a class="alpha">garden</a> | 
     <a class="alpha">urban park</a> | <a class="alpha">view terrace</a> | 
     <a class="alpha">other</a>
-  </h2>
+  </h3><br>
 
     {% for alpha in popos_dict %}
       <div id="{{ alpha }}" class="hideAlpha" hidden>
