@@ -22,9 +22,15 @@
 
             <h3>{{truck.applicant}}</h3>
 
-            {% if "address" in truck %}
-              <strong>Address:</strong>{{truck.address}}<br>
+            {% if truck.locations | length == 1 %}
+              <strong>Address:</strong>{{truck.locations[0].address}}<br>
+            {% else %}
+              {{ truck.locations | length }} Locations<br>
             {% endif %}
+
+            <!-- {% if "address" in truck %}
+              <strong>Address:</strong>{{truck.address}}<br>
+            {% endif %} -->
 
             {% if "dayshours" in truck %}
               <strong>Hours:</strong>{{truck.dayshours}}<br>

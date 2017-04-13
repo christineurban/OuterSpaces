@@ -234,6 +234,33 @@ def view_trucks():
             alpha = "u"
         truck_dict[alpha].append(truck)
 
+    for letter, trucks in truck_dict.items():
+        trucks.sort(key=lambda truck: truck["applicant"])
+
+    for letter, trucks in truck_dict.items():
+        previous_truck = None
+        locations = []
+        display_trucks = []
+        for truck in trucks:
+            if previous_truck is None:
+                locations.append(truck)
+            elif previous_truck["applicant"] != truck["applicant"]:
+                previous_truck["locations"] = locations
+                display_trucks.append(previous_truck)
+                locations = [truck]
+            else:
+                locations.append(truck)
+            previous_truck = truck
+
+        if trucks:
+            previous_truck["locations"] = locations
+            display_trucks.append(previous_truck)
+
+        truck_dict[letter] = display_trucks
+
+
+                
+
     return render_template("food-trucks.html",
                            truck_dict=truck_dict)
 
