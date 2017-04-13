@@ -14,11 +14,9 @@
 
   <div class="col-xs-12 col-sm-8" id="{{ id }}">
 
-    <h1>Map</h1>
-
-    <p>Click on an OuterSpace marker on the map below to see detailed 
+    <h4>Click on an OuterSpace marker on the map below to see detailed 
     information, get directions, show nearby locations, or add to your 
-    favorites!</p>
+    favorites!</h4>
 
     <div id="map"></div>
 
@@ -26,7 +24,7 @@
 
   <div class="col-xs-12 col-sm-4 text-center">
     
-    <p>Click on the icons below to show/hide map markers.</p>
+    <h4>Click on the round buttons below to show/hide markers on the map.</h4>
       
     <span class="nobreak">
       <input type="checkbox" name="space" value="truck" class="truckMap 
@@ -50,21 +48,19 @@
         placeholder="ice cream, tacos..." id="search">
       </div>
       <button type="submit" class="btn btn-default">Search</button>
-      
-      {% if id == "map_one" %}
-        <form action="/map" method="POST">
-          <button type="submit" class="btn btn-default">Reset</button>
-        </form>
+      <a href="/map"><button type="button" id="resetMap" class="btn btn-default">Reset</button></a>
+
+      {% if id != "view_map" %}
         <form>
           <input type="hidden" id="lat" value="{{ lat }}">
           <input type="hidden" id="lng" value="{{ lng }}">
           <input type="hidden" id="identifier" value="{{ identifier }}">
         </form>
-      {% else %}
-        <button id="resetMap" class="newMap btn btn-default">Reset</button>
       {% endif %}
 
     </form>
+
+
     
     <div id="textDirections"></div>
 

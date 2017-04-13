@@ -9,7 +9,6 @@ function initMap() {
   
   directionsService = new google.maps.DirectionsService;
   directionsDisplay = new google.maps.DirectionsRenderer;
-  var sanFrancisco = {lat: 37.7589, lng: -122.433558};
   map = new google.maps.Map(document.getElementById("map"), {
     zoom: 13,
     center: sanFrancisco

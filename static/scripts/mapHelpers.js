@@ -9,6 +9,8 @@ $(document).ready(function() {
   function submitSearch(evt) {
       evt.preventDefault();
       infoWindow.close();
+      map.setCenter(sanFrancisco);
+      map.setZoom(13);
 
       var search = $("#search").val().toLowerCase();
       var allMarkers = truckMarkers.concat((poposMarkers.concat(artMarkers)));
@@ -30,9 +32,9 @@ $(document).ready(function() {
   // Reset map //
   ///////////////
 
-  $("#resetMap").on("click", function() {    
-    initMap();
-  });
+  // $("#resetMap").on("click", function() {    
+  //   window.location.assign("/map");
+  // });
 
 
 

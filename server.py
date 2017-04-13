@@ -33,7 +33,6 @@ def splash():
     return render_template("index.html")
 
 
-
 @app.route("/map", methods=["GET", "POST"])
 def view_map():
     """Google Map of food trucks, POPOS, and public art"""
@@ -47,7 +46,6 @@ def view_map():
                            lat=None,
                            lng=None,
                            identifier=None)
-
 
 
 @app.route("/one", methods=["POST"])
@@ -67,7 +65,6 @@ def map_one():
                            lat=lat,
                            lng=lng,
                            identifier=identifier)
-
 
 
 @app.route("/plan")
@@ -93,7 +90,6 @@ def login_or_sign_up():
     return render_template("account.html")
 
 
-
 @app.route("/log_in", methods=["POST"])
 def log_in():
     """Log in to your account."""
@@ -115,7 +111,6 @@ def log_in():
         flash("Sorry, that combination does not match our records." + \
               " Please check your spelling and try again.")
         return redirect("/account")
-
 
 
 @app.route("/sign_up", methods=["POST"])
@@ -149,7 +144,6 @@ def sign_up():
         return render_template("profile.html")
 
 
-
 @app.route("/profile")
 def view_profile():
     """View profile and favorites."""
@@ -178,7 +172,6 @@ def view_profile():
 
 
 
-
 @app.route("/trucks")
 def view_trucks():
     """View all food trucks."""
@@ -188,7 +181,6 @@ def view_trucks():
     return render_template("food-trucks.html",
                            total_trucks=total_trucks,
                            truck_dict=truck_dict)
-
 
 
 @app.route("/popos")
@@ -202,7 +194,6 @@ def view_popos():
                            popos_dict=popos_dict)
 
 
-
 @app.route("/art")
 def view_art():
     """View all art."""
@@ -212,7 +203,6 @@ def view_art():
     return render_template("art.html",
                            total_art=total_art,
                            art_dict=art_dict)
-
 
 
 @app.route("/sign_out")
@@ -431,7 +421,6 @@ def get_art():
     art = get_art_data_cached()
         
     return jsonify(art)
-
 
 
 

@@ -4,6 +4,7 @@ var directionsService;
 var directionsDisplay;
 var infoWindow;
 var map;
+var sanFrancisco = {lat: 37.7589, lng: -122.433558};
 
 var truckMarkers = [];
 var artMarkers = [];
@@ -276,7 +277,6 @@ function plotMarker() {
           marker.lng == lng && 
           marker.searchDetails.includes(identifier) ) {
         marker.setVisible(true);
-        console.log(marker);
       } else {
         marker.setVisible(false);
       }
