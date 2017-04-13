@@ -13,15 +13,15 @@
   {% if fav_trucks %}
   <h2><u>Favorite Food Trucks</u></h2>
     {% for fav in fav_trucks %}
+      <h3>{{ fav.truck.name }}</h3>
       <p>
-        <h3>{{ fav.truck.name }}</h3>
         <strong>Address: </strong>{{ fav.truck.address }}<br>
         <strong>Hours: </strong>{{ fav.truck.hours }}<br>
         <strong>Cuisine: </strong>{{ fav.truck.cuisine }}<br>
         <form action="/one" class="favOnMapForm" method="POST">
           <input type="hidden" name="lat" class="lat" value="{{ fav.truck.lat }}">
           <input type="hidden" name="lng" class="lng" value="{{ fav.truck.lng }}">
-          <input type="hidden" name="space" class="space" value="truck">
+          <input type="hidden" name="identifier" class="identifier" value="{{ fav.truck.name }}">
           <input type="submit" value="show on map">
         </form>
         <br>
@@ -34,8 +34,8 @@
   {% if fav_popos %}  
   <h2><u>Favorite POPOS</u></h2>    
       {% for fav in fav_popos %}
+      <h3>{{ fav.popos.name }}</h3>
       <p>
-        <h3>{{ fav.popos.name }}</h3>
         <strong>Address: </strong>{{ fav.popos.address }}<br>
         <strong>Hours: </strong>{{ fav.popos.hours }}<br>
         <strong>Type: </strong>{{ fav.popos.popos_type }}<br>
@@ -45,7 +45,7 @@
         <form action="/one" class="favOnMapForm" method="POST">
           <input type="hidden" name="lat" class="lat" value="{{ fav.popos.lat }}">
           <input type="hidden" name="lng" class="lng" value="{{ fav.popos.lng }}">
-          <input type="hidden" name="space" class="space" value="popos">
+          <input type="hidden" name="identifier" class="identifier" value="{{ fav.popos.name }}">
           <input type="submit" value="show on map">
         </form>
         <br>
@@ -58,8 +58,8 @@
   {% if fav_art %}
   <h2><u>Favorite Public Art</u></h2>    
       {% for fav in fav_art %}
+      <h3>{{ fav.art.title }}</h3>
       <p>
-        <h3>{{ fav.art.title }}</h3>
         <strong>Address: </strong>{{ fav.art.address }}<br>
         <strong>Location: </strong>{{ fav.art.location }}<br>
         <strong>Type: </strong>{{ fav.art.art_type }}<br>
@@ -68,7 +68,7 @@
         <form action="/one" class="favOnMapForm" method="POST">
           <input type="hidden" name="lat" class="lat" value="{{ fav.art.lat }}">
           <input type="hidden" name="lng" class="lng" value="{{ fav.art.lng }}">
-          <input type="hidden" name="space" class="space" value="art">
+          <input type="hidden" name="identifier" class="identifier" value="{{ fav.art.title }}">
           <input type="submit" value="show on map">
         </form>
         <br>

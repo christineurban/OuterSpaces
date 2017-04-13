@@ -13,12 +13,8 @@
   </figure>
 
   <h3>
-    <a class="alpha">atrium</a> | <a class="alpha">greenhouse</a> | 
-    <a class="alpha">indoor park</a> | <a class="alpha">lobby</a> | 
-    <a class="alpha">plaza</a> | <a class="alpha">pedestrian</a> | 
-    <a class="alpha">sitting area</a> | <a class="alpha">snippet</a> | 
-    <a class="alpha">sun terrace</a> | <a class="alpha">garden</a> | 
-    <a class="alpha">urban park</a> | <a class="alpha">view terrace</a> | 
+    <a class="alpha">atrium</a>&nbsp; | &nbsp;<a class="alpha">greenhouse</a>&nbsp; | &nbsp;<a class="alpha">indoor park</a>&nbsp; | &nbsp;<a class="alpha">lobby</a>&nbsp; | &nbsp;
+    <a class="alpha">plaza</a>&nbsp; | &nbsp;<a class="alpha">pedestrian</a>&nbsp; | &nbsp;<a class="alpha">sitting area</a>&nbsp; | &nbsp;<a class="alpha">snippet</a>&nbsp; | &nbsp;<a class="alpha">sun terrace</a>&nbsp; | &nbsp;<a class="alpha">garden</a>&nbsp; | &nbsp;<a class="alpha">urban park</a>&nbsp; | &nbsp;<a class="alpha">view terrace</a>&nbsp; | &nbsp;
     <a class="alpha">other</a>
   </h3><br>
 
@@ -27,37 +23,44 @@
       
         {% for popo in popos_dict[alpha] %}
           
-          <h3>{{popo.name}}</h3>
-          
-          <strong>Address:</strong>{{popo.popos_addr}}<br>
+          <h3>{{ popo.name }}</h3>
+          <p>
+            <strong>Address:</strong>{{ popo.popos_addr }}<br>
 
-          {% if "hours" in popo %}
-            <strong>Hours:</strong>{{popo.hours}}<br>
-          {% endif %}
+            {% if "hours" in popo %}
+              <strong>Hours:</strong>{{ popo.hours }}<br>
+            {% endif %}
 
-          {% if "location" in popo %}
-            <strong>Location:</strong>{{popo.location}}<br>
-          {% endif %}
+            {% if "location" in popo %}
+              <strong>Location:</strong>{{ popo.location }}<br>
+            {% endif %}
 
-          {% if "type" in popo %}
-            <strong>Type:</strong>{{popo.type}}<br>
-          {% endif %}
+            {% if "type" in popo %}
+              <strong>Type:</strong>{{ popo.type }}<br>
+            {% endif %}
 
-          {% if "year" in popo %}
-            <strong>Year:</strong>{{popo.year}}<br>
-          {% endif %}
+            {% if "year" in popo %}
+              <strong>Year:</strong>{{ popo.year }}<br>
+            {% endif %}
 
-          {% if "desc" in popo %}
-            {{popo.desc}}<br>
-          {% endif %}
+            {% if "desc" in popo %}
+              {{popo.desc}}<br>
+            {% endif %}
 
-          <form action="/one" method="POST">
-            <input type="hidden" name="lat" class="lat" value="{{ popo.the_geom.coordinates[1] }}">
-            <input type="hidden" name="lng" class="lng" value="{{ popo.the_geom.coordinates[0] }}">
-            <input type="hidden" name="identifier" class="identifier" value="{{popo.name}}">
-            <input type="submit" value="show on map">
-          </form>
-          <br>
+            <form action="/one" method="POST">
+              <input type="hidden" name="lat" class="lat" 
+              value="{{ popo.the_geom.coordinates[1] }}">
+
+              <input type="hidden" name="lng" class="lng" 
+              value="{{ popo.the_geom.coordinates[0] }}">
+
+              <input type="hidden" name="identifier" 
+              class="identifier" value="{{ popo.name }}">
+
+              <input type="submit" value="show on map">
+            </form>
+            <br>
+          </p>
 
         {% endfor %}
       </div> 

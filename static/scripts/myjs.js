@@ -29,7 +29,7 @@ $(document).ready(function() {
   //////////////////
 
   $(".alpha").click(function(){
-    var alpha = $(this).html();
+    var alpha = $(this).html().replace(/\s+/g, '');
     $(".hideAlpha").hide();
     $("#" + alpha).show();
   });

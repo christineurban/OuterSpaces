@@ -68,3 +68,7 @@ input[type=checkbox].artMap:checked:before {
     white-space: nowrap;
 }
 
+a {
+    cursor: pointer;
+}
+

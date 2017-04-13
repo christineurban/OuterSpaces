@@ -13,16 +13,9 @@
   </figure>
   
   <h2>
-    <a class="alpha">a</a> <a class="alpha">b</a> <a class="alpha">c</a>
-    <a class="alpha">d</a> <a class="alpha">e</a> <a class="alpha">f</a> 
-    <a class="alpha">g</a> <a class="alpha">h</a> <a class="alpha">i</a> 
-    <a class="alpha">j</a> <a class="alpha">k</a> <a class="alpha">l</a> 
-    <a class="alpha">m</a> <a class="alpha">n</a> <a class="alpha">o</a> 
-    <a class="alpha">p</a> <a class="alpha">q</a> <a class="alpha">r</a> 
-    <a class="alpha">s</a> <a class="alpha">t</a> <a class="alpha">u</a> 
-    <a class="alpha">v</a> <a class="alpha">w</a> <a class="alpha">x</a> 
-    <a class="alpha">y</a> <a class="alpha">z</a>
-  </h2>
+    <a class="alpha">a</a>&nbsp;&nbsp;<a class="alpha">b</a>&nbsp;&nbsp;<a class="alpha">c</a>&nbsp;&nbsp;<a class="alpha">d</a>&nbsp;&nbsp;<a class="alpha">e</a>&nbsp;&nbsp;<a class="alpha">f</a>&nbsp;&nbsp;<a class="alpha">g</a>&nbsp;&nbsp;<a class="alpha">h</a>&nbsp;&nbsp;<a class="alpha">i</a>&nbsp;&nbsp;<a class="alpha">j</a>&nbsp;&nbsp;<a class="alpha">k</a>&nbsp;&nbsp;<a class="alpha">l</a>&nbsp;&nbsp;<a class="alpha">m</a>&nbsp;&nbsp;<a class="alpha">n</a>&nbsp;&nbsp;<a class="alpha">o</a>&nbsp;&nbsp;
+    <a class="alpha">p</a>&nbsp;&nbsp;<a class="alpha">q</a>&nbsp;&nbsp;<a class="alpha">r</a>&nbsp;&nbsp;<a class="alpha">s</a>&nbsp;&nbsp;<a class="alpha">t</a>&nbsp;&nbsp;<a class="alpha">u</a>&nbsp;&nbsp;<a class="alpha">v</a>&nbsp;&nbsp;<a class="alpha">w</a>&nbsp;&nbsp;<a class="alpha">x</a>&nbsp;&nbsp;<a class="alpha">y</a>&nbsp;&nbsp;<a class="alpha">z</a>
+  </h2><br>
 
       {% for alpha in truck_dict %}
         <div id="{{ alpha }}" class="hideAlpha" hidden>
@@ -31,17 +24,17 @@
 
             {% if truck.locations | length == 1 %}
 
-              <h3>{{truck.applicant}}</h3>
+              <h3>{{ truck.applicant }}</h3>
 
               {% if "fooditems" in truck.locations[0] %}
-                <h4>{{truck.locations[0].fooditems}}</h4>
+                <h4>{{ truck.locations[0].fooditems }}</h4>
               {% endif %}
               
               <p>
-                <strong>Address: </strong>{{truck.locations[0].address}}<br>
+                <strong>Address: </strong>{{ truck.locations[0].address }}<br>
 
                 {% if "dayshours" in truck.locations[0] %}
-                  <strong>Hours: </strong>{{truck.locations[0].dayshours}}<br>
+                  <strong>Hours: </strong>{{ truck.locations[0].dayshours }}<br>
                 {% endif %}
 
                 <form action="/one" method="POST">
@@ -52,7 +45,7 @@
                   value="{{ truck.location.coordinates[0] }}">
 
                   <input type="hidden" name="identifier" 
-                  class="identifier" value="{{truck.applicant}}">
+                  class="identifier" value="{{ truck.applicant }}">
 
                   <input type="submit" value="show on map">
                 </form>
@@ -60,20 +53,20 @@
               </p>
             {% else %}
               {% if truck.applicant != "BSM - TEST1" %} <!-- exclude test data -->
-                <h3>{{truck.applicant}} &mdash; 
+                <h3>{{ truck.applicant }} &mdash; 
                 {{ truck.locations | length }} Locations</h3>
 
                 {% if "fooditems" in truck %}
-                  <h4>{{truck.fooditems}}</h4>
+                  <h4>{{ truck.fooditems }}</h4>
                 {% endif %}
 
                 {% for truck in truck.locations %}
                   <p>
                     {% if "address" in truck %}
-                      <strong>Address: </strong>{{truck.address}}<br>
+                      <strong>Address: </strong>{{ truck.address }}<br>
                     {% endif %}
                     {% if "dayshours" in truck %}
-                      <strong>Hours: </strong>{{truck.dayshours}}<br>
+                      <strong>Hours: </strong>{{ truck.dayshours }}<br>
                     {% endif %}
 
                     <form action="/one" method="POST">
@@ -84,7 +77,7 @@
                       value="{{ truck.location.coordinates[0] }}">
 
                       <input type="hidden" name="identifier" 
-                      class="identifier" value="{{truck.applicant}}">
+                      class="identifier" value="{{ truck.applicant }}">
 
                       <input type="submit" value="show on map">
                     </form>
