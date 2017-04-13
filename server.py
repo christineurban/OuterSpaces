@@ -8,12 +8,11 @@ from flask_debugtoolbar import DebugToolbarExtension
 from model import (User, Truck, FavTruck, Popos, FavPopos, 
                    Art, FavArt, db, connect_to_db)
 
-from server_utilities import yelp_search
-
 from flask_cache import Cache
 
 import os           # Access OS environment variables
 import requests     # HTTP requests to Socrata API and YELP API endpoints
+import string
 
 
 app = Flask(__name__)
@@ -223,9 +222,20 @@ def view_trucks():
     """View all food trucks."""
 
     trucks = get_truck_data_cached()
+    truck_dict = {}
+
+    for letter in "abcdefghijklmnopqrstuvwxyz":
+        truck_dict[letter] = []
+
+    for truck in trucks:
+        if "applicant" in truck:
+            alpha = truck["applicant"].lstrip("\"'1234567890")[0].lower()
+        else:
+            alpha = "u"
+        truck_dict[alpha].append(truck)
 
     return render_template("food-trucks.html",
-                           trucks=trucks)
+                           truck_dict=truck_dict)
 
 
 
@@ -234,9 +244,26 @@ def view_popos():
     """View all POPOS."""
 
     popos = get_popos_data_cached()
+    popos_types = ["atrium", "greenhouse", "indoor park", "lobby", "plaza",
+        "pedestrian", "sitting area", "snippet", "sun terrace", "garden",
+        "urban park", "view terrace", "other"]
+    popos_dict = {}
+
+    for popos_type in popos_types:
+        popos_dict[popos_type] = []
+
+    for popo in popos:
+        if "type" in popo:
+            this_type = str(popo["type"].lower())
+            for popos_type in popos_types:
+                if popos_type in this_type:
+                    popos_dict[popos_type].append(popo)
+        else:
+            this_type = "other"
+            popos_dict[popos_type].append(popo)
 
     return render_template("popos.html",
-                           popos=popos)
+                           popos_dict=popos_dict)
 
 
 
@@ -245,9 +272,20 @@ def view_art():
     """View all art."""
 
     public_art = get_art_data_cached()
+    art_dict = {}
+
+    for letter in "abcdefghijklmnopqrstuvwxyz":
+        art_dict[letter] = []
+
+    for art in public_art:
+        if "title" in art:
+            alpha = art["title"].lstrip("\"'1234567890")[0].lower()
+        else:
+            alpha = "u"
+        art_dict[alpha].append(art)
 
     return render_template("art.html",
-                           public_art=public_art)
+                           art_dict=art_dict)
 
 
 

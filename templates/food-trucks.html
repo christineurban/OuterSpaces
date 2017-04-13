@@ -3,32 +3,47 @@
 {% block body %}
 
   <h1>Food Trucks</h1>
-      
-      {% for truck in trucks %}
-        
-        <p>
-          <h3>{{truck.applicant}}</h3>
+  <h2>
+    <a class="alpha">a</a> <a class="alpha">b</a> <a class="alpha">c</a>
+    <a class="alpha">d</a> <a class="alpha">e</a> <a class="alpha">f</a> 
+    <a class="alpha">g</a> <a class="alpha">h</a> <a class="alpha">i</a> 
+    <a class="alpha">j</a> <a class="alpha">k</a> <a class="alpha">l</a> 
+    <a class="alpha">m</a> <a class="alpha">n</a> <a class="alpha">o</a> 
+    <a class="alpha">p</a> <a class="alpha">q</a> <a class="alpha">r</a> 
+    <a class="alpha">s</a> <a class="alpha">t</a> <a class="alpha">u</a> 
+    <a class="alpha">v</a> <a class="alpha">w</a> <a class="alpha">x</a> 
+    <a class="alpha">y</a> <a class="alpha">z</a>
+  </h2>
 
-          {% if "address" in truck %}
-            <strong>Address:</strong>{{truck.address}}<br>
-          {% endif %}
+      {% for alpha in truck_dict %}
+        <div id="{{ alpha }}" class="hideAlpha" hidden>
 
-          {% if "dayshours" in truck %}
-            <strong>Hours:</strong>{{truck.dayshours}}<br>
-          {% endif %}
+          {% for truck in truck_dict[alpha] %}
 
-          {% if "fooditems" in truck %}
-            <strong>Cuisine:</strong>{{truck.fooditems}}<br>
-          {% endif %}
+            <h3>{{truck.applicant}}</h3>
 
-          <form action="/one" method="POST">
-            <input type="hidden" name="lat" class="lat" value="{{ truck.location.coordinates[1] }}">
-            <input type="hidden" name="lng" class="lng" value="{{ truck.location.coordinates[0] }}">
-            <input type="hidden" name="identifier" class="identifier" value="{{truck.applicant}}">
-            <input type="submit" value="show on map">
-          </form>
-          <br>
-        </p> 
+            {% if "address" in truck %}
+              <strong>Address:</strong>{{truck.address}}<br>
+            {% endif %}
+
+            {% if "dayshours" in truck %}
+              <strong>Hours:</strong>{{truck.dayshours}}<br>
+            {% endif %}
+
+            {% if "fooditems" in truck %}
+              <strong>Cuisine:</strong>{{truck.fooditems}}<br>
+            {% endif %}
+
+            <form action="/one" method="POST">
+              <input type="hidden" name="lat" class="lat" value="{{ truck.location.coordinates[1] }}">
+              <input type="hidden" name="lng" class="lng" value="{{ truck.location.coordinates[0] }}">
+              <input type="hidden" name="identifier" class="identifier" value="{{truck.applicant}}">
+              <input type="submit" value="show on map">
+            </form>
+            <br>
+
+          {% endfor %}
+        </div> 
 
       {% endfor %}
 

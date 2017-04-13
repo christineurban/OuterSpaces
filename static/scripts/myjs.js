@@ -22,4 +22,17 @@ $(document).ready(function() {
       $("#signUpBtn").prop("disabled", false);
   });
 
+
+
+  //////////////////
+  // Toggle Alpha //
+  //////////////////
+
+  $(".alpha").click(function(){
+    var alpha = $(this).html();
+    $(".hideAlpha").hide();
+    $("#" + alpha).show();
+  });
+
+
 }); // end of $(document).ready

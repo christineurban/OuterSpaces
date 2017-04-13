@@ -3,10 +3,21 @@
 {% block body %}
       
   <h1>Privately Owned Public Open Spaces (POPOS)</h1>
+  <h2>
+    <a class="alpha">atrium</a> | <a class="alpha">greenhouse</a> | 
+    <a class="alpha">indoor park</a> | <a class="alpha">lobby</a> | 
+    <a class="alpha">plaza</a> | <a class="alpha">pedestrian</a> | 
+    <a class="alpha">sitting area</a> | <a class="alpha">snippet</a> | 
+    <a class="alpha">sun terrace</a> | <a class="alpha">garden</a> | 
+    <a class="alpha">urban park</a> | <a class="alpha">view terrace</a> | 
+    <a class="alpha">other</a>
+  </h2>
+
+    {% for alpha in popos_dict %}
+      <div id="{{ alpha }}" class="hideAlpha" hidden>
       
-      {% for popo in popos %}
-        
-        <p>
+        {% for popo in popos_dict[alpha] %}
+          
           <h3>{{popo.name}}</h3>
           
           <strong>Address:</strong>{{popo.popos_addr}}<br>
@@ -38,9 +49,11 @@
             <input type="submit" value="show on map">
           </form>
           <br>
-        </p> 
 
-      {% endfor %}
+        {% endfor %}
+      </div> 
+
+    {% endfor %}
 
 
 {% endblock %}

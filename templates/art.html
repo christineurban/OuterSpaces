@@ -3,42 +3,57 @@
 {% block body %}
 
   <h1>Public Art</h1>
+  <h2>
+    <a class="alpha">a</a> <a class="alpha">b</a> <a class="alpha">c</a>
+    <a class="alpha">d</a> <a class="alpha">e</a> <a class="alpha">f</a> 
+    <a class="alpha">g</a> <a class="alpha">h</a> <a class="alpha">i</a> 
+    <a class="alpha">j</a> <a class="alpha">k</a> <a class="alpha">l</a> 
+    <a class="alpha">m</a> <a class="alpha">n</a> <a class="alpha">o</a> 
+    <a class="alpha">p</a> <a class="alpha">q</a> <a class="alpha">r</a> 
+    <a class="alpha">s</a> <a class="alpha">t</a> <a class="alpha">u</a> 
+    <a class="alpha">v</a> <a class="alpha">w</a> <a class="alpha">x</a> 
+    <a class="alpha">y</a> <a class="alpha">z</a>
+  </h2>
       
-      {% for art in public_art %}
+      {% for alpha in art_dict %}
+        <div id="{{ alpha }}" class="hideAlpha" hidden>
 
-        <p>
-          {% if "title" in art %}
-            <h3>{{art.title}}</h3>
-          {% else %}
-            <h3>Untitled</h3>
-          {% endif %}
-          
-          <strong>Address:</strong>{{art.name}}<br>
+          {% for art in art_dict[alpha] %}
 
-          {% if "location" in art %}
-            <strong>Location:</strong>{{art.location}}<br>
-          {% endif %}
+            {% if "title" in art %}
+              <h3>{{art.title}}</h3>
+            {% else %}
+              <h3>Untitled</h3>
+            {% endif %}
+            
+            <strong>Address:</strong>{{art.name}}<br>
 
-          {% if "type" in art %}
-            <strong>Type:</strong>{{art.type}}<br>
-          {% endif %}
+            {% if "location" in art %}
+              <strong>Location:</strong>{{art.location}}<br>
+            {% endif %}
 
-          {% if "medium" in art %}
-            <strong>Medium:</strong>{{art.medium}}<br>
-          {% endif %}
+            {% if "type" in art %}
+              <strong>Type:</strong>{{art.type}}<br>
+            {% endif %}
 
-          {% if "artistlink" in art %}
-            <a target="_blank" href="{{art.artistlink}}">{{art.artistlink}}</a><br>
-          {% endif %}
+            {% if "medium" in art %}
+              <strong>Medium:</strong>{{art.medium}}<br>
+            {% endif %}
 
-          <form action="/one" method="POST">
-            <input type="hidden" name="lat" class="lat" value="{{ art.the_geom.coordinates[1] }}">
-            <input type="hidden" name="lng" class="lng" value="{{ art.the_geom.coordinates[0] }}">
-            <input type="hidden" name="identifier" class="identifier" value="{{art.name}}">
-            <input type="submit" value="show on map">
-          </form>
-          <br>
-        </p> 
+            {% if "artistlink" in art %}
+              <a target="_blank" href="{{art.artistlink}}">{{art.artistlink}}</a><br>
+            {% endif %}
+
+            <form action="/one" method="POST">
+              <input type="hidden" name="lat" class="lat" value="{{ art.the_geom.coordinates[1] }}">
+              <input type="hidden" name="lng" class="lng" value="{{ art.the_geom.coordinates[0] }}">
+              <input type="hidden" name="identifier" class="identifier" value="{{art.name}}">
+              <input type="submit" value="show on map">
+            </form>
+            <br>
+            
+          {% endfor %}
+        </div> 
 
       {% endfor %}
 
