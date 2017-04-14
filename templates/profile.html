@@ -5,8 +5,27 @@
 
   <h1>Profile</h1>
 
-  <p><strong>Name:</strong> {{ session["first_name"] }} {{ session["last_name"] }}</p>
-  <p><strong>Email:</strong> {{ session["email"] }}</p>
+  <div class="col-sm-6">
+    <p><strong>Name:</strong> {{ session["first_name"] }} {{ session["last_name"] }}</p>
+    <p><strong>Email:</strong> {{ session["email"] }}</p>
+  </div>
+  
+  <div class="col-sm-6">
+    <form action="/change_password" method="POST">
+        <div class="form-group">
+          <input type="text" class="form-control"  name="new_password" 
+          placeholder="new password">
+        </div>
+        <button type="submit" class="btn btn-default">change password</button>
+        <button type="submit" formaction="/delete_account" class="btn btn-default">delete account</button>
+    </form>
+
+    <!-- <form action="/delete_account" method="POST">
+      <button type="submit" class="btn btn-default">delete account</button>
+    </form> -->
+  </div>
+
+
   
   <br><br>
   

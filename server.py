@@ -25,7 +25,6 @@ app.jinja_env.undefined = StrictUndefined
 ################################################################################
 # Pages
 
-
 @app.route("/")
 def splash():
     """Splash page."""
@@ -90,6 +89,69 @@ def login_or_sign_up():
     return render_template("account.html")
 
 
+@app.route("/profile")
+def view_profile():
+    """View profile and favorites."""
+
+    if "user_id" in session:
+        fav_trucks = FavTruck.query.filter_by(user_id = session["user_id"]).all()
+        fav_popos = FavPopos.query.filter_by(user_id = session["user_id"]).all()
+        fav_art = FavArt.query.filter_by(user_id = session["user_id"]).all()
+
+        if not fav_trucks:
+            fav_trucks = []
+
+        if not fav_popos:
+            fav_popos = []
+
+        if not fav_art:
+            fav_art = []
+
+        return render_template("profile.html",
+                               fav_trucks=fav_trucks,
+                               fav_popos=fav_popos,
+                               fav_art=fav_art)
+    else:
+        flash("Please log in or sign up to view your profile.")
+        return redirect("/account")
+
+
+@app.route("/trucks")
+def view_trucks():
+    """View all food trucks."""
+
+    total_trucks, truck_dict = display_trucks()
+
+    return render_template("food-trucks.html",
+                           total_trucks=total_trucks,
+                           truck_dict=truck_dict)
+
+
+@app.route("/popos")
+def view_popos():
+    """View all POPOS."""
+
+    total_popos, popos_dict = display_popos()
+
+    return render_template("popos.html",
+                           total_popos=total_popos,
+                           popos_dict=popos_dict)
+
+
+@app.route("/art")
+def view_art():
+    """View all art."""
+
+    total_art, art_dict = display_art()
+
+    return render_template("art.html",
+                           total_art=total_art,
+                           art_dict=art_dict)
+
+
+################################################################################
+# Account-related
+
 @app.route("/log_in", methods=["POST"])
 def log_in():
     """Log in to your account."""
@@ -141,68 +203,7 @@ def sign_up():
         session["last_name"] = user.last_name
 
         flash("Thank you for registering!")
-        return render_template("profile.html")
-
-
-@app.route("/profile")
-def view_profile():
-    """View profile and favorites."""
-
-    if "user_id" in session:
-        fav_trucks = FavTruck.query.filter_by(user_id = session["user_id"]).all()
-        fav_popos = FavPopos.query.filter_by(user_id = session["user_id"]).all()
-        fav_art = FavArt.query.filter_by(user_id = session["user_id"]).all()
-
-        if not fav_trucks:
-            fav_trucks = []
-
-        if not fav_popos:
-            fav_popos = []
-
-        if not fav_art:
-            fav_art = []
-
-        return render_template("profile.html",
-                               fav_trucks=fav_trucks,
-                               fav_popos=fav_popos,
-                               fav_art=fav_art)
-    else:
-        flash("Please log in or sign up to view your profile.")
-        return redirect("/account")
-
-
-
-@app.route("/trucks")
-def view_trucks():
-    """View all food trucks."""
-
-    total_trucks, truck_dict = display_trucks()
-
-    return render_template("food-trucks.html",
-                           total_trucks=total_trucks,
-                           truck_dict=truck_dict)
-
-
-@app.route("/popos")
-def view_popos():
-    """View all POPOS."""
-
-    total_popos, popos_dict = display_popos()
-
-    return render_template("popos.html",
-                           total_popos=total_popos,
-                           popos_dict=popos_dict)
-
-
-@app.route("/art")
-def view_art():
-    """View all art."""
-
-    total_art, art_dict = display_art()
-
-    return render_template("art.html",
-                           total_art=total_art,
-                           art_dict=art_dict)
+        return redirect("/profile")
 
 
 @app.route("/sign_out")
@@ -218,6 +219,48 @@ def sign_out():
         flash("You have successfully signed out.")
         return redirect("/")
 
+
+@app.route("/change_password", methods=["POST"])
+def change_password():
+    """Change user password."""
+
+    user_id = session["user_id"]
+    new_password = request.form.get("new_password")
+    print new_password
+    user = User.query.get(user_id)
+
+    user.password = new_password
+    db.session.commit()
+
+    flash("You have successfully changed your password.")
+    return redirect("/profile")
+
+
+@app.route("/delete_account", methods=["POST"])
+def delete_account():
+    """Delete user account."""
+
+    user_id = session["user_id"]
+    fav_trucks = FavTruck.query.filter(FavTruck.user_id == user_id).all()
+    fav_popos = FavPopos.query.filter(FavPopos.user_id == user_id).all()
+    fav_art = FavArt.query.filter(FavArt.user_id == user_id).all()
+    all_favs = fav_trucks + fav_popos + fav_art
+
+    for fav in all_favs:
+        db.session.delete(fav)
+
+    user = User.query.get(user_id)
+    db.session.delete(user)
+
+    del session["user_id"]
+    del session["email"] 
+    del session["first_name"] 
+    del session["last_name"]
+
+    db.session.commit()
+
+    flash("We are sorry to see you go ='[")
+    return redirect("/")
 
 
 ################################################################################
