@@ -87,7 +87,7 @@ function plotDataTrucks(data) {
 
   // custom info window string
   var contentString = "<div id='content'>" +
-      "<p>FOOD TRUCK</p>" +
+      "<p><strong>FOOD TRUCK</strong></p>" +
       "<h3>" + title + "</h3>" + 
       "<p><button id='directions'>Directions</button> " +
       "<button id='addToFavTrucks'>Add to Favorites</button></p>" +
