@@ -246,7 +246,7 @@ function mapHelpers() {
 
     map.setZoom(15);
     map.setCenter(p1);
-    counter = 0
+    var counter = 0
 
     for (var marker of evt.data.markers) {
       var p2 = marker.position;
@@ -259,6 +259,9 @@ function mapHelpers() {
         marker.setVisible(true);
         counter++;
       }
+
+      $("#numLocations").html(counter + " nearby " + evt.data.type + 
+                              " within half a mile");
     }
   }
 
@@ -266,19 +269,22 @@ function mapHelpers() {
   google.maps.event.addListener(infoWindow, 'domready', function() {
     var data = {
       currentMarker: this.marker,
-      markers: truckMarkers
+      markers: truckMarkers,
+      type: "food trucks"
     }
     $("#nearbyTrucks").on("click", data, getNearbyMarkers);
 
     data = {
       currentMarker: this.marker,
-      markers: poposMarkers
+      markers: poposMarkers,
+      type: "POPOS"
     }
     $("#nearbyPopos").on("click", data, getNearbyMarkers);
 
     data = {
       currentMarker: this.marker,
-      markers: artMarkers
+      markers: artMarkers,
+      type: "art locations"
     }
     $("#nearbyArt").on("click", data, getNearbyMarkers);
   });

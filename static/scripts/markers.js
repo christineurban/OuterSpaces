@@ -97,6 +97,7 @@ function plotDataTrucks(data) {
       "<p><button id='nearbyTrucks'>Nearby Food Trucks</button> " +
       "<button id='nearbyPopos'>Nearby POPOS</button> " +
       "<button id='nearbyArt'>Nearby Art</button></p>" +
+      "<div id='numLocations'></div>" + 
       "</div>";
 
   // create marker
@@ -162,6 +163,7 @@ function plotDataPopos(data) {
       "<p><button id='nearbyTrucks'>Nearby Food Trucks</button> " +
       "<button id='nearbyPopos'>Nearby Popos</button> " +
       "<button id='nearbyArt'>Nearby Art</button></p>" +
+      "<div id='numLocations'></div>" + 
       "</div>";
 
   // create marker
@@ -228,6 +230,7 @@ function plotDataArt(data) {
       "<p><button id='nearbyTrucks'>Nearby Food Trucks</button> " +
       "<button id='nearbyPopos'>Nearby POPOS</button> " +
       "<button id='nearbyArt'>Nearby Art</button></p>" +
+      "<div id='numLocations'></div>" + 
       "</div>";
 
   // create marker
@@ -269,11 +272,6 @@ function plotDataArt(data) {
 
 
 function plotDataHoods(data) {
-
-  // var geom = data.the_geom.coordinates;
-  // var title = data.name;
-  // var link = data.link;
-  // var searchDetails = (title).toLowerCase();
 
   var feature = {
     type: "Feature",
