@@ -5,11 +5,14 @@ from jinja2 import StrictUndefined
 
 from flask_debugtoolbar import DebugToolbarExtension
 
-from model import (User, Truck, FavTruck, Popos, FavPopos, 
-                   Art, FavArt, db, connect_to_db)
+from model import (User, Truck, FavTruck, Popos, FavPopos, Art, FavArt, 
+                   Neighborhood, db, connect_to_db)
 
 from server_utilities import (app, get_truck_data_cached, get_popos_data_cached,
-    get_art_data_cached, display_trucks, display_popos, display_art)
+    get_art_data_cached, get_hood_data_cached, display_trucks, display_popos, 
+    display_art)
+
+from geoalchemy2.elements import WKTElement
 
 import os           # Access OS environment variables
 import string
@@ -464,6 +467,46 @@ def get_art():
     art = get_art_data_cached()
         
     return jsonify(art)
+
+
+@app.route("/data/hoods.json")
+def get_hoods():
+    """Get public art data from API as JSON."""
+
+    hoods = get_hood_data_cached()
+        
+    return jsonify(hoods)
+
+
+@app.route("/neighborhoods_to_db")
+def neighborhoods_to_db():
+    """Save neighborhood data in database."""
+
+    if not Neighborhood.query.get(1):
+        hoods = get_hood_data_cached()
+        
+        for hood in hoods:
+            coords = hood["the_geom"]["coordinates"][0][0]
+            polygon = ""
+
+            for coord in coords:
+                polygon += "{} {},".format(coord[0], coord[1])
+
+            polygon += "{} {},".format(coords[0][0], coords[0][1])
+
+            name = hood["name"]
+            link = hood["link"]
+            geom = WKTElement("POLYGON((" + polygon + "))")
+
+            new_hood = Neighborhood(name=name,
+                                    link=link,
+                                    geom=geom)
+
+            db.session.add(new_hood)
+            db.session.commit()
+
+
+    return "hi"
 
 
 

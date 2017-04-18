@@ -27,9 +27,13 @@ function getData() {
   // get public art data
   var artRequest = $.get("/data/art.json", loopDataArt);
 
-  $.when(truckRequest, poposRequest, artRequest).then(function() {
+  // get neighborhood data
+  var hoodRequest = $.get("/data/hoods.json", loopDataHoods);
+
+  $.when(truckRequest, poposRequest, artRequest, hoodRequest).then(function() {
     plotMarker();
     planMyTrip();
+    mapHelpers();
   });
 
 }
@@ -55,6 +59,12 @@ function loopDataPopos(data) {
 function loopDataArt(data) {
   for (var i = 0; i < data.length; i++) {
     plotDataArt(data[i]);
+  }
+}
+
+function loopDataHoods(data) {
+  for (var i = 0; i < data.length; i++) {
+    plotDataHoods(data[i]);
   }
 }
 
@@ -254,6 +264,27 @@ function plotDataArt(data) {
 
   // collect all markers in array
   artMarkers.push(marker);
+}
+
+
+
+function plotDataHoods(data) {
+
+  // var geom = data.the_geom.coordinates;
+  // var title = data.name;
+  // var link = data.link;
+  // var searchDetails = (title).toLowerCase();
+
+  var feature = {
+    type: "Feature",
+    geometry: data.the_geom,
+    properties: {
+      name: data.name,
+      link: data.link
+    }
+  };
+
+  map.data.addGeoJson(feature);
 }
 
 

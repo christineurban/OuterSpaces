@@ -1,6 +1,7 @@
 """Models and database functions for OuterSpaces project."""
 
 from flask_sqlalchemy import SQLAlchemy
+from geoalchemy2.types import Geometry
 
 db = SQLAlchemy()
 
@@ -150,6 +151,24 @@ class FavArt(db.Model):
 
         return "<FavArt fav_art_id={} user_id={} art_id={}>".format(
                self.fav_art_id, self.user_id, self.art_id)
+
+
+
+class Neighborhood(db.Model):
+    """San Francisco neighborhood."""
+
+    __tablename__ = "neighborhoods"
+
+    neighborhood_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    name = db.Column(db.Unicode(100), nullable=False)
+    link = db.Column(db.String(200), nullable=True)
+    geom = db.Column(Geometry(geometry_type="POLYGON"), 
+                              nullable=False)
+
+    def __repr__(self):
+        """Provide helpful representation when printed."""
+
+        return "<Neighborhood name={}>".format(self.name)
 
 
 

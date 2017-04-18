@@ -1,6 +1,6 @@
 "use strict"
 
-$(document).ready(function() {
+function mapHelpers() {
 
   ////////////////
   // Search box //
@@ -69,6 +69,18 @@ $(document).ready(function() {
       } else {
         marker.setVisible(false);
       }
+    }
+  });
+
+  $("#hoodMap").on("change", function() {
+    if ($("#hoodMap").is(":checked")) {
+      map.data.setStyle({visible: true});
+      map.data.setStyle({
+        fillOpacity: 0.0,
+        strokeWeight: 1
+      });
+    } else {
+      map.data.setStyle({visible: false});
     }
   });
 
@@ -232,6 +244,10 @@ $(document).ready(function() {
     var p1 = evt.data.currentMarker.position;
     evt.data.currentMarker.setVisible(true);
 
+    map.setZoom(15);
+    map.setCenter(p1);
+    counter = 0
+
     for (var marker of evt.data.markers) {
       var p2 = marker.position;
       // calucate distance between in meters/ divide by 1600 to get to miles
@@ -241,6 +257,7 @@ $(document).ready(function() {
       // show markers within half a mile
       if (distance < 0.5) {
         marker.setVisible(true);
+        counter++;
       }
     }
   }
@@ -266,7 +283,22 @@ $(document).ready(function() {
     $("#nearbyArt").on("click", data, getNearbyMarkers);
   });
 
-}); // end of document.ready
+
+
+  //////////////////////////////////////
+  // Neighborhoods on hover and click //
+  //////////////////////////////////////
+
+  map.data.addListener("mouseover", function(event) {
+    document.getElementById("infoBox").textContent =
+        event.feature.getProperty("name");
+  });
+
+  // map.data.addListener('click', function(event) {
+  //   event.feature.setProperty('isColorful', true);
+  // });
+
+} // end of mapHelpers()
 
 
 //////////////////

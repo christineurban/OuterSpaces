@@ -64,11 +64,37 @@ input[type=checkbox].artMap:checked:before {
     display: inline-block;
 }
 
+input[type=checkbox].hoodMap:before { 
+    content: ""; 
+    display: inline-block; 
+    width: .9em; 
+    height: .9em; 
+    background: white;
+    border-radius: 50%;
+    border: 1px solid black;
+}
+
+input[type=checkbox].hoodMap:checked:before { 
+    background: #aaa;
+    border-radius: 50%;
+    border: 1px solid black;
+    display: inline-block;
+}
+
 .nobreak {
     white-space: nowrap;
 }
 
 a {
     cursor: pointer;
+}
+
+#infoBox {
+    background-color: white;
+    bottom: 30px;
+    height: 40px;
+    padding: 10px;
+    position: absolute;
+    left: 30px;
 }
 

@@ -19,6 +19,10 @@ function initMap() {
   directionsDisplay.setMap(map);
   directionsDisplay.setPanel(document.getElementById("textDirections"));
 
+  map.data.setStyle({
+    fillOpacity: 0.0,
+    strokeWeight: 1
+  });
 
 
   ///////////////////////////
