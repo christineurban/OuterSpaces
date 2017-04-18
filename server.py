@@ -10,7 +10,7 @@ from model import (User, Truck, FavTruck, Popos, FavPopos, Art, FavArt,
 
 from server_utilities import (app, get_truck_data_cached, get_popos_data_cached,
     get_art_data_cached, get_hood_data_cached, display_trucks, display_popos, 
-    display_art)
+    display_art, display_by_hood)
 
 from geoalchemy2.elements import WKTElement
 
@@ -150,6 +150,19 @@ def view_art():
     return render_template("art.html",
                            total_art=total_art,
                            art_dict=art_dict)
+
+
+@app.route("/hoods")
+def view_hoods():
+    """View all art."""
+
+    test = display_by_hood()
+
+    return "hello"
+
+    # return render_template("art.html",
+    #                        total_art=total_art,
+    #                        art_dict=art_dict)
 
 
 ################################################################################
