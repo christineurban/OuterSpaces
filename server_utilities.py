@@ -156,10 +156,15 @@ def display_by_hood():
     hoods = get_hood_data_cached()
     total_hoods = len(hoods)
     hood_dict = {}
+    hood_links = {}
 
     for hood in hoods:
         hood_name = str(hood["name"].lower()).replace(" ", "").replace(".", "").replace("/", "")
         hood_dict[hood_name] = []
+        if "link" in hood:
+            hood_links[hood_name] = hood["link"]
+        else:
+            hood_links[hood_name] = []
 
 
     trucks = get_truck_data_cached()
@@ -198,5 +203,12 @@ def display_by_hood():
     # sort lists so each letter is alphabetized
     for hood, locations in hood_dict.items():
         locations.sort(key=lambda location: location["main_name"]) 
+
+    temp_dict = {}
+
+    for hood in hood_dict:
+        temp_dict[hood] = [hood_dict[hood], hood_links[hood]]
+
+    hood_dict = temp_dict
 
     return (total_hoods, hood_dict)

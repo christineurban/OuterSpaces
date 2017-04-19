@@ -11,6 +11,7 @@ function mapHelpers() {
       infoWindow.close();
       map.setCenter(sanFrancisco);
       map.setZoom(13);
+      map.data.setStyle({visible: false});
 
       var search = $("#search").val().toLowerCase();
       var allMarkers = truckMarkers.concat((poposMarkers.concat(artMarkers)));
@@ -25,16 +26,6 @@ function mapHelpers() {
   }
 
   $("#searchForm").on("submit", submitSearch);
-
-
-
-  ///////////////
-  // Reset map //
-  ///////////////
-
-  // $("#resetMap").on("click", function() {    
-  //   window.location.assign("/map");
-  // });
 
 
 
@@ -344,6 +335,48 @@ function mapHelpers() {
       }
     }
   });
+
+
+  ///////////////////////
+  // Search by address //
+  ///////////////////////
+
+
+  function showNearAddress() {
+    evt.preventDefault();
+    infoWindow.close();
+    map.data.setStyle({visible: false});
+
+    var search = $("#searchByAddress").val().toLowerCase();
+    var allMarkers = truckMarkers.concat((poposMarkers.concat(artMarkers)));
+
+    search = search.replace(/\s+/g, "+")
+
+
+    //TODO 
+    // https://developers.google.com/maps/documentation/geocoding/start
+    // https://developers.google.com/maps/documentation/geocoding/intro
+    // https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=YOUR_API_KEY
+
+    map.setCenter(p1);
+    map.setZoom(15);
+
+    for (var marker of allMarkers) {
+      var p2 = marker.position;
+      // calucate distance between in meters/ divide by 1600 to get to miles
+      var distance = 
+          (google.maps.geometry.spherical.computeDistanceBetween(p1, p2) / 1600);
+
+      // show markers within half a mile
+      if (distance < 0.5) {
+        marker.setVisible(true);
+        counter++;
+      }
+
+  }
+
+  $("#addressForm").on("click", showNearAddress);
+
 
 
 } // end of mapHelpers()

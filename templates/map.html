@@ -14,12 +14,12 @@
 
   <div class="col-xs-12 col-sm-8" id="{{ id }}">
 
-    <h3 class="text-center">Click on an OuterSpace marker on the map below to 
-    see detailed information, get directions, show nearby locations, or add to 
-    your favorites!</h3>
+    <h3 class="text-center">Click on an OuterSpace marker to see detailed 
+    information, get directions, show nearby locations, or add to your favorites. 
+    Click in a neighborhood to show OuterSpaces in that neighborhood.</h3>
 
     <div id="map"></div>
-    <div id="infoBox"></div>
+    <h3 id="infoBox"></h3>
 
   </div>
 
@@ -46,25 +46,40 @@
       <input type="checkbox" name="space" value="hood" class="checkbox-circle"
       id="hoodMap" checked>
       <label for="hoodMap">&nbsp;Neighborhoods</label>
+      <br><br>
     </span>
-  
-    <form id="searchForm">
-      <div class="form-group">
-        <input type="text" class="form-control"  name="search" 
-        placeholder="ice cream, tacos..." id="search">
-      </div>
-      <button type="submit" class="btn btn-default">Search</button>
-      <a href="/map"><button type="button" id="resetMap" class="btn btn-default">Reset</button></a>
 
-      {% if id != "view_map" %}
-        <form>
-          <input type="hidden" id="lat" value="{{ lat }}">
-          <input type="hidden" id="lng" value="{{ lng }}">
-          <input type="hidden" id="identifier" value="{{ identifier }}">
+   
+      <div class="col-xs-12 text-center">
+        <form id="searchForm">
+          <div class="form-group">
+            <input type="text" class="form-control"  name="search" 
+            placeholder="tacos, terrace..." id="search">
+          </div>
+          <button type="submit" class="btn btn-default">Search for OuterSpaces</button>
+          <a href="/map"><button type="button" id="resetMap" class="btn btn-default">Reset</button></a>
+
+          {% if id != "view_map" %}
+            <form>
+              <input type="hidden" id="lat" value="{{ lat }}">
+              <input type="hidden" id="lng" value="{{ lng }}">
+              <input type="hidden" id="identifier" value="{{ identifier }}">
+            </form>
+          {% endif %}
         </form>
-      {% endif %}
+        <br>
+      </div>
 
-    </form>
+
+      <div class="col-xs-12 text-center">
+        <form id="addressForm">
+          <div class="form-group">
+            <input type="text" class="form-control"  name="searchByAddress" 
+            placeholder="123 Market St" id="searchByAddress">
+          </div>
+          <button type="submit" class="btn btn-default">Show OuterSpaces Near an Address</button>
+      </div>
+   
 
 
     

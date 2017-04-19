@@ -197,16 +197,20 @@
 
 <br><br>
 
-  <h2 id="pageName"></h2><br>
+  <h2 id="pageName"></h2>
 
     {% for alpha in hood_dict %}
       <div id="{{ alpha }}" class="hideAlpha" hidden>
+      {% if hood_dict[alpha][1] %}
+        <h4><a href="{{ hood_dict[alpha][1] }}" target="_blank">{{ hood_dict[alpha][1] }}</a></h4>
+      {% endif %}
+      <br>
 
-      {% if not hood_dict[alpha] %}
+      {% if not hood_dict[alpha][0] %}
         <h3>Sorry, there are no OuterSpaces in this neighborhood.</h3>
       {% endif %}
 
-      {% for location in hood_dict[alpha] %}
+      {% for location in hood_dict[alpha][0] %}
 
         <!-- SHOW FOOD TRUCKS -->
         {% if location.kind == "truck" %}
