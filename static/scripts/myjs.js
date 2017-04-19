@@ -33,6 +33,8 @@ $(document).ready(function() {
     var alpha = $(this).html().replace(/\s+/g, '').replace(/\/+/g).replace(/\.+/g).toLowerCase();
     $(".hideAlpha").hide();
     $("#" + alpha).show();
+    var name = $(this).html();
+    $("#pageName").html(name);
   });
 
 

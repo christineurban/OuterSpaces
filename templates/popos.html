@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}POPOS | OuterSpaces{% endblock %}
+{% block title %}POPOS &bull; OuterSpaces{% endblock %}
 {% block body %}
       
   <h1>Privately Owned Public Open Spaces (POPOS) &mdash; {{ total_popos }} Locations</h1>
@@ -13,10 +13,11 @@
   </figure>
 
   <h3>
-    <a class="alpha">atrium</a>&nbsp; | &nbsp;<a class="alpha">greenhouse</a>&nbsp; | &nbsp;<a class="alpha">indoor park</a>&nbsp; | &nbsp;<a class="alpha">lobby</a>&nbsp; | &nbsp;
-    <a class="alpha">plaza</a>&nbsp; | &nbsp;<a class="alpha">pedestrian</a>&nbsp; | &nbsp;<a class="alpha">sitting area</a>&nbsp; | &nbsp;<a class="alpha">snippet</a>&nbsp; | &nbsp;<a class="alpha">sun terrace</a>&nbsp; | &nbsp;<a class="alpha">garden</a>&nbsp; | &nbsp;<a class="alpha">urban park</a>&nbsp; | &nbsp;<a class="alpha">view terrace</a>&nbsp; | &nbsp;
+    <a class="alpha">atrium</a>&nbsp; &bull; &nbsp;<a class="alpha">greenhouse</a>&nbsp; &bull; &nbsp;<a class="alpha">indoor park</a>&nbsp; &bull; &nbsp;<a class="alpha">lobby</a>&nbsp; &bull; &nbsp;<a class="alpha">plaza</a>&nbsp; &bull; &nbsp;<a class="alpha">pedestrian</a>&nbsp; &bull; &nbsp;<a class="alpha">sitting area</a>&nbsp; &bull; &nbsp;<a class="alpha">snippet</a>&nbsp; &bull; &nbsp;<a class="alpha">sun terrace</a>&nbsp; &bull; &nbsp;<a class="alpha">garden</a>&nbsp; &bull; &nbsp;<a class="alpha">urban park</a>&nbsp; &bull; &nbsp;<a class="alpha">view terrace</a>&nbsp; &bull; &nbsp;
     <a class="alpha">other</a>
   </h3><br>
+
+  <h2 id="pageName"></h2><br>
 
     {% for alpha in popos_dict %}
       <div id="{{ alpha }}" class="hideAlpha" hidden>

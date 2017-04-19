@@ -6,7 +6,8 @@
 
 
   <div class="btn-group">
-    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <button type="button" class="btn btn-default dropdown-toggle" 
+    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       a &ndash; b <span class="caret"></span>
     </button>
     <ul class="dropdown-menu">
@@ -24,7 +25,8 @@
   </div>
 
   <div class="btn-group">
-    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <button type="button" class="btn btn-default dropdown-toggle" 
+    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       c &ndash; d <span class="caret"></span>
     </button>
     <ul class="dropdown-menu">
@@ -45,13 +47,12 @@
       <li><a class="alpha">Dolores Heights</a></li>
       <li><a class="alpha">Downtown / Union Square</a></li>
       <li><a class="alpha">Duboce Triangle</a></li>
-      <li><a class="alpha">Eureka Valley</a></li>
-      <li><a class="alpha">Excelsior</a></li>
     </ul>
   </div>
 
   <div class="btn-group">
-    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <button type="button" class="btn btn-default dropdown-toggle" 
+    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       e &ndash; h <span class="caret"></span>
     </button>
     <ul class="dropdown-menu">
@@ -73,7 +74,8 @@
   </div>
 
   <div class="btn-group">
-    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <button type="button" class="btn btn-default dropdown-toggle" 
+    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       i &ndash; l <span class="caret"></span>
     </button>
     <ul class="dropdown-menu">
@@ -97,7 +99,8 @@
   </div>
 
   <div class="btn-group">
-    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <button type="button" class="btn btn-default dropdown-toggle" 
+    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       m &ndash; n <span class="caret"></span>
     </button>
     <ul class="dropdown-menu">
@@ -122,7 +125,8 @@
   </div>
 
   <div class="btn-group">
-    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <button type="button" class="btn btn-default dropdown-toggle" 
+    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       o &ndash; p <span class="caret"></span>
     </button>
     <ul class="dropdown-menu">
@@ -147,7 +151,8 @@
   </div>
 
   <div class="btn-group">
-    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <button type="button" class="btn btn-default dropdown-toggle" 
+    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       q &ndash; s <span class="caret"></span>
     </button>
     <ul class="dropdown-menu">
@@ -170,7 +175,8 @@
   </div>
 
   <div class="btn-group">
-    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <button type="button" class="btn btn-default dropdown-toggle" 
+    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       t &ndash; z <span class="caret"></span>
     </button>
     <ul class="dropdown-menu">
@@ -191,9 +197,14 @@
 
 <br><br>
 
+  <h2 id="pageName"></h2><br>
 
     {% for alpha in hood_dict %}
       <div id="{{ alpha }}" class="hideAlpha" hidden>
+
+      {% if not hood_dict[alpha] %}
+        <h3>Sorry, there are no OuterSpaces in this neighborhood.</h3>
+      {% endif %}
 
       {% for location in hood_dict[alpha] %}
 
