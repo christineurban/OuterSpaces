@@ -13,7 +13,7 @@ input[type=checkbox] {
     display: inline-block;
 }
 
-input[type=checkbox].truckMap:before { 
+input[type=checkbox]#truckMap:before { 
     content: ""; 
     display: inline-block; 
     width: .9em; 
@@ -23,14 +23,14 @@ input[type=checkbox].truckMap:before {
     border: 1px solid black;
 }
 
-input[type=checkbox].truckMap:checked:before { 
+input[type=checkbox]#truckMap:checked:before { 
     background: #99FF99;
     border-radius: 50%;
     border: 1px solid black;
     display: inline-block;
 }
 
-input[type=checkbox].poposMap:before { 
+input[type=checkbox]#poposMap:before { 
     content: ""; 
     display: inline-block; 
     width: .9em; 
@@ -40,14 +40,14 @@ input[type=checkbox].poposMap:before {
     border: 1px solid black;
 }
 
-input[type=checkbox].poposMap:checked:before { 
+input[type=checkbox]#poposMap:checked:before { 
     background: #9999FF;
     border-radius: 50%;
     border: 1px solid black;
     display: inline-block;
 }
 
-input[type=checkbox].artMap:before { 
+input[type=checkbox]#artMap:before { 
     content: ""; 
     display: inline-block; 
     width: .9em; 
@@ -57,14 +57,14 @@ input[type=checkbox].artMap:before {
     border: 1px solid black;
 }
 
-input[type=checkbox].artMap:checked:before { 
+input[type=checkbox]#artMap:checked:before { 
     background: #FF99FF;
     border-radius: 50%;
     border: 1px solid black;
     display: inline-block;
 }
 
-input[type=checkbox].hoodMap:before { 
+input[type=checkbox]#hoodMap:before { 
     content: ""; 
     display: inline-block; 
     width: .9em; 
@@ -74,7 +74,7 @@ input[type=checkbox].hoodMap:before {
     border: 1px solid black;
 }
 
-input[type=checkbox].hoodMap:checked:before { 
+input[type=checkbox]#hoodMap:checked:before { 
     background: #aaa;
     border-radius: 50%;
     border: 1px solid black;

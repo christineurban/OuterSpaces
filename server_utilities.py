@@ -1,6 +1,5 @@
 from flask import Flask, jsonify
 from flask_cache import Cache
-import json
 from shapely.geometry import shape, Point
 
 app = Flask(__name__)
@@ -114,7 +113,7 @@ def display_popos():
     total_popos = len(popos)
     popos_types = ["atrium", "greenhouse", "indoorpark", "lobby", "plaza",
         "pedestrian", "sittingarea", "snippet", "sunterrace", "garden",
-        "urbanpark", "view terrace", "other"]
+        "urbanpark", "viewterrace", "other"]
     popos_dict = {}
 
     for popos_type in popos_types:

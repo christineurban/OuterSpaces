@@ -30,7 +30,8 @@ $(document).ready(function() {
 
   $(".alpha").click(function(){
     // removes all whitespaces and lowercases
-    var alpha = $(this).html().replace(/\s+/g, '').replace(/\/+/g).replace(/\.+/g).toLowerCase();
+    var alpha = $(this).html().replace(/[\s\/\.]+/g, "").toLowerCase();
+    console.log(alpha);
     $(".hideAlpha").hide();
     $("#" + alpha).show();
     var name = $(this).html();

@@ -278,7 +278,8 @@ function plotDataHoods(data) {
     geometry: data.the_geom,
     properties: {
       name: data.name,
-      link: data.link
+      link: data.link,
+      selected: false
     }
   };
 
@@ -294,7 +295,8 @@ function plotDataHoods(data) {
 function plotMarker() {
   if (document.getElementById("map_one")) {
 
-    $("#truckMap, #poposMap, #artMap").prop("checked", false);
+    $("#truckMap, #poposMap, #artMap, #hoodMap").prop("checked", false);
+    map.data.setStyle({visible: false});
     var allMarkers = truckMarkers.concat((poposMarkers.concat(artMarkers)));
 
     var lat = $("#lat").val();

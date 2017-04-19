@@ -300,11 +300,54 @@ function mapHelpers() {
         event.feature.getProperty("name");
   });
 
-  // map.data.addListener('click', function(event) {
-  //   event.feature.setProperty('isColorful', true);
-  // });
+  map.data.addListener('click', function(event) {
+
+    var allMarkers = truckMarkers.concat((poposMarkers.concat(artMarkers)));
+
+    // show all neighborhoods and data
+    if (event.feature.getProperty("selected")) {
+      map.data.revertStyle();
+      map.data.setStyle({
+        visible: true,
+        fillOpacity: 0.0,
+        strokeWeight: 1
+      });
+      event.feature.setProperty("selected", false);
+
+      for (var marker of allMarkers) {
+        marker.setVisible(true);
+      }
+
+      // show only clicked neighborhood and data
+    } else {      
+      map.data.setStyle({visible: false});
+      map.data.overrideStyle(event.feature, {
+        visible: true,
+        fillOpacity: 0.0,
+        strokeWeight: 1
+      });
+      event.feature.setProperty("selected", true);
+
+      var polyPath = event.feature.getGeometry().getAt(0).getAt(0).getArray();
+      var polygon = new google.maps.Polygon({
+        paths: polyPath
+      });
+
+      for (var marker of allMarkers) {
+        var position = marker.position;
+
+        if (google.maps.geometry.poly.containsLocation(position, polygon)) {
+          marker.setVisible(true);
+        } else {
+          marker.setVisible(false);
+        }
+      }
+    }
+  });
+
 
 } // end of mapHelpers()
+
 
 
 //////////////////
