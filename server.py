@@ -154,15 +154,13 @@ def view_art():
 
 @app.route("/hoods")
 def view_hoods():
-    """View all art."""
+    """View all locations by neighborhood."""
 
-    test = display_by_hood()
+    total_hoods, hood_dict = display_by_hood()
 
-    return "hello"
-
-    # return render_template("art.html",
-    #                        total_art=total_art,
-    #                        art_dict=art_dict)
+    return render_template("neighborhoods.html",
+                           total_hoods=total_hoods,
+                           hood_dict=hood_dict)
 
 
 ################################################################################

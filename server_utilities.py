@@ -83,8 +83,7 @@ def display_trucks():
     for letter, trucks in truck_dict.items():
         trucks.sort(key=lambda truck: truck["applicant"])
 
-    for letter, trucks in truck_dict.items():
-        
+    for letter, trucks in truck_dict.items():     
         previous_truck = None
         locations = []
         display_trucks = []
@@ -160,7 +159,8 @@ def display_by_hood():
     hood_dict = {}
 
     for hood in hoods:
-        hood_dict[hood["name"]] = []
+        hood_name = str(hood["name"].lower()).replace(" ", "").replace(".", "").replace("/", "")
+        hood_dict[hood_name] = []
 
 
     trucks = get_truck_data_cached()
@@ -170,21 +170,34 @@ def display_by_hood():
 
     for hood in hoods:
         polygon = shape(hood["the_geom"])
+        hood_name = str(hood["name"].lower()).replace(" ", "").replace(".", "").replace("/", "")
 
         for truck in trucks:
             truck_point = Point(truck["location"]["coordinates"])
             if polygon.contains(truck_point):
-                hood_dict[hood["name"]].append(truck)
+                truck["kind"] = "truck"
+                truck["main_name"] = truck["applicant"]
+                hood_dict[hood_name].append(truck)
 
         for popo in popos:
             popo_point = Point(popo["the_geom"]["coordinates"])
             if polygon.contains(popo_point):
-                hood_dict[hood["name"]].append(popos)
+                popo["kind"] = "popos"
+                popo["main_name"] = popo["name"]
+                hood_dict[hood_name].append(popo)
 
         for art in public_art:
             art_point = Point(art["the_geom"]["coordinates"])
             if polygon.contains(art_point):
-                hood_dict[hood["name"]].append(art)
+                art["kind"] = "art"
+                if "title" in art:
+                    art["main_name"] = art["title"]
+                else:
+                    art["main_name"] = "Untitled"
+                hood_dict[hood_name].append(art)
 
-    print hood_dict
+    # sort lists so each letter is alphabetized
+    for hood, locations in hood_dict.items():
+        locations.sort(key=lambda location: location["main_name"]) 
 
+    return (total_hoods, hood_dict)

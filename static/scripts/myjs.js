@@ -29,7 +29,8 @@ $(document).ready(function() {
   //////////////////
 
   $(".alpha").click(function(){
-    var alpha = $(this).html().replace(/\s+/g, '');
+    // removes all whitespaces and lowercases
+    var alpha = $(this).html().replace(/\s+/g, '').replace(/\/+/g).replace(/\.+/g).toLowerCase();
     $(".hideAlpha").hide();
     $("#" + alpha).show();
   });

@@ -1,0 +1,334 @@
+{% extends "base.html" %}
+{% block title %}Neighborhoods &bull; OuterSpaces{% endblock %}
+{% block body %}
+      
+  <h1>San Francisco &mdash; {{ total_hoods }} Neighborhoods</h1>
+
+
+  <div class="btn-group">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      a &ndash; b <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+      <li><a class="alpha">Alamo Square</a></li>
+      <li><a class="alpha">Anza Vista</a></li>
+      <li><a class="alpha">Apparel City</a></li>
+      <li><a class="alpha">Aquatic Park / Ft. Mason</a></li>
+      <li><a class="alpha">Ashbury Heights</a></li>
+      <li><a class="alpha">Balboa Terrace</a></li>
+      <li><a class="alpha">Bayview</a></li>
+      <li><a class="alpha">Bernal Heights</a></li>
+      <li><a class="alpha">Bret Harte</a></li>
+      <li><a class="alpha">Buena Vista</a></li>
+    </ul>
+  </div>
+
+  <div class="btn-group">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      c &ndash; d <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+      <li><a class="alpha">Candlestick Point SRA</a></li>
+      <li><a class="alpha">Castro</a></li>
+      <li><a class="alpha">Cathedral Hill</a></li>
+      <li><a class="alpha">Cayuga</a></li>
+      <li><a class="alpha">Central Waterfront</a></li>
+      <li><a class="alpha">Chinatown</a></li>
+      <li><a class="alpha">Civic Center</a></li>
+      <li><a class="alpha">Clarendon Heights</a></li>
+      <li><a class="alpha">Cole Valley</a></li>
+      <li><a class="alpha">Corona Heights</a></li>
+      <li><a class="alpha">Cow Hollow</a></li>
+      <li><a class="alpha">Crocker Amazon</a></li>
+      <li><a class="alpha">Diamond Heights</a></li>
+      <li><a class="alpha">Dogpatch</a></li>
+      <li><a class="alpha">Dolores Heights</a></li>
+      <li><a class="alpha">Downtown / Union Square</a></li>
+      <li><a class="alpha">Duboce Triangle</a></li>
+      <li><a class="alpha">Eureka Valley</a></li>
+      <li><a class="alpha">Excelsior</a></li>
+    </ul>
+  </div>
+
+  <div class="btn-group">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      e &ndash; h <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+      <li><a class="alpha">Eureka Valley</a></li>
+      <li><a class="alpha">Excelsior</a></li>
+      <li><a class="alpha">Fairmount</a></li>
+      <li><a class="alpha">Financial District</a></li>
+      <li><a class="alpha">Fishermans Wharf</a></li>
+      <li><a class="alpha">Forest Hill</a></li>
+      <li><a class="alpha">Forest Knolls</a></li>
+      <li><a class="alpha">Glen Park</a></li>
+      <li><a class="alpha">Golden Gate Heights</a></li>
+      <li><a class="alpha">Golden Gate Park</a></li>
+      <li><a class="alpha">Haight Ashbury</a></li>
+      <li><a class="alpha">Hayes Valley</a></li>
+      <li><a class="alpha">Holly Park</a></li>
+      <li><a class="alpha">Hunters Point</a></li>
+    </ul>
+  </div>
+
+  <div class="btn-group">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      i &ndash; l <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+      <li><a class="alpha">India Basin</a></li>
+      <li><a class="alpha">Ingleside</a></li>
+      <li><a class="alpha">Ingleside Terraces</a></li>
+      <li><a class="alpha">Inner Richmond</a></li>
+      <li><a class="alpha">Inner Sunset</a></li>
+      <li><a class="alpha">Japantown</a></li>
+      <li><a class="alpha">Laguna Honda</a></li>
+      <li><a class="alpha">Lake Street</a></li>
+      <li><a class="alpha">Lakeshore</a></li>
+      <li><a class="alpha">Laurel Heights / Jordan Park</a></li>
+      <li><a class="alpha">Lincoln Park / Ft. Miley</a></li>
+      <li><a class="alpha">Little Hollywood.</a></li>
+      <li><a class="alpha">Lone Mountain</a></li>
+      <li><a class="alpha">Lower Haight</a></li>
+      <li><a class="alpha">Lower Nob Hill</a></li>
+      <li><a class="alpha">Lower Pacific Heights</a></li>
+    </ul>
+  </div>
+
+  <div class="btn-group">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      m &ndash; n <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+      <li><a class="alpha">Marina</a></li>
+      <li><a class="alpha">McLaren Park</a></li>
+      <li><a class="alpha">Merced Heights</a></li>
+      <li><a class="alpha">Merced Manor</a></li>
+      <li><a class="alpha">Midtown Terrace</a></li>
+      <li><a class="alpha">Mint Hill</a></li>
+      <li><a class="alpha">Miraloma Park</a></li>
+      <li><a class="alpha">Mission</a></li>
+      <li><a class="alpha">Mission Bay</a></li>
+      <li><a class="alpha">Mission Dolores</a></li>
+      <li><a class="alpha">Mission Terrace</a></li>
+      <li><a class="alpha">Monterey Heights</a></li>
+      <li><a class="alpha">Mt. Davidson Manor</a></li>
+      <li><a class="alpha">Nob Hill</a></li>
+      <li><a class="alpha">Noe Valley.</a></li>
+      <li><a class="alpha">North Beach</a></li>
+      <li><a class="alpha">Northern Waterfront</a></li>
+    </ul>
+  </div>
+
+  <div class="btn-group">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      o &ndash; p <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+      <li><a class="alpha">Oceanview</a></li>
+      <li><a class="alpha">Outer Mission</a></li>
+      <li><a class="alpha">Outer Richmond</a></li>
+      <li><a class="alpha">Outer Sunset</a></li>
+      <li><a class="alpha">Pacific Heights</a></li>
+      <li><a class="alpha">Panhandle</a></li>
+      <li><a class="alpha">Parkmerced</a></li>
+      <li><a class="alpha">Parkside</a></li>
+      <li><a class="alpha">Parnassus Heights</a></li>
+      <li><a class="alpha">Peralta Heights</a></li>
+      <li><a class="alpha">Polk Gulch</a></li>
+      <li><a class="alpha">Portola</a></li>
+      <li><a class="alpha">Potrero Hill</a></li>
+      <li><a class="alpha">Presidio Heights</a></li>
+      <li><a class="alpha">Presidio National Park</a></li>
+      <li><a class="alpha">Presidio Terrace</a></li>
+      <li><a class="alpha">Produce Market</a></li>
+    </ul>
+  </div>
+
+  <div class="btn-group">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      q &ndash; s <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+      <li><a class="alpha">Rincon Hill</a></li>
+      <li><a class="alpha">Russian Hill</a></li>
+      <li><a class="alpha">Seacliff</a></li>
+      <li><a class="alpha">Sherwood Forest</a></li>
+      <li><a class="alpha">Showplace Square</a></li>
+      <li><a class="alpha">Silver Terrace</a></li>
+      <li><a class="alpha">South Beach</a></li>
+      <li><a class="alpha">South of Market</a></li>
+      <li><a class="alpha">St. Francis Wood</a></li>
+      <li><a class="alpha">St. Marys Park</a></li>
+      <li><a class="alpha">Stonestown</a></li>
+      <li><a class="alpha">Sunnydale</a></li>
+      <li><a class="alpha">Sunnyside</a></li>
+      <li><a class="alpha">Sutro Heights</a></li>
+      <li><a class="alpha">Telegraph Hill</a></li>
+    </ul>
+  </div>
+
+  <div class="btn-group">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      t &ndash; z <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+      <li><a class="alpha">Telegraph Hill</a></li>
+      <li><a class="alpha">Tenderloin</a></li>
+      <li><a class="alpha">Treasure Island</a></li>
+      <li><a class="alpha">Union Street</a></li>
+      <li><a class="alpha">University Mound</a></li>
+      <li><a class="alpha">Upper Market</a></li>
+      <li><a class="alpha">Visitacion Valley</a></li>
+      <li><a class="alpha">West Portal</a></li>
+      <li><a class="alpha">Western Addition</a></li>
+      <li><a class="alpha">Westwood Highlands</a></li>
+      <li><a class="alpha">Westwood Park</a></li>
+      <li><a class="alpha">Yerba Buena Island</a></li>
+    </ul>
+  </div>
+
+<br><br>
+
+
+    {% for alpha in hood_dict %}
+      <div id="{{ alpha }}" class="hideAlpha" hidden>
+
+      {% for location in hood_dict[alpha] %}
+
+        <!-- SHOW FOOD TRUCKS -->
+        {% if location.kind == "truck" %}
+
+          {% if location.applicant != "BSM - TEST1" %} <!-- exclude test data -->
+            <h3>{{ location.applicant }}</h3>
+            FOOD TRUCK
+
+            {% if "fooditems" in location %}
+              <h4>{{ location.fooditems }}</h4>
+            {% endif %}
+            
+            <p>
+              {% if "address" in location %}
+                <strong>Address: </strong>{{ location.address }}<br>
+              {% endif %}
+
+              {% if "dayshours" in location %}
+                <strong>Hours: </strong>{{ location.dayshours }}<br>
+              {% endif %}
+
+              <form action="/one" method="POST">
+                <input type="hidden" name="lat" class="lat" 
+                value="{{ location.location.coordinates[1] }}">
+
+                <input type="hidden" name="lng" class="lng" 
+                value="{{ location.location.coordinates[0] }}">
+
+                <input type="hidden" name="identifier" 
+                class="identifier" value="{{ location.applicant }}">
+
+                <input type="submit" value="show on map">
+              </form>
+              <br>
+            </p>
+          {% endif %}
+        {% endif %}
+
+
+        <!-- SHOW POPOS -->
+        {% if location.kind == "popos" %}
+
+          <h3>{{ location.name }}</h3>
+          POPOS
+          <p>
+            <strong>Address:</strong>{{ location.popos_addr }}<br>
+
+            {% if "hours" in location %}
+              <strong>Hours:</strong>{{ location.hours }}<br>
+            {% endif %}
+
+            {% if "location" in location %}
+              <strong>Location:</strong>{{ location.location }}<br>
+            {% endif %}
+
+            {% if "type" in location %}
+              <strong>Type:</strong>{{ location.type }}<br>
+            {% endif %}
+
+            {% if "year" in location %}
+              <strong>Year:</strong>{{ location.year }}<br>
+            {% endif %}
+
+            {% if "desc" in location %}
+              {{location.desc}}<br>
+            {% endif %}
+
+            <form action="/one" method="POST">
+              <input type="hidden" name="lat" class="lat" 
+              value="{{ location.the_geom.coordinates[1] }}">
+
+              <input type="hidden" name="lng" class="lng" 
+              value="{{ location.the_geom.coordinates[0] }}">
+
+              <input type="hidden" name="identifier" 
+              class="identifier" value="{{ location.name }}">
+
+              <input type="submit" value="show on map">
+            </form>
+            <br>
+          </p>
+        {% endif %}
+
+        <!-- SHOW ART -->
+        {% if location.kind == "art" %}
+
+          {% if "title" in location %}
+            <h3>{{ location.title }}</h3>
+          {% else %}
+            <h3>Untitled</h3>
+          {% endif %}
+          PUBLIC ART
+
+          <p>
+            <strong>Address:</strong>{{ location.name }}<br>
+
+            {% if "location" in location %}
+              <strong>Location:</strong>{{ location.location }}<br>
+            {% endif %}
+
+            {% if "type" in location %}
+              <strong>Type:</strong>{{ location.type }}<br>
+            {% endif %}
+
+            {% if "medium" in location %}
+              <strong>Medium:</strong>{{ location.medium }}<br>
+            {% endif %}
+
+            {% if "artistlink" in location %}
+              <a target="_blank" 
+              href="{{location.artistlink}}">{{ location.artistlink }}</a><br>
+            {% endif %}
+
+            <form action="/one" method="POST">
+              <input type="hidden" name="lat" class="lat" 
+              value="{{ location.the_geom.coordinates[1] }}">
+
+              <input type="hidden" name="lng" class="lng" 
+              value="{{ location.the_geom.coordinates[0] }}">
+
+              <input type="hidden" name="identifier" 
+              class="identifier" value="{{ location.name }}">
+              
+              <input type="submit" value="show on map">
+            </form>
+            <br>
+          </p>
+        {% endif %}
+
+      {% endfor %}
+      </div> 
+    {% endfor %}
+
+
+
+{% endblock %}
