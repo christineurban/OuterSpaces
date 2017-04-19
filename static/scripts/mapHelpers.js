@@ -241,7 +241,7 @@ function mapHelpers() {
 
     for (var marker of evt.data.markers) {
       var p2 = marker.position;
-      // calucate distance between in meters/ divide by 1600 to get to miles
+      // calucate distance between in meters / divide by 1600 to get to miles
       var distance = 
           (google.maps.geometry.spherical.computeDistanceBetween(p1, p2) / 1600);
 
@@ -342,28 +342,19 @@ function mapHelpers() {
   ///////////////////////
 
 
-  function showNearAddress() {
-    evt.preventDefault();
-    infoWindow.close();
-    map.data.setStyle({visible: false});
+  function geocodeResponse(data) {
+    var coords = data.results[0].geometry.location;
+    var p1 = new google.maps.LatLng(coords.lat, coords.lng);
 
-    var search = $("#searchByAddress").val().toLowerCase();
-    var allMarkers = truckMarkers.concat((poposMarkers.concat(artMarkers)));
-
-    search = search.replace(/\s+/g, "+")
-
-
-    //TODO 
-    // https://developers.google.com/maps/documentation/geocoding/start
-    // https://developers.google.com/maps/documentation/geocoding/intro
-    // https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=YOUR_API_KEY
-
-    map.setCenter(p1);
+    map.setCenter(coords);
     map.setZoom(15);
+    var counter = 0;
+
+    var allMarkers = truckMarkers.concat((poposMarkers.concat(artMarkers)));
 
     for (var marker of allMarkers) {
       var p2 = marker.position;
-      // calucate distance between in meters/ divide by 1600 to get to miles
+      // calucate distance between in meters / divide by 1600 to get to miles
       var distance = 
           (google.maps.geometry.spherical.computeDistanceBetween(p1, p2) / 1600);
 
@@ -371,12 +362,30 @@ function mapHelpers() {
       if (distance < 0.5) {
         marker.setVisible(true);
         counter++;
+      } else {
+        marker.setVisible(false);
       }
+    }
 
+    $("#numLocationsAddress").html(counter + " OuterSpaces within half a mile");
   }
 
-  $("#addressForm").on("click", showNearAddress);
 
+  function geocodeRequest(data) {
+    var search = $("#searchByAddress").val().toLowerCase().replace(/\s+/g, "+");
+    $.get("https://maps.googleapis.com/maps/api/geocode/json?address=" 
+      + search + "San+Francisco&key=" + data, geocodeResponse);
+  }
+
+  function showNearAddress(evt) {
+    evt.preventDefault();
+    infoWindow.close();
+    map.data.setStyle({visible: false});
+
+    $.get("/data/gkey", geocodeRequest);
+  } 
+
+  $("#addressForm").on("submit", showNearAddress);
 
 
 } // end of mapHelpers()

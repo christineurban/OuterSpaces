@@ -166,11 +166,9 @@ def display_by_hood():
         else:
             hood_links[hood_name] = []
 
-
     trucks = get_truck_data_cached()
     popos = get_popos_data_cached()
     public_art = get_art_data_cached()
-
 
     for hood in hoods:
         polygon = shape(hood["the_geom"])

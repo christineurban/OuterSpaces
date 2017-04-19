@@ -20,6 +20,7 @@ import string
 
 # app = Flask(__name__)
 app.secret_key = os.environ["FLASK_SECRET_KEY"]
+google_maps_key = os.environ["GOOGLE_MAPS_API_KEY"]
 
 # raise an error if variable is undefined
 app.jinja_env.undefined = StrictUndefined
@@ -39,11 +40,10 @@ def splash():
 def view_map():
     """Google Map of food trucks, POPOS, and public art"""
 
-    key = os.environ["GOOGLE_MAPS_API_KEY"]
     id = "view_map"
                            
     return render_template("map.html",
-                           key=key,
+                           key=google_maps_key,
                            id=id,
                            lat=None,
                            lng=None,
@@ -54,7 +54,6 @@ def view_map():
 def map_one():
     """Google Map of specific favorite"""
 
-    key = os.environ["GOOGLE_MAPS_API_KEY"]
     id = "map_one"
 
     lat = request.form.get("lat")
@@ -62,7 +61,7 @@ def map_one():
     identifier = request.form.get("identifier").lower()
                     
     return render_template("map.html",
-                           key=key,
+                           key=google_maps_key,
                            id=id,
                            lat=lat,
                            lng=lng,
@@ -73,12 +72,10 @@ def map_one():
 def plan_trip():
     """Plan trip based on current location."""
 
-    key = os.environ["GOOGLE_MAPS_API_KEY"]
     id = "plan_trip"
 
-
     return render_template("map.html",
-                           key=key,
+                           key=google_maps_key,
                            id=id,
                            lat=None,
                            lng=None,
@@ -489,36 +486,13 @@ def get_hoods():
     return jsonify(hoods)
 
 
-@app.route("/neighborhoods_to_db")
-def neighborhoods_to_db():
-    """Save neighborhood data in database."""
+@app.route("/data/gkey")
+def get_gkey():
+    """Pass gkey to front-end."""
 
-    if not Neighborhood.query.get(1):
-        hoods = get_hood_data_cached()
-        
-        for hood in hoods:
-            coords = hood["the_geom"]["coordinates"][0][0]
-            polygon = ""
+    return google_maps_key
 
-            for coord in coords:
-                polygon += "{} {},".format(coord[0], coord[1])
-
-            polygon += "{} {},".format(coords[0][0], coords[0][1])
-
-            name = hood["name"]
-            link = hood["link"]
-            geom = WKTElement("POLYGON((" + polygon + "))")
-
-            new_hood = Neighborhood(name=name,
-                                    link=link,
-                                    geom=geom)
-
-            db.session.add(new_hood)
-            db.session.commit()
-
-
-    return "hi"
-
+    
 
 
 if __name__ == "__main__":

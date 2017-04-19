@@ -6,7 +6,7 @@ $(document).ready(function() {
   // Toggle log in and sign up forms //
   /////////////////////////////////////
 
-  $("#signUpBtn").click(function(){
+  $("#signUpBtn").on("click", function(){
       $("#logInForm").hide();
       $("#fNameSignUp, #lNameSignUp, #emailSignUp, #pwSignUp").attr("type", "text");
       $("#submitSignUp").attr("type", "submit");
@@ -15,7 +15,7 @@ $(document).ready(function() {
   });
 
 
-  $("#logInBtn").click(function(){
+  $("#logInBtn").on("click", function(){
       $("#fNameSignUp, #lNameSignUp, #emailSignUp, #pwSignUp, #submitSignUp").attr("type", "hidden");
       $("#logInForm").show();
       $("#logInBtn").prop("disabled");
@@ -28,7 +28,7 @@ $(document).ready(function() {
   // Toggle Alpha //
   //////////////////
 
-  $(".alpha").click(function(){
+  $(".alpha").on("click", function(){
     // removes all whitespaces and lowercases
     var alpha = $(this).html().replace(/[\s\/\.]+/g, "").toLowerCase();
     console.log(alpha);
