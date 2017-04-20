@@ -301,7 +301,7 @@ def add_truck_to_favorites():
             # check if user has already favorited truck
             if FavTruck.query.filter(FavTruck.user_id == user_id,
                                      FavTruck.truck_id == truck_id).first():
-                return "This spot is already in your favorites."    
+                return "Lucky for you, this OuterSpace is already in your favorites!"    
 
         else:
             # if truck not in DB, add truck
