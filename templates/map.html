@@ -49,41 +49,36 @@
       <br><br>
     </span>
 
-   
-      <div class="col-xs-12 text-center">
-        <form id="searchForm">
-          <div class="form-group">
-            <input type="text" class="form-control"  name="search" 
-            placeholder="tacos, terrace..." id="search">
-          </div>
-          <button type="submit" class="btn btn-default">Search for OuterSpaces</button>
-          <a href="/map"><button type="button" id="resetMap" class="btn btn-default">Reset</button></a>
+    <div class="col-xs-12 text-center">
+      <form id="searchForm">
+        <div class="form-group">
+          <input type="text" class="form-control"  name="search" 
+          placeholder="tacos, terrace..." id="search">
+        </div>
+        <button type="submit" class="btn btn-default">Search for OuterSpaces</button>
+        <a href="/map"><button type="button" id="resetMap" class="btn btn-default">Reset</button></a>
 
-          {% if id != "view_map" %}
-            <form>
-              <input type="hidden" id="lat" value="{{ lat }}">
-              <input type="hidden" id="lng" value="{{ lng }}">
-              <input type="hidden" id="identifier" value="{{ identifier }}">
-            </form>
-          {% endif %}
-        </form>
-        <br>
-      </div>
+        {% if id != "view_map" %}
+          <form>
+            <input type="hidden" id="lat" value="{{ lat }}">
+            <input type="hidden" id="lng" value="{{ lng }}">
+            <input type="hidden" id="identifier" value="{{ identifier }}">
+          </form>
+        {% endif %}
+      </form>
+      <br>
+    </div>
 
-
-      <div class="col-xs-12 text-center">
-        <form id="addressForm">
-          <div class="form-group">
-            <input type="text" class="form-control"  name="searchByAddress" 
-            placeholder="123 Market St" id="searchByAddress">
-          </div>
-          <button type="submit" class="btn btn-default">Show OuterSpaces Near an Address</button>
-        </form>
-        <div id="numLocationsAddress"></div>
-      </div>
-   
-
-
+    <div class="col-xs-12 text-center">
+      <form id="addressForm">
+        <div class="form-group">
+          <input type="text" class="form-control"  name="searchByAddress" 
+          placeholder="123 Market St" id="searchByAddress">
+        </div>
+        <button type="submit" class="btn btn-default">Show OuterSpaces Near an Address</button>
+      </form>
+      <div id="numLocationsAddress"></div>
+    </div>
     
     <div id="textDirections"></div>
 

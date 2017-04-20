@@ -118,7 +118,8 @@ function initMap() {
       };
       var marker = new google.maps.Marker({
         position: pos,
-        map: map
+        map: map,
+        icon:  "../static/images/map-pin.png"
       });
 
       // if map_one, center on that location

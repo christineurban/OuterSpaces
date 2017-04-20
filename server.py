@@ -6,7 +6,7 @@ from jinja2 import StrictUndefined
 from flask_debugtoolbar import DebugToolbarExtension
 
 from model import (User, Truck, FavTruck, Popos, FavPopos, Art, FavArt, 
-                   Neighborhood, db, connect_to_db)
+                   db, connect_to_db)
 
 from server_utilities import (app, get_truck_data_cached, get_popos_data_cached,
     get_art_data_cached, get_hood_data_cached, display_trucks, display_popos, 
@@ -277,7 +277,6 @@ def delete_account():
 ################################################################################
 # Add to favorites
 
-
 @app.route("/favorite-truck", methods=["POST"])
 def add_truck_to_favorites():
     """Add a food truck to favorites."""
@@ -444,11 +443,8 @@ def add_art_to_favorites():
         return "Oops! You must be logged in to save a favorite."
 
 
-
-
 ################################################################################
 # Get data from API
-
 
 @app.route("/data/trucks.json")
 def get_trucks():
@@ -492,8 +488,8 @@ def get_gkey():
 
     return google_maps_key
 
-    
 
+################################################################################
 
 if __name__ == "__main__":
     

@@ -60,8 +60,13 @@
                 <input type="hidden" name="lng" class="lng" 
                 value="{{ art.the_geom.coordinates[0] }}">
 
-                <input type="hidden" name="identifier" 
-                class="identifier" value="{{ art.name }}">
+                {% if "title" in art %}
+                  <input type="hidden" name="identifier" 
+                  class="identifier" value="{{ art.title }}">
+                {% else %}
+                  <input type="hidden" name="identifier" 
+                  class="identifier" value="{{ art.name }}">
+                {% endif %}
                 
                 <input type="submit" value="show on map">
               </form>

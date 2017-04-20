@@ -303,20 +303,21 @@ function plotMarker() {
     var lng = $("#lng").val();
     var identifier = $("#identifier").val();
 
+    var markerFound = false;
+
     for (var marker of allMarkers) {
       if (marker.lat == lat && 
           marker.lng == lng && 
           marker.searchDetails.includes(identifier) ) {
         marker.setVisible(true);
+        markerFound = true;
       } else {
         marker.setVisible(false);
       }
     }
-
-    // TODO
-    // if (noMarker) {
-    //   alert("Uh oh! It looks like this space has moved or no longer exists.");
-    // }
+    if (!markerFound) {
+      alert("Uh oh! It looks like this space has moved or no longer exists.");
+    }
   }
 }
 
