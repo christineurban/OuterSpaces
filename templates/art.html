@@ -61,11 +61,9 @@
                 value="{{ art.the_geom.coordinates[0] }}">
 
                 {% if "title" in art %}
-                  <input type="hidden" name="identifier" 
-                  class="identifier" value="{{ art.title }}">
+                  <input type="hidden" name="identifier" value="{{ art.title }}">
                 {% else %}
-                  <input type="hidden" name="identifier" 
-                  class="identifier" value="{{ art.name }}">
+                  <input type="hidden" name="identifier" value="{{ art.name }}">
                 {% endif %}
                 
                 <input type="submit" value="show on map">

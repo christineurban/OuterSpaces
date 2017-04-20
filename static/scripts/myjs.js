@@ -8,7 +8,9 @@ $(document).ready(function() {
 
   $("#signUpBtn").on("click", function(){
       $("#logInForm").hide();
-      $("#fNameSignUp, #lNameSignUp, #emailSignUp, #pwSignUp").attr("type", "text");
+      $("#fNameSignUp, #lNameSignUp").attr("type", "text");
+      $("#emailSignUp").attr("type", "email");
+      $("#pwSignUp").attr("type", "password");
       $("#submitSignUp").attr("type", "submit");
       $("#signUpBtn").prop("disabled");
       $("#logInBtn").prop("disabled", false);
@@ -31,7 +33,6 @@ $(document).ready(function() {
   $(".alpha").on("click", function(){
     // removes all whitespaces and lowercases
     var alpha = $(this).html().replace(/[\s\/\.]+/g, "").toLowerCase();
-    console.log(alpha);
     $(".hideAlpha").hide();
     $("#" + alpha).show();
     var name = $(this).html();
@@ -39,17 +40,17 @@ $(document).ready(function() {
   });
 
 
-  // //////////////////////
-  // // Flash into modal //
-  // //////////////////////
+  ////////////////////
+  // Delete account //
+  ////////////////////
 
-  // var messages = "{{ get_flashed_messages() }}";
+  $("#deleteBtnModal").on("click", function() {
+    $("#deleteBtnHidden").submit();
+  });
 
-  // if (typeof messages != 'undefined' && messages != '[]') {
-  //   console.log(messages);
-  //   $("#flashModal").modal();
-  // };
-
+  $("#deleteAcct").on("click", function() {
+    $("#deleteModal").modal();
+  });
 
 
 }); // end of $(document).ready
