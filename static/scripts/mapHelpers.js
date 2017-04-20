@@ -401,6 +401,8 @@ function mapHelpers() {
 function planMyTrip() {
   if (document.getElementById("plan_trip")) {
 
+    map.data.setStyle({visible: false});
+
     // get current location
     navigator.geolocation.getCurrentPosition(function(position) {
       var p1 = new google.maps.LatLng(position.coords.latitude,
@@ -534,6 +536,7 @@ function planMyTrip() {
           nodes[n].innerHTML = title[n];
       }
         // show the panel
+        $(".warnbox-content, .warnbox-c1, .warnbox-c2").hide();
         directionsDisplay.getPanel().style.visibility="visible";
       }, 500);
 
