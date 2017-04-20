@@ -92,7 +92,7 @@ function initMap() {
             }
         ]
     }
-]
+  ]
   });
   infoWindow = new google.maps.InfoWindow({
     maxWidth: 350

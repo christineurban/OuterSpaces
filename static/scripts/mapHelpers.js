@@ -146,7 +146,9 @@ function mapHelpers() {
   //////////////////////
 
   function addedToFavorites(result) {
-    alert(result);
+    // alert(result);
+    $("#mapModal").modal();
+    $("#mapModalHtml").html(result);
   }
 
 
@@ -345,10 +347,6 @@ function mapHelpers() {
   function geocodeResponse(data) {
     var coords = data.results[0].geometry.location;
     var p1 = new google.maps.LatLng(coords.lat, coords.lng);
-    var currentMarker = new google.maps.Marker({
-        position: p1,
-        map: map
-      });
 
     map.setCenter(coords);
     map.setZoom(15);
