@@ -39,4 +39,17 @@ $(document).ready(function() {
   });
 
 
+  // //////////////////////
+  // // Flash into modal //
+  // //////////////////////
+
+  // var messages = "{{ get_flashed_messages() }}";
+
+  // if (typeof messages != 'undefined' && messages != '[]') {
+  //   console.log(messages);
+  //   $("#flashModal").modal();
+  // };
+
+
+
 }); // end of $(document).ready

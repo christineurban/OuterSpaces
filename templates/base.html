@@ -56,20 +56,51 @@
   <div class="container">
     <div class="row">
 
-      {% with messages = get_flashed_messages() %}
-        {% if messages %}
-          <p class=flashes>
-          {% for message in messages %}
-            {{ message }}
-          {% endfor %}
-          </p>
-        {% endif %}
-      {% endwith %}
+      <div id="flashModal" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+
+              <!-- Modal content-->
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title">OuterSpaces Says...</h4>
+                  </div>
+                  <div class="modal-body">
+                      {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                          <p class=flashes>
+                          {% for message in messages %}
+                            {{ message }}
+                          {% endfor %}
+                          </p>
+                        {% endif %}
+                      {% endwith %}
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </div>
+              </div>
+
+          </div>
+      </div>
 
       {% block body %} BODY GOES HERE {% endblock %}
 
     </div>
   </div>
+
+  <script>
+    //////////////////////
+    // Flash into modal //
+    //////////////////////
+
+    var messages = "{{ get_flashed_messages() }}";
+
+    if (typeof messages != 'undefined' && messages != '[]') {
+      console.log(messages);
+      $("#flashModal").modal();
+    };
+  </script>
 
 </body>
 </html>
