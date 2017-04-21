@@ -72,15 +72,21 @@ class OuterSpacesTests(unittest.TestCase):
     def test_profile(self):
         """Test profile page: not logged in."""
 
-        result = self.client.get("/profile")
-        self.assertEqual(result.status_code, 302)
+        result = self.client.get("/profile",
+                                 follow_redirects=True)
+        self.assertEqual(result.status_code, 200)
+        self.assertIn("Log In or Sign Up | OuterSpaces", result.data)
 
 
     def test_one(self):
         """Test one route."""
 
-        result = self.client.post("/one")
-        self.assertEqual(result.status_code, 405)
+        result = self.client.post("/one",
+                                  data={"lat": "37.7425503735592",
+                                        "lng": "-122.492677082215",
+                                        "identifier": "Swell Cream & Coffee"},
+                                  follow_redirects=True)
+        self.assertEqual(result.status_code, 200)
         self.assertIn('id="map_one"', result.data)
 
 
@@ -151,24 +157,6 @@ class OuterSpacesTestsDatabase(unittest.TestCase):
         db.drop_all()
 
 
-    def test_log_in(self):
-        """Test log in route."""
-
-        result = self.client.post("/log_in",
-                                  data={"emailLogIn": "Jane",
-                                        "pwLogIn": "abc"})
-        self.assertEqual(result.status_code, 200)
-        self.assertIn("Profile | OuterSpaces", result.data)
-
-
-    def test_sign_up(self):
-        """Test sign up route."""
-
-        result = self.client.post("/sign_up")
-        self.assertEqual(result.status_code, 200)
-        self.assertIn("Profile | OuterSpaces", result.data)
-
-
     def test_profile(self):
         """Test profile page: logged in."""
 
@@ -180,7 +168,8 @@ class OuterSpacesTestsDatabase(unittest.TestCase):
     def test_sign_out(self):
         """Test sign out route."""
 
-        result = self.client.post("/sign_out")
+        result = self.client.get("/sign_out",
+                                 follow_redirects=True)
         self.assertEqual(result.status_code, 200)
         self.assertIn("Find an OuterSpace", result.data)
 
@@ -188,7 +177,9 @@ class OuterSpacesTestsDatabase(unittest.TestCase):
     def test_change_password(self):
         """Test change password route."""
 
-        result = self.client.post("/change_password")
+        result = self.client.post("/change_password",
+                                  data={"new_password": "abcdefg"},
+                                  follow_redirects=True)
         self.assertEqual(result.status_code, 200)
         self.assertIn("Profile | OuterSpaces", result.data)
 
@@ -196,7 +187,8 @@ class OuterSpacesTestsDatabase(unittest.TestCase):
     def test_delete_account(self):
         """Test delete account route."""
 
-        result = self.client.post("/delete_account")
+        result = self.client.post("/delete_account",
+                                  follow_redirects=True)
         self.assertEqual(result.status_code, 200)
         self.assertIn("Find an OuterSpace", result.data)
 
@@ -223,6 +215,58 @@ class OuterSpacesTestsDatabase(unittest.TestCase):
         result = self.client.post("/favorite-art")
         self.assertEqual(result.status_code, 200)
         self.assertIn("Oops! You must be logged in to save a favorite.", result.data)
+
+
+
+class OuterSpacesTestsDatabaseNoSession(unittest.TestCase):
+    """Flask tests that use the database without session."""
+
+    def setUp(self):
+        """Stuff to do before every test."""
+
+        # Get the Flask test client
+        self.client = app.test_client()
+
+        # Show Flask errors that happen during tests
+        app.config["TESTING"] = True
+
+        # Connect to test database
+        connect_to_db(app, "postgresql:///outerspacestest")
+
+        # Create tables and add sample data
+        db.create_all()
+        example_data()
+
+
+    def tearDown(self):
+        """Do at end of every test."""
+
+        db.session.close()
+        db.drop_all()
+
+
+    def test_sign_up(self):
+        """Test sign up route."""
+
+        result = self.client.post("/sign_up",
+                                  data={"fNameSignUp": "Curious",
+                                        "lNameSignUp": "George",
+                                        "emailSignUp": "cg@gmail.com",
+                                        "pwSignUp": "abc"},
+                                  follow_redirects=True)
+        self.assertEqual(result.status_code, 200)
+        self.assertIn("Profile | OuterSpaces", result.data)
+
+
+    def test_log_in(self):
+        """Test log in route."""
+
+        result = self.client.post("/log_in",
+                                  data={"emailLogIn": "abc@abc.com",
+                                        "pwLogIn": "abc"},
+                                  follow_redirects=True)
+        self.assertEqual(result.status_code, 200)
+        self.assertIn("Profile | OuterSpaces", result.data)
 
 
 
