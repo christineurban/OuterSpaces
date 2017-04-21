@@ -153,7 +153,7 @@ def display_art():
 
 
 @cache.cached(timeout=3600, key_prefix="display_by_hood_cached")
-def display_by_hood():
+def display_by_hood_cached():
     hoods = get_hood_data_cached()
     total_hoods = len(hoods)
     hood_dict = {}

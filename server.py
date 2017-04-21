@@ -1,5 +1,5 @@
 from flask import (Flask, render_template, redirect, request, 
-                   flash, session, jsonify)
+                   flash, session, jsonify, g)
 
 from jinja2 import StrictUndefined
 
@@ -10,13 +10,12 @@ from model import (User, Truck, FavTruck, Popos, FavPopos, Art, FavArt,
 
 from server_utilities import (app, get_truck_data_cached, get_popos_data_cached,
     get_art_data_cached, get_hood_data_cached, display_trucks, display_popos, 
-    display_art, display_by_hood)
+    display_art, display_by_hood_cached)
 
 from geoalchemy2.elements import WKTElement
 
 import os           # Access OS environment variables
 import string
-
 
 # app = Flask(__name__)
 app.secret_key = os.environ["FLASK_SECRET_KEY"]
@@ -24,6 +23,13 @@ google_maps_key = os.environ["GOOGLE_MAPS_API_KEY"]
 
 # raise an error if variable is undefined
 app.jinja_env.undefined = StrictUndefined
+
+# Jasmine
+JS_TESTING_MODE = False
+
+@app.before_request
+def add_tests():
+    g.jasmine_tests = JS_TESTING_MODE
 
 
 ################################################################################
@@ -153,7 +159,7 @@ def view_art():
 def view_hoods():
     """View all locations by neighborhood."""
 
-    total_hoods, hood_dict = display_by_hood()
+    total_hoods, hood_dict = display_by_hood_cached()
 
     return render_template("neighborhoods.html",
                            total_hoods=total_hoods,
@@ -500,6 +506,11 @@ if __name__ == "__main__":
 
     # Use the DebugToolbar
     DebugToolbarExtension(app)
+
+    # Jasmine
+    import sys
+    if sys.argv[-1] == "jstest":
+        JS_TESTING_MODE = True
 
 
 

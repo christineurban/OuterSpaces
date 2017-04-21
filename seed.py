@@ -22,6 +22,7 @@ def example_data():
                     location="Western side of Building, street level.",
                     popos_type="Plaza",
                     hours="Open at all times",
+                    
                     description="This large plaza has several art and landscaping features. It is located in front of 555 Mission Streets and runs along the west side of the building. There are several distinct sitting areas with different styles of seating.",
                     year="2008",
                     lat="-122.39891",

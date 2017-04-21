@@ -12,10 +12,6 @@ class OuterSpacesTests(unittest.TestCase):
         app.config["TESTING"] = True
         app.config["SECRET_KEY"] = "key"
 
-        with self.client as c:
-            with c.session_transaction() as session:
-                session["user_id"] = 1
-
 
     def test_homepage(self):
         """Test homepage."""
@@ -57,6 +53,14 @@ class OuterSpacesTests(unittest.TestCase):
         self.assertIn("Public Art | OuterSpaces", result.data)
 
 
+    def test_neighborhoods(self):
+        """Test art page."""
+
+        result = self.client.get("/hoods")
+        self.assertEqual(result.status_code, 200)
+        self.assertIn("Neighborhoods | OuterSpaces", result.data)
+
+
     def test_account(self):
         """Test account page."""
 
@@ -66,12 +70,50 @@ class OuterSpacesTests(unittest.TestCase):
 
 
     def test_profile(self):
-        """Test profile page."""
+        """Test profile page: not logged in."""
 
-        result = self.client.post("/profile")
+        result = self.client.get("/profile")
+        self.assertEqual(result.status_code, 302)
+
+
+    def test_one(self):
+        """Test one route."""
+
+        result = self.client.post("/one")
+        self.assertEqual(result.status_code, 405)
+        self.assertIn('id="map_one"', result.data)
+
+
+    def test_plan(self):
+        """Test plan route."""
+
+        result = self.client.get("/plan")
         self.assertEqual(result.status_code, 200)
-        self.assertIn("Profile | OuterSpaces", result.data)
+        self.assertIn('id="plan_trip"', result.data)
 
+
+    def test_data_trucks(self):
+        """Test truck data route."""
+
+        result = self.client.get("/data/trucks.json")
+        self.assertEqual(result.status_code, 200)
+        self.assertIn(":@computed_region_bh8s_q3mv", result.data)
+
+
+    def test_data_popos(self):
+        """Test POPOS data route."""
+
+        result = self.client.get("/data/popos.json")
+        self.assertEqual(result.status_code, 200)
+        self.assertIn(":@computed_region_ajp5_b2md", result.data)
+
+
+    def test_data_art(self):
+        """Test art data route."""
+
+        result = self.client.get("/data/art.json")
+        self.assertEqual(result.status_code, 200)
+        self.assertIn(":@computed_region_ajp5_b2md", result.data)
 
 
 
@@ -84,6 +126,12 @@ class OuterSpacesTestsDatabase(unittest.TestCase):
 
         # Get the Flask test client
         self.client = app.test_client()
+        with self.client as c:
+            with c.session_transaction() as session:
+                session["user_id"] = 1
+                session["email"] = "abc@abc.com"
+                session["first_name"] = "Jane"
+                session["last_name"] = "Doe"
 
         # Show Flask errors that happen during tests
         app.config["TESTING"] = True
@@ -101,6 +149,80 @@ class OuterSpacesTestsDatabase(unittest.TestCase):
 
         db.session.close()
         db.drop_all()
+
+
+    def test_log_in(self):
+        """Test log in route."""
+
+        result = self.client.post("/log_in",
+                                  data={"emailLogIn": "Jane",
+                                        "pwLogIn": "abc"})
+        self.assertEqual(result.status_code, 200)
+        self.assertIn("Profile | OuterSpaces", result.data)
+
+
+    def test_sign_up(self):
+        """Test sign up route."""
+
+        result = self.client.post("/sign_up")
+        self.assertEqual(result.status_code, 200)
+        self.assertIn("Profile | OuterSpaces", result.data)
+
+
+    def test_profile(self):
+        """Test profile page: logged in."""
+
+        result = self.client.get("/profile")
+        self.assertEqual(result.status_code, 200)
+        self.assertIn("Profile | OuterSpaces", result.data)
+
+
+    def test_sign_out(self):
+        """Test sign out route."""
+
+        result = self.client.post("/sign_out")
+        self.assertEqual(result.status_code, 200)
+        self.assertIn("Find an OuterSpace", result.data)
+
+
+    def test_change_password(self):
+        """Test change password route."""
+
+        result = self.client.post("/change_password")
+        self.assertEqual(result.status_code, 200)
+        self.assertIn("Profile | OuterSpaces", result.data)
+
+
+    def test_delete_account(self):
+        """Test delete account route."""
+
+        result = self.client.post("/delete_account")
+        self.assertEqual(result.status_code, 200)
+        self.assertIn("Find an OuterSpace", result.data)
+
+
+    def test_favorite_truck(self):
+        """Test favorite truck route."""
+
+        result = self.client.post("/favorite-truck")
+        self.assertEqual(result.status_code, 200)
+        self.assertIn("Oops! You must be logged in to save a favorite.", result.data)
+
+
+    def test_favorite_popos(self):
+        """Test favorite POPOS route."""
+
+        result = self.client.post("/favorite-popos")
+        self.assertEqual(result.status_code, 200)
+        self.assertIn("Oops! You must be logged in to save a favorite.", result.data)
+
+
+    def test_favorite_art(self):
+        """Test favorite art route."""
+
+        result = self.client.post("/favorite-art")
+        self.assertEqual(result.status_code, 200)
+        self.assertIn("Oops! You must be logged in to save a favorite.", result.data)
 
 
 

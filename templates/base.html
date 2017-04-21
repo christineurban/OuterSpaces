@@ -101,5 +101,16 @@
     };
   </script>
 
+  {% if g.jasmine_tests %}
+    <!-- stuff for testing -->
+    <link rel="shortcut icon" type="image/png" href="/static/jasmine/lib/jasmine-2.5.2/jasmine_favicon.png">
+    <link rel="stylesheet" type="text/css" href="/static/jasmine/lib/jasmine-2.5.2/jasmine.css">
+    <script src="/static/jasmine/lib/jasmine-2.5.2/jasmine.js"></script>
+    <script src="/static/jasmine/lib/jasmine-2.5.2/jasmine-html.js"></script>
+    <script src="/static/jasmine/lib/jasmine-2.5.2/boot.js"></script>
+    <script src="/static/jasmine/jasmineTests.js"></script>
+    <!-- end of stuff for testing -->
+  {% endif %}
+
 </body>
 </html>
