@@ -1,5 +1,6 @@
 #map {
     height: 750px;
+    width: 100%;
 }
 
 input[type=checkbox] {

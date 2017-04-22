@@ -1,6 +1,5 @@
 "use strict"
 
-
 function initMap() {
 
   ////////////////////////////////////
@@ -9,91 +8,8 @@ function initMap() {
   
   directionsService = new google.maps.DirectionsService;
   directionsDisplay = new google.maps.DirectionsRenderer;
-  map = new google.maps.Map(document.getElementById("map"), {
-    zoom: 13,
-    center: sanFrancisco,
-    // https://snazzymaps.com/style/25/blue-water
-    styles: [
-    {
-        "featureType": "administrative",
-        "elementType": "labels.text.fill",
-        "stylers": [
-            {
-                "color": "#444444"
-            }
-        ]
-    },
-    {
-        "featureType": "landscape",
-        "elementType": "all",
-        "stylers": [
-            {
-                "color": "#f2f2f2"
-            }
-        ]
-    },
-    {
-        "featureType": "poi",
-        "elementType": "all",
-        "stylers": [
-            {
-                "visibility": "off"
-            }
-        ]
-    },
-    {
-        "featureType": "road",
-        "elementType": "all",
-        "stylers": [
-            {
-                "saturation": -100
-            },
-            {
-                "lightness": 45
-            }
-        ]
-    },
-    {
-        "featureType": "road.highway",
-        "elementType": "all",
-        "stylers": [
-            {
-                "visibility": "simplified"
-            }
-        ]
-    },
-    {
-        "featureType": "road.arterial",
-        "elementType": "labels.icon",
-        "stylers": [
-            {
-                "visibility": "off"
-            }
-        ]
-    },
-    {
-        "featureType": "transit",
-        "elementType": "all",
-        "stylers": [
-            {
-                "visibility": "off"
-            }
-        ]
-    },
-    {
-        "featureType": "water",
-        "elementType": "all",
-        "stylers": [
-            {
-                "color": "#46bcec"
-            },
-            {
-                "visibility": "on"
-            }
-        ]
-    }
-  ]
-  });
+  map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
   infoWindow = new google.maps.InfoWindow({
     maxWidth: 350
   });
@@ -104,6 +20,11 @@ function initMap() {
     fillOpacity: 0.0,
     strokeWeight: 1
   });
+
+  if (!document.getElementById("plan_trip")) {
+    map.setZoom(13);
+    map.setCenter(sanFrancisco);
+  }
 
 
   ///////////////////////////
@@ -119,7 +40,7 @@ function initMap() {
       var marker = new google.maps.Marker({
         position: pos,
         map: map,
-        icon:  "../static/images/map-pin.png"
+        icon:  "/static/images/map-pin.png"
       });
 
       // if map_one, center on that location

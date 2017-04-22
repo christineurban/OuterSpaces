@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 {% block title %}Map | OuterSpaces{% endblock %}
 {% block script %}
-  <script src="../static/scripts/markers.js"></script>
-  <script src="../static/scripts/initMap.js"></script>
-  <script src="../static/scripts/mapHelpers.js"></script>
+  <script src="/static/scripts/helpers.js"></script>
+  <script src="/static/scripts/markers.js"></script>
+  <script src="/static/scripts/initMap.js"></script>
+  <script src="/static/scripts/mapHelpers.js"></script>
   <script async defer 
   src="https://maps.googleapis.com/maps/api/js?key={{ key }}&callback=initMap&libraries=geometry">
   </script>

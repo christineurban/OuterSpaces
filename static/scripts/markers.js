@@ -1,17 +1,5 @@
 "use strict"
 
-var directionsService;
-var directionsDisplay;
-var infoWindow;
-var map;
-var sanFrancisco = {lat: 37.7589, lng: -122.433558};
-
-var truckMarkers = [];
-var artMarkers = [];
-var poposMarkers = [];
-
-
-
 //////////////////////////////////////////////////////
 // Retrieve data from server, send to loop function //
 //////////////////////////////////////////////////////
@@ -111,7 +99,7 @@ function plotDataTrucks(data) {
     lat: coords[1],
     lng: coords[0],
     searchDetails: searchDetails,
-    icon: "../static/images/green-dot.png"
+    icon: "/static/images/green-dot.png"
     });
 
   // hide all markers if map_one or plan_trip
@@ -180,7 +168,7 @@ function plotDataPopos(data) {
     lat: coords[1],
     lng: coords[0],
     searchDetails: searchDetails,
-    icon: "../static/images/blue-dot.png"
+    icon: "/static/images/blue-dot.png"
   });
 
   // hide all markers if map_one or plan_trip
@@ -246,7 +234,7 @@ function plotDataArt(data) {
     lat: coords[1],
     lng: coords[0],
     searchDetails: searchDetails,
-    icon: "../static/images/pink-dot.png"
+    icon: "/static/images/pink-dot.png"
   });
 
   // hide all markers if map_one or plan_trip
