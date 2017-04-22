@@ -11,7 +11,7 @@ function initMap() {
   map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
   infoWindow = new google.maps.InfoWindow({
-    maxWidth: 375
+    maxWidth: 410
   });
   directionsDisplay.setMap(map);
   directionsDisplay.setPanel(document.getElementById("textDirections"));

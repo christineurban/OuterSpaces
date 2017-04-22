@@ -2,70 +2,71 @@
 {% block title %}POPOS | OuterSpaces{% endblock %}
 {% block body %}
       
-  <h1>Privately Owned Public Open Spaces (POPOS) &mdash; {{ total_popos }} Locations</h1>
+<h1>Privately Owned Public Open Spaces (POPOS) &mdash; {{ total_popos }} Locations</h1>
 
-  <figure>
-    <blockquote cite="http://sf-planning.org/privately-owned-public-open-space-and-public-art-popos">
-      Privately-owned public open spaces (POPOS) are publicly accessible spaces in forms of plazas, terraces, atriums, small parks, and even snippets which are provided and maintained by private developers. In San Francisco, POPOS mostly appear in the Downtown office district area. Prior to 1985, developers provided POPOS under three general circumstances: voluntarily, in exchange for a density bonus, or as a condition of approval. The 1985 <a href="http://sf-planning.org/privately-owned-public-open-space-and-public-art-popos#downtown_plan">Downtown Plan</a> created the first systemic requirements for developers to provide publicly accessible open space as a part of projects in C-3 Districts. The goal was to "provide in the downtown quality open space in sufficient quantity and variety to meet the needs of downtown workers, residents and visitors." (<a href="http://library.amlegal.com/nxt/gateway.dll/California/planning/article12dimensionsareasandopenspaces?f=templates$fn=default.htm$3.0$vid=amlegal:sanfrancisco_ca$anc=JD_138" target="_blank">See Planning Code Section 138 for regulations</a>). Since then, project sponsors for residential projects may provide POPOS instead of their required open spaces in the Downtown Residential (DTR) and Eastern Neighborhoods (<a href="http://library.amlegal.com/nxt/gateway.dll/California/planning/article12dimensionsareasandopenspaces?f=templates$fn=default.htm$3.0$vid=amlegal:sanfrancisco_ca$anc=JD_135" target="_blank">Section 135 of the Planning Code</a>).
-    </blockquote>
+<figure>
+  <blockquote cite="http://sf-planning.org/privately-owned-public-open-space-and-public-art-popos">
+    Privately-owned public open spaces (POPOS) are publicly accessible spaces in forms of plazas, terraces, atriums, small parks, and even snippets which are provided and maintained by private developers. In San Francisco, POPOS mostly appear in the Downtown office district area. Prior to 1985, developers provided POPOS under three general circumstances: voluntarily, in exchange for a density bonus, or as a condition of approval. The 1985 <a href="http://sf-planning.org/privately-owned-public-open-space-and-public-art-popos#downtown_plan">Downtown Plan</a> created the first systemic requirements for developers to provide publicly accessible open space as a part of projects in C-3 Districts. The goal was to "provide in the downtown quality open space in sufficient quantity and variety to meet the needs of downtown workers, residents and visitors." (<a href="http://library.amlegal.com/nxt/gateway.dll/California/planning/article12dimensionsareasandopenspaces?f=templates$fn=default.htm$3.0$vid=amlegal:sanfrancisco_ca$anc=JD_138" target="_blank">See Planning Code Section 138 for regulations</a>). Since then, project sponsors for residential projects may provide POPOS instead of their required open spaces in the Downtown Residential (DTR) and Eastern Neighborhoods (<a href="http://library.amlegal.com/nxt/gateway.dll/California/planning/article12dimensionsareasandopenspaces?f=templates$fn=default.htm$3.0$vid=amlegal:sanfrancisco_ca$anc=JD_135" target="_blank">Section 135 of the Planning Code</a>).
+  </blockquote>
 
-    <figcaption>Retrieved from <a href="http://sf-planning.org/privately-owned-public-open-space-and-public-art-popos" target="_blank">http://sf-planning.org/privately-owned-public-open-space-and-public-art-popos</a></figcaption>
-  </figure>
+  <figcaption>Retrieved from <a href="http://sf-planning.org/privately-owned-public-open-space-and-public-art-popos" target="_blank">http://sf-planning.org/privately-owned-public-open-space-and-public-art-popos</a></figcaption>
+</figure>
 
-  <h3>
-    <a class="alpha">atrium</a>&nbsp; &bull; &nbsp;<a class="alpha">greenhouse</a>&nbsp; &bull; &nbsp;<a class="alpha">indoor park</a>&nbsp; &bull; &nbsp;<a class="alpha">lobby</a>&nbsp; &bull; &nbsp;<a class="alpha">plaza</a>&nbsp; &bull; &nbsp;<a class="alpha">pedestrian</a>&nbsp; &bull; &nbsp;<a class="alpha">sitting area</a>&nbsp; &bull; &nbsp;<a class="alpha">snippet</a>&nbsp; &bull; &nbsp;<a class="alpha">sun terrace</a>&nbsp; &bull; &nbsp;<a class="alpha">garden</a>&nbsp; &bull; &nbsp;<a class="alpha">urban park</a>&nbsp; &bull; &nbsp;<a class="alpha">view terrace</a>&nbsp; &bull; &nbsp;
-    <a class="alpha">other</a>
-  </h3><br>
+<h3>
+  <a class="alpha">Atrium</a>&nbsp; &bull; &nbsp;<a class="alpha">Greenhouse</a>&nbsp; &bull; &nbsp;<a class="alpha">Indoor Park</a>&nbsp; &bull; &nbsp;<a class="alpha">Lobby</a>&nbsp; &bull; &nbsp;<a class="alpha">Plaza</a>&nbsp; &bull; &nbsp;<a class="alpha">Pedestrian</a>&nbsp; &bull; &nbsp;<a class="alpha">Sitting Area</a>&nbsp; &bull; &nbsp;<a class="alpha">Snippet</a>&nbsp; &bull; &nbsp;<a class="alpha">Sun Terrace</a>&nbsp; &bull; &nbsp;<a class="alpha">Garden</a>&nbsp; &bull; &nbsp;<a class="alpha">Urban Park</a>&nbsp; &bull; &nbsp;<a class="alpha">View Terrace</a>&nbsp; &bull; &nbsp;<a class="alpha">Other</a>
+</h3><br>
 
-  <h2 id="pageName"></h2><br>
+<h2 id="pageName"></h2><br>
 
-    {% for alpha in popos_dict %}
-      <div id="{{ alpha }}" class="hideAlpha" hidden>
-      
+{% for alpha in popos_dict %}
+  <div id="{{ alpha }}" class="hideAlpha" hidden>
+    <table class="table table-striped">
+      <tbody>
         {% for popo in popos_dict[alpha] %}
-          
-          <h3>{{ popo.name }}</h3>
-          <p>
-            <strong>Address:</strong>{{ popo.popos_addr }}<br>
+          <tr>
+            <td>
+              <h3>{{ popo.name }}</h3>
+              <p>
+                <strong>Address:</strong>{{ popo.popos_addr }}<br>
 
-            {% if "hours" in popo %}
-              <strong>Hours:</strong>{{ popo.hours }}<br>
-            {% endif %}
+                {% if "hours" in popo %}
+                  <strong>Hours: </strong>{{ popo.hours }}<br>
+                {% endif %}
 
-            {% if "location" in popo %}
-              <strong>Location:</strong>{{ popo.location }}<br>
-            {% endif %}
+                {% if "location" in popo %}
+                  <strong>Location: </strong>{{ popo.location }}<br>
+                {% endif %}
 
-            {% if "type" in popo %}
-              <strong>Type:</strong>{{ popo.type }}<br>
-            {% endif %}
+                {% if "type" in popo %}
+                  <strong>Type: </strong>{{ popo.type }}<br>
+                {% endif %}
 
-            {% if "year" in popo %}
-              <strong>Year:</strong>{{ popo.year }}<br>
-            {% endif %}
+                {% if "year" in popo %}
+                  <strong>Year: </strong>{{ popo.year }}<br>
+                {% endif %}
 
-            {% if "desc" in popo %}
-              {{popo.desc}}<br>
-            {% endif %}
+                {% if "desc" in popo %}
+                  {{popo.desc}}<br>
+                {% endif %}
 
-            <form action="/one" method="POST">
-              <input type="hidden" name="lat" class="lat" 
-              value="{{ popo.the_geom.coordinates[1] }}">
+                <form action="/one" method="POST">
+                  <input type="hidden" name="lat" class="lat" 
+                  value="{{ popo.the_geom.coordinates[1] }}">
 
-              <input type="hidden" name="lng" class="lng" 
-              value="{{ popo.the_geom.coordinates[0] }}">
+                  <input type="hidden" name="lng" class="lng" 
+                  value="{{ popo.the_geom.coordinates[0] }}">
 
-              <input type="hidden" name="identifier" value="{{ popo.name }}">
+                  <input type="hidden" name="identifier" value="{{ popo.name }}">
 
-              <input type="submit" value="show on map">
-            </form>
-            <br>
-          </p>
-
+                  <button type="submit" class="btn btn-default">show on map</button>
+                </form>
+                <br>
+              </p>
+            </td>
+          </tr>
         {% endfor %}
-      </div> 
-
-    {% endfor %}
-
-
+      </tbody>
+    </table>
+  </div> 
+{% endfor %}
 {% endblock %}

@@ -2,75 +2,48 @@
 {% block title %}Food Trucks | OuterSpaces{% endblock %}
 {% block body %}
 
-  <h1>Food Trucks &mdash; {{ total_trucks }} Locations</h1>
+<h1>Food Trucks &mdash; {{ total_trucks }} Locations</h1>
 
-  <figure>
-    <blockquote cite="https://en.wikipedia.org/wiki/Food_truck">
-      A food truck is a large vehicle equipped to cook and sell food. Some, including ice cream trucks, sell frozen or prepackaged food; others have on-board kitchens and prepare food from scratch. Sandwiches, hamburgers, french fries, and other regional fast food fare is common. In recent years, associated with the pop-up restaurant phenomenon, food trucks offering gourmet cuisine and a variety of specialties and ethnic menus, have become particularly popular. Food trucks, along with portable food booths and food carts, are on the front line of the street food industry that serves an estimated 2.5 billion people every day.
-    </blockquote>
+<figure>
+  <blockquote cite="https://en.wikipedia.org/wiki/Food_truck">
+    A food truck is a large vehicle equipped to cook and sell food. Some, including ice cream trucks, sell frozen or prepackaged food; others have on-board kitchens and prepare food from scratch. Sandwiches, hamburgers, french fries, and other regional fast food fare is common. In recent years, associated with the pop-up restaurant phenomenon, food trucks offering gourmet cuisine and a variety of specialties and ethnic menus, have become particularly popular. Food trucks, along with portable food booths and food carts, are on the front line of the street food industry that serves an estimated 2.5 billion people every day.
+  </blockquote>
 
-    <figcaption>Retrieved from <a href="https://en.wikipedia.org/wiki/Food_truck" target="_blank">https://en.wikipedia.org/wiki/Food_truck</a></figcaption>
-  </figure>
+  <figcaption>Retrieved from <a href="https://en.wikipedia.org/wiki/Food_truck" target="_blank">https://en.wikipedia.org/wiki/Food_truck</a></figcaption>
+</figure>
+
+<h2>
+  <a class="alpha">a</a>&nbsp;&nbsp;<a class="alpha">b</a>&nbsp;&nbsp;<a class="alpha">c</a>&nbsp;&nbsp;<a class="alpha">d</a>&nbsp;&nbsp;<a class="alpha">e</a>&nbsp;&nbsp;<a class="alpha">f</a>&nbsp;&nbsp;<a class="alpha">g</a>&nbsp;&nbsp;<a class="alpha">h</a>&nbsp;&nbsp;<a class="alpha">i</a>&nbsp;&nbsp;<a class="alpha">j</a>&nbsp;&nbsp;<a class="alpha">k</a>&nbsp;&nbsp;<a class="alpha">l</a>&nbsp;&nbsp;<a class="alpha">m</a>&nbsp;&nbsp;<a class="alpha">n</a>&nbsp;&nbsp;<a class="alpha">o</a>&nbsp;&nbsp;<a class="alpha">p</a>&nbsp;&nbsp;<a class="alpha">q</a>&nbsp;&nbsp;<a class="alpha">r</a>&nbsp;&nbsp;<a class="alpha">s</a>&nbsp;&nbsp;<a class="alpha">t</a>&nbsp;&nbsp;<a class="alpha">u</a>&nbsp;&nbsp;<a class="alpha">v</a>&nbsp;&nbsp;<a class="alpha">w</a>&nbsp;&nbsp;<a class="alpha">x</a>&nbsp;&nbsp;<a class="alpha">y</a>&nbsp;&nbsp;<a class="alpha">z</a>
+</h2><br>
+
+<h2 id="pageName"></h2><br>
+
+{% for alpha in truck_dict %}
+  <div id="{{ alpha }}" class="hideAlpha" hidden>
   
-  <h2>
-    <a class="alpha">a</a>&nbsp;&nbsp;<a class="alpha">b</a>&nbsp;&nbsp;<a class="alpha">c</a>&nbsp;&nbsp;<a class="alpha">d</a>&nbsp;&nbsp;<a class="alpha">e</a>&nbsp;&nbsp;<a class="alpha">f</a>&nbsp;&nbsp;<a class="alpha">g</a>&nbsp;&nbsp;<a class="alpha">h</a>&nbsp;&nbsp;<a class="alpha">i</a>&nbsp;&nbsp;<a class="alpha">j</a>&nbsp;&nbsp;<a class="alpha">k</a>&nbsp;&nbsp;<a class="alpha">l</a>&nbsp;&nbsp;<a class="alpha">m</a>&nbsp;&nbsp;<a class="alpha">n</a>&nbsp;&nbsp;<a class="alpha">o</a>&nbsp;&nbsp;<a class="alpha">p</a>&nbsp;&nbsp;<a class="alpha">q</a>&nbsp;&nbsp;<a class="alpha">r</a>&nbsp;&nbsp;<a class="alpha">s</a>&nbsp;&nbsp;<a class="alpha">t</a>&nbsp;&nbsp;<a class="alpha">u</a>&nbsp;&nbsp;<a class="alpha">v</a>&nbsp;&nbsp;<a class="alpha">w</a>&nbsp;&nbsp;<a class="alpha">x</a>&nbsp;&nbsp;<a class="alpha">y</a>&nbsp;&nbsp;<a class="alpha">z</a>
-  </h2><br>
+  {% if not truck_dict[alpha] %}
+    <h3>Sorry, there are no food trucks that start with the letter "{{ alpha }}".</h3>
+  {% endif %}
 
-  <h2 id="pageName"></h2><br>
+  <table class="table table-striped">
+    <tbody>
+      {% for truck in truck_dict[alpha] %}
+        {% if truck.applicant != "BSM - TEST1" %}  <!-- exclude test data -->
+          <tr>
+            <td>
+              {% if truck.locations | length == 1 %}
 
-      {% for alpha in truck_dict %}
-        <div id="{{ alpha }}" class="hideAlpha" hidden>
+                <h3>{{ truck.applicant }}</h3>
 
-        {% if not truck_dict[alpha] %}
-          <h3>Sorry, there are no food trucks that start with the letter "{{ alpha }}".</h3>
-        {% endif %}
-
-          {% for truck in truck_dict[alpha] %}
-
-            {% if truck.locations | length == 1 %}
-
-              <h3>{{ truck.applicant }}</h3>
-
-              {% if "fooditems" in truck.locations[0] %}
-                <h4>{{ truck.locations[0].fooditems }}</h4>
-              {% endif %}
-              
-              <p>
-                <strong>Address: </strong>{{ truck.locations[0].address }}<br>
-
-                {% if "dayshours" in truck.locations[0] %}
-                  <strong>Hours: </strong>{{ truck.locations[0].dayshours }}<br>
-                {% endif %}
-
-                <form action="/one" method="POST">
-                  <input type="hidden" name="lat" class="lat" 
-                  value="{{ truck.location.coordinates[1] }}">
-
-                  <input type="hidden" name="lng" class="lng" 
-                  value="{{ truck.location.coordinates[0] }}">
-
-                  <input type="hidden" name="identifier" value="{{ truck.applicant }}">
-
-                  <input type="submit" value="show on map">
-                </form>
-                <br>
-              </p>
-            {% else %}
-              {% if truck.applicant != "BSM - TEST1" %} <!-- exclude test data -->
-                <h3>{{ truck.applicant }} &mdash; 
-                {{ truck.locations | length }} Locations</h3>
-
-                {% if "fooditems" in truck %}
-                  <h4>{{ truck.fooditems }}</h4>
-                {% endif %}
-
-                {% for truck in truck.locations %}
+                  {% if "fooditems" in truck.locations[0] %}
+                    <h4>{{ truck.locations[0].fooditems }}</h4>
+                  {% endif %}
+                  
                   <p>
-                    {% if "address" in truck %}
-                      <strong>Address: </strong>{{ truck.address }}<br>
-                    {% endif %}
-                    {% if "dayshours" in truck %}
-                      <strong>Hours: </strong>{{ truck.dayshours }}<br>
+                    <strong>Address: </strong>{{ truck.locations[0].address }}<br>
+
+                    {% if "dayshours" in truck.locations[0] %}
+                      <strong>Hours: </strong>{{ truck.locations[0].dayshours }}<br>
                     {% endif %}
 
                     <form action="/one" method="POST">
@@ -82,14 +55,48 @@
 
                       <input type="hidden" name="identifier" value="{{ truck.applicant }}">
 
-                      <input type="submit" value="show on map">
+                      <button type="submit" class="btn btn-default">show on map</button>
                     </form>
                     <br>
                   </p>
-                {% endfor %}
-              {% endif %}
-            {% endif %}
-          {% endfor %}
-        </div> 
-      {% endfor %}
+                {% else %}
+                  <h3>{{ truck.applicant }} &mdash; 
+                  {{ truck.locations | length }} Locations</h3>
+
+                  {% if "fooditems" in truck %}
+                    <h4>{{ truck.fooditems }}</h4>
+                  {% endif %}
+
+                  {% for truck in truck.locations %}
+                    <p>
+                      {% if "address" in truck %}
+                        <strong>Address: </strong>{{ truck.address }}<br>
+                      {% endif %}
+                      {% if "dayshours" in truck %}
+                        <strong>Hours: </strong>{{ truck.dayshours }}<br>
+                      {% endif %}
+
+                      <form action="/one" method="POST">
+                        <input type="hidden" name="lat" class="lat" 
+                        value="{{ truck.location.coordinates[1] }}">
+
+                        <input type="hidden" name="lng" class="lng" 
+                        value="{{ truck.location.coordinates[0] }}">
+
+                        <input type="hidden" name="identifier" value="{{ truck.applicant }}">
+
+                        <button type="submit" class="btn btn-default">show on map</button>
+                      </form>
+                      <br>
+                    </p>
+                  {% endfor %}
+                {% endif %}
+              </td>
+            </tr>
+          {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+  </div> 
+{% endfor %}
 {% endblock %}

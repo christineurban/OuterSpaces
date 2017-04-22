@@ -129,6 +129,10 @@ def display_popos():
             this_type = "other"
             popos_dict[popos_type].append(popo)
 
+    # sort lists so each type is alphabetized
+    for type, popos in popos_dict.items():
+        popos.sort(key=lambda popo: popo["name"].lstrip("\"'-1234567890/ "))
+
     return (total_popos, popos_dict)
 
 
@@ -142,11 +146,14 @@ def display_art():
         art_dict[letter] = []
 
     for art in public_art:
-        if "title" in art:
-            alpha = art["title"].lstrip("\"'1234567890")[0].lower()
-        else:
-            alpha = "u"
+        if "title" not in art:
+            art["title"] = "Untitled"
+        alpha = art["title"].lstrip("\"'1234567890")[0].lower()
         art_dict[alpha].append(art)
+
+    # sort lists so each letter is alphabetized
+    for letter, public_art in art_dict.items():
+        public_art.sort(key=lambda art: art["title"].lstrip("\"'1234567890"))
 
     return (total_art, art_dict)
 
@@ -186,7 +193,7 @@ def display_by_hood_cached():
             popo_point = Point(popo["the_geom"]["coordinates"])
             if polygon.contains(popo_point):
                 popo["kind"] = "popos"
-                popo["main_name"] = popo["name"]
+                popo["main_name"] = popo["name"].lstrip("\"'-1234567890/ ")
                 hood_dict[hood_name].append(popo)
 
         for art in public_art:
@@ -194,7 +201,7 @@ def display_by_hood_cached():
             if polygon.contains(art_point):
                 art["kind"] = "art"
                 if "title" in art:
-                    art["main_name"] = art["title"]
+                    art["main_name"] = art["title"].lstrip("\"'1234567890")
                 else:
                     art["main_name"] = "Untitled"
                 hood_dict[hood_name].append(art)

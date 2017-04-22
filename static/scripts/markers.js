@@ -77,15 +77,15 @@ function plotDataTrucks(data) {
   var contentString = "<div id='content'>" +
       "<p><strong>FOOD TRUCK</strong></p>" +
       "<h3>" + title + "</h3>" + 
-      "<p><button id='walkingDir' class='directions'>Walking Directions</button> " +
-      "<button id='drivingDir' class='directions'>Driving Directions</button> " +
-      "<button id='addToFavTrucks'>Add to Favorites</button></p>" +
+      "<p><button type='button' id='walkingDir' class='directions btn btn-default'>Walking Directions</button> " +
+      "<button type='button' id='drivingDir' class='directions btn btn-default'>Driving Directions</button> " +
+      "<button type='button' class='btn btn-default' id='addToFavTrucks'>Add to Favorites</button></p>" +
       "<p><strong>Address:</strong> " + address + "</p>" +
       "<p><strong>Hours:</strong> " + hours + "</p>" +
       "<p><strong>Cuisine:</strong> " + cuisine + "</p>" +
-      "<p><button id='nearbyTrucks'>Nearby Food Trucks</button> " +
-      "<button id='nearbyPopos'>Nearby POPOS</button> " +
-      "<button id='nearbyArt'>Nearby Art</button></p>" +
+      "<p><button type='button' class='btn btn-default' id='nearbyTrucks'>Nearby Food Trucks</button> " +
+      "<button type='button' class='btn btn-default' id='nearbyPopos'>Nearby POPOS</button> " +
+      "<button type='button' class='btn btn-default' id='nearbyArt'>Nearby Art</button></p>" +
       "<div id='numLocations'></div>" + 
       "</div>";
 
@@ -145,18 +145,18 @@ function plotDataPopos(data) {
   var contentString = "<div id='content'>" +
       "<p><strong>POPOS</strong></p>" +
       "<h3>" + title + "</h3>" +
-      "<p><button id='walkingDir' class='directions'>Walking Directions</button> " +
-      "<button id='drivingDir' class='directions'>Driving Directions</button> " +
-      "<button id='addToFavPopos'>Add to Favorites</button></p>" +
+      "<p><button type='button' id='walkingDir' class='directions btn btn-default'>Walking Directions</button> " +
+      "<button type='button' id='drivingDir' class='directions btn btn-default'>Driving Directions</button> " +
+      "<button type='button' class='btn btn-default' id='addToFavPopos'>Add to Favorites</button></p>" +
       "<p><strong>Address:</strong> " + address + "</p>" +
       "<p><strong>Hours:</strong> " + hours + "</p>" +
       "<p><strong>Type:</strong> " + type + "</p>" +
       "<p><strong>Location:</strong> " + location + "</p>" +
       "<p><strong>Year:</strong> " + year + "</p>" +
       "<p>" + desc + "</p>" +
-      "<p><button id='nearbyTrucks'>Nearby Food Trucks</button> " +
-      "<button id='nearbyPopos'>Nearby Popos</button> " +
-      "<button id='nearbyArt'>Nearby Art</button></p>" +
+      "<p><button type='button' class='btn btn-default' id='nearbyTrucks'>Nearby Food Trucks</button> " +
+      "<button type='button' class='btn btn-default' id='nearbyPopos'>Nearby Popos</button> " +
+      "<button type='button' class='btn btn-default' id='nearbyArt'>Nearby Art</button></p>" +
       "<div id='numLocations'></div>" + 
       "</div>";
 
@@ -214,17 +214,17 @@ function plotDataArt(data) {
   var contentString = "<div id='content'>" +
       "<p><strong>PUBLIC ART</strong></p>" +
       "<h3>" + title + "</h3>" +
-      "<p><button id='walkingDir' class='directions'>Walking Directions</button> " +
-      "<button id='drivingDir' class='directions'>Driving Directions</button> " +
-      "<button id='addToFavArt'>Add to Favorites</button></p>" +
+      "<p><button type='button' id='walkingDir' class='directions btn btn-default'>Walking Directions</button> " +
+      "<button type='button' id='drivingDir' class='directions btn btn-default'>Driving Directions</button> " +
+      "<button type='button' class='btn btn-default' id='addToFavArt'>Add to Favorites</button></p>" +
       "<p><strong>Address:</strong> " + address + "</p>" +
       "<p><strong>Location:</strong> " + location + "</p>" +
       "<p><strong>Type:</strong> " + type + "</p>" +
       "<p><strong>Medium:</strong> " + medium + "</p>" +
       "<p><a target='_blank' href='" + link + "'>" + link + "</a></p>" +
-      "<p><button id='nearbyTrucks'>Nearby Food Trucks</button> " +
-      "<button id='nearbyPopos'>Nearby POPOS</button> " +
-      "<button id='nearbyArt'>Nearby Art</button></p>" +
+      "<p><button type='button' class='btn btn-default' id='nearbyTrucks'>Nearby Food Trucks</button> " +
+      "<button type='button' class='btn btn-default' id='nearbyPopos'>Nearby POPOS</button> " +
+      "<button type='button' class='btn btn-default' id='nearbyArt'>Nearby Art</button></p>" +
       "<div id='numLocations'></div>" + 
       "</div>";
 

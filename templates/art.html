@@ -2,79 +2,81 @@
 {% block title %}Public Art | OuterSpaces{% endblock %}
 {% block body %}
 
-  <h1>Public Art &mdash; {{ total_art }} Locations</h1>
+<h1>Public Art &mdash; {{ total_art }} Locations</h1>
 
-  <figure>
-    <blockquote cite="http://sf-planning.org/privately-owned-public-open-space-and-public-art-popos">
-      San Francisco has a <strong>1% Art Program</strong> that requires all projects involving new building, or the addition of 25,000 square feet or more in the Downtown and nearby neighborhoods, provide public art equal to at least 1% of the total construction cost. This program was established by the 1985 Downtown Plan and is governed by <a href="http://library.amlegal.com/nxt/gateway.dll/California/planning/article4developmentimpactfeesandprojectr?f=templates$fn=default.htm$3.0$vid=amlegal:sanfrancisco_ca$anc=JD_429" target="_blank">Section 429 of the Planning Code.</a> Since May 2012, some projects may choose to dedicate a portion of their 1% Art requirement to the <a href="http://www.sfartscommission.org/pubartcollection/public-art-trust/" target="_blank">City's Public Art Trust.</a>
-    </blockquote>
+<figure>
+  <blockquote cite="http://sf-planning.org/privately-owned-public-open-space-and-public-art-popos">
+    San Francisco has a <strong>1% Art Program</strong> that requires all projects involving new building, or the addition of 25,000 square feet or more in the Downtown and nearby neighborhoods, provide public art equal to at least 1% of the total construction cost. This program was established by the 1985 Downtown Plan and is governed by <a href="http://library.amlegal.com/nxt/gateway.dll/California/planning/article4developmentimpactfeesandprojectr?f=templates$fn=default.htm$3.0$vid=amlegal:sanfrancisco_ca$anc=JD_429" target="_blank">Section 429 of the Planning Code.</a> Since May 2012, some projects may choose to dedicate a portion of their 1% Art requirement to the <a href="http://www.sfartscommission.org/pubartcollection/public-art-trust/" target="_blank">City's Public Art Trust.</a>
+  </blockquote>
 
-    <figcaption>Retrieved from <a href="http://sf-planning.org/privately-owned-public-open-space-and-public-art-popos" target="_blank">http://sf-planning.org/privately-owned-public-open-space-and-public-art-popos</a></figcaption>
-  </figure>
+  <figcaption>Retrieved from <a href="http://sf-planning.org/privately-owned-public-open-space-and-public-art-popos" target="_blank">http://sf-planning.org/privately-owned-public-open-space-and-public-art-popos</a></figcaption>
+</figure>
 
-  <h2>
-    <a class="alpha">a</a>&nbsp;&nbsp;<a class="alpha">b</a>&nbsp;&nbsp;<a class="alpha">c</a>&nbsp;&nbsp;<a class="alpha">d</a>&nbsp;&nbsp;<a class="alpha">e</a>&nbsp;&nbsp;<a class="alpha">f</a>&nbsp;&nbsp;<a class="alpha">g</a>&nbsp;&nbsp;<a class="alpha">h</a>&nbsp;&nbsp;<a class="alpha">i</a>&nbsp;&nbsp;<a class="alpha">j</a>&nbsp;&nbsp;<a class="alpha">k</a>&nbsp;&nbsp;<a class="alpha">l</a>&nbsp;&nbsp;<a class="alpha">m</a>&nbsp;&nbsp;<a class="alpha">n</a>&nbsp;&nbsp;<a class="alpha">o</a>&nbsp;&nbsp;<a class="alpha">p</a>&nbsp;&nbsp;<a class="alpha">q</a>&nbsp;&nbsp;<a class="alpha">r</a>&nbsp;&nbsp;<a class="alpha">s</a>&nbsp;&nbsp;<a class="alpha">t</a>&nbsp;&nbsp;<a class="alpha">u</a>&nbsp;&nbsp;<a class="alpha">v</a>&nbsp;&nbsp;<a class="alpha">w</a>&nbsp;&nbsp;<a class="alpha">x</a>&nbsp;&nbsp;<a class="alpha">y</a>&nbsp;&nbsp;<a class="alpha">z</a>
-  </h2><br>
+<h2>
+  <a class="alpha">a</a>&nbsp;&nbsp;<a class="alpha">b</a>&nbsp;&nbsp;<a class="alpha">c</a>&nbsp;&nbsp;<a class="alpha">d</a>&nbsp;&nbsp;<a class="alpha">e</a>&nbsp;&nbsp;<a class="alpha">f</a>&nbsp;&nbsp;<a class="alpha">g</a>&nbsp;&nbsp;<a class="alpha">h</a>&nbsp;&nbsp;<a class="alpha">i</a>&nbsp;&nbsp;<a class="alpha">j</a>&nbsp;&nbsp;<a class="alpha">k</a>&nbsp;&nbsp;<a class="alpha">l</a>&nbsp;&nbsp;<a class="alpha">m</a>&nbsp;&nbsp;<a class="alpha">n</a>&nbsp;&nbsp;<a class="alpha">o</a>&nbsp;&nbsp;<a class="alpha">p</a>&nbsp;&nbsp;<a class="alpha">q</a>&nbsp;&nbsp;<a class="alpha">r</a>&nbsp;&nbsp;<a class="alpha">s</a>&nbsp;&nbsp;<a class="alpha">t</a>&nbsp;&nbsp;<a class="alpha">u</a>&nbsp;&nbsp;<a class="alpha">v</a>&nbsp;&nbsp;<a class="alpha">w</a>&nbsp;&nbsp;<a class="alpha">x</a>&nbsp;&nbsp;<a class="alpha">y</a>&nbsp;&nbsp;<a class="alpha">z</a>
+</h2><br>
 
-  <h2 id="pageName"></h2><br>
-      
-      {% for alpha in art_dict %}
-        <div id="{{ alpha }}" class="hideAlpha" hidden>
+<h2 id="pageName"></h2><br>
+    
+{% for alpha in art_dict %}
+  <div id="{{ alpha }}" class="hideAlpha" hidden>
 
-          {% if not art_dict[alpha] %}
-            <h3>Sorry, there are no public art spaces that start with the letter "{{ alpha }}".</h3>
-          {% endif %}
+    {% if not art_dict[alpha] %}
+      <h3>Sorry, there are no public art spaces that start with the letter "{{ alpha }}".</h3>
+    {% endif %}
 
-          {% for art in art_dict[alpha] %}
-
-            {% if "title" in art %}
-              <h3>{{ art.title }}</h3>
-            {% else %}
-              <h3>Untitled</h3>
-            {% endif %}
-
-            <p>
-              <strong>Address:</strong>{{ art.name }}<br>
-
-              {% if "location" in art %}
-                <strong>Location:</strong>{{ art.location }}<br>
+    <table class="table table-striped">
+      <tbody>
+        {% for art in art_dict[alpha] %}
+          <tr>
+            <td>
+              {% if "title" in art %}
+                <h3>{{ art.title }}</h3>
+              {% else %}
+                <h3>Untitled</h3>
               {% endif %}
 
-              {% if "type" in art %}
-                <strong>Type:</strong>{{ art.type }}<br>
-              {% endif %}
+              <p>
+                <strong>Address: </strong>{{ art.name }}<br>
 
-              {% if "medium" in art %}
-                <strong>Medium:</strong>{{ art.medium }}<br>
-              {% endif %}
-
-              {% if "artistlink" in art %}
-                <a target="_blank" 
-                href="{{art.artistlink}}">{{ art.artistlink }}</a><br>
-              {% endif %}
-
-              <form action="/one" method="POST">
-                <input type="hidden" name="lat" class="lat" 
-                value="{{ art.the_geom.coordinates[1] }}">
-
-                <input type="hidden" name="lng" class="lng" 
-                value="{{ art.the_geom.coordinates[0] }}">
-
-                {% if "title" in art %}
-                  <input type="hidden" name="identifier" value="{{ art.title }}">
-                {% else %}
-                  <input type="hidden" name="identifier" value="{{ art.name }}">
+                {% if "location" in art %}
+                  <strong>Location: </strong>{{ art.location }}<br>
                 {% endif %}
-                
-                <input type="submit" value="show on map">
-              </form>
-              <br>
-            </p>
-            
-          {% endfor %}
-        </div> 
 
-      {% endfor %}
+                {% if "type" in art %}
+                  <strong>Type: </strong>{{ art.type }}<br>
+                {% endif %}
 
+                {% if "medium" in art %}
+                  <strong>Medium: </strong>{{ art.medium }}<br>
+                {% endif %}
 
+                {% if "artistlink" in art %}
+                  <a target="_blank" 
+                  href="{{art.artistlink}}">{{ art.artistlink }}</a><br>
+                {% endif %}
+
+                <form action="/one" method="POST">
+                  <input type="hidden" name="lat" class="lat" 
+                  value="{{ art.the_geom.coordinates[1] }}">
+
+                  <input type="hidden" name="lng" class="lng" 
+                  value="{{ art.the_geom.coordinates[0] }}">
+
+                  {% if "title" in art %}
+                    <input type="hidden" name="identifier" value="{{ art.title }}">
+                  {% else %}
+                    <input type="hidden" name="identifier" value="{{ art.name }}">
+                  {% endif %}
+                  
+                  <button type="submit" class="btn btn-default">show on map</button>
+                </form>
+              </p>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div> 
+{% endfor %}
 {% endblock %}
