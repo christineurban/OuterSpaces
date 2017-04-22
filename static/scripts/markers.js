@@ -89,37 +89,41 @@ function plotDataTrucks(data) {
       "<div id='numLocations'></div>" + 
       "</div>";
 
-  // create marker
-  var marker = new google.maps.Marker({
-    map: map,
-    position: latLng,
-    title: title,
-    address: address,
-    hours: hours,
-    cuisine: cuisine,
-    lat: coords[1],
-    lng: coords[0],
-    searchDetails: searchDetails,
-    icon: "/static/images/green-dot.png"
+  // exclude test data
+  if (title != "BSM - TEST1") {
+
+    // create marker
+    var marker = new google.maps.Marker({
+      map: map,
+      position: latLng,
+      title: title,
+      address: address,
+      hours: hours,
+      cuisine: cuisine,
+      lat: coords[1],
+      lng: coords[0],
+      searchDetails: searchDetails,
+      icon: "/static/images/green-dot.png"
+      });
+
+    // hide all markers if map_one or plan_trip
+    if (document.getElementById("map_one") || 
+        document.getElementById("plan_trip")) {
+      marker.setVisible(false);
+    }
+    
+    // show info window on click  
+    marker.addListener("click", function(){
+      infoWindow.close();   // Close previously opened info window
+      infoWindow.setContent(contentString);
+      // assign marker info to info window for adding to favorites
+      infoWindow.marker = marker;
+      infoWindow.open(map, marker);
     });
 
-  // hide all markers if map_one or plan_trip
-  if (document.getElementById("map_one") || 
-      document.getElementById("plan_trip")) {
-    marker.setVisible(false);
+    // collect all markers in array
+    truckMarkers.push(marker);
   }
-  
-  // show info window on click  
-  marker.addListener("click", function(){
-    infoWindow.close();   // Close previously opened info window
-    infoWindow.setContent(contentString);
-    // assign marker info to info window for adding to favorites
-    infoWindow.marker = marker;
-    infoWindow.open(map, marker);
-  });
-
-  // collect all markers in array
-  truckMarkers.push(marker);
 }
 
 
