@@ -1,7 +1,6 @@
 """Models and database functions for OuterSpaces project."""
 
 from flask_sqlalchemy import SQLAlchemy
-from geoalchemy2.types import Geometry
 
 db = SQLAlchemy()
 

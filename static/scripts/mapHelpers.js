@@ -13,7 +13,7 @@ function mapHelpers() {
       map.setZoom(13);
       map.data.setStyle({visible: false});
 
-      var search = $("#search").val().toLowerCase();
+      var search = $(".searchMap").val().toLowerCase();
       var allMarkers = truckMarkers.concat((poposMarkers.concat(artMarkers)));
 
       for (var marker of allMarkers) {
@@ -152,7 +152,6 @@ function mapHelpers() {
   //////////////////////
 
   function addedToFavorites(result) {
-    // alert(result);
     $("#mapModal").modal();
     $("#mapModalHtml").html(result);
   }
@@ -380,7 +379,7 @@ function mapHelpers() {
 
 
   function geocodeRequest(data) {
-    var search = $("#searchByAddress").val().toLowerCase().replace(/\s+/g, "+");
+    var search = $(".searchByAddress").val().toLowerCase().replace(/\s+/g, "+");
     $.get("https://maps.googleapis.com/maps/api/geocode/json?address=" 
       + search + "San+Francisco&key=" + data, geocodeResponse);
   }

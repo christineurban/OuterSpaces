@@ -12,8 +12,10 @@
 
 {% block body %}
 
-  <h3 class="text-center">Your OuterSpace trip has been created! Read the 
+  {% if id == "plan_trip" %}
+    <h3 class="text-center">Your OuterSpace trip has been created! Read the 
       directions to get to each location.</h3>
+  {% endif %}
 
   <div class="col-xs-12 col-sm-8" id="{{ id }}">
 
@@ -60,32 +62,29 @@
       <span class="nobreak">
         <input type="checkbox" name="space" value="hood" class="checkbox-circle"
         id="hoodMap" checked>
-        <label for="hoodMap">&nbsp;Neighborhoods</label>
+        <label for="hoodMap">&nbsp;Neighborhoods&nbsp;&nbsp;</label>
+        <a href="/map"><button type="button" id="resetMap" class="btn btn-default">Reset Map</button></a>
         <br><br>
       </span>
 
-      <div class="col-xs-12 text-center">
-        <form id="searchForm">
-          <div class="form-group">
-            <input type="text" class="form-control"  name="search" 
-            placeholder="tacos, terrace..." id="search">
-          </div>
-          <button type="submit" class="btn btn-default">Search for OuterSpaces</button>
-          <a href="/map"><button type="button" id="resetMap" class="btn btn-default">Reset</button></a>
-
-        </form>
-        <br>
-      </div>
-
-      <div class="col-xs-12 text-center">
-        <form id="addressForm">
-          <div class="form-group">
-            <input type="text" class="form-control"  name="searchByAddress" 
-            placeholder="123 Market St" id="searchByAddress">
-          </div>
-          <button type="submit" class="btn btn-default">Show OuterSpaces Near an Address</button>
-        </form>
-        <div id="numLocationsAddress"></div>
+      <form class="form-inline" id="searchForm">
+        <div class="form-group">
+        <label class="sr-only" for="inlineFormInput">Search Map</label>
+          <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0 searchMap" 
+          id="inlineFormInput" name="search" placeholder="tacos, view terrace...">
+        </div>
+        <button type="submit" class="btn btn-default">Search</button>
+      </form>
+    <br>
+      <form class="form-inline" id="addressForm">
+        <div class="form-group">
+          <label class="sr-only" for="inlineFormInput">Search By Address</label>
+          <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0 searchByAddress" 
+          id="inlineFormInput" name="searchByAddress" placeholder="450 Sutter">
+        </div>
+        <button type="submit" class="btn btn-default">Near Address</button>
+      </form>
+      <br>
       </div>
 
       <div id="textDirections"></div>

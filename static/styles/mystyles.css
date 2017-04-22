@@ -1,6 +1,47 @@
+/*//////////////*/
+/*/// Global ///*/
+/*//////////////*/
+
+body {
+    font-family: 'Muli', sans-serif;
+}
+
+a {
+    cursor: pointer;
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Ek Mukta', sans-serif;
+}
+
+
+
+/*//////////////*/
+/*/// Navbar ///*/
+/*//////////////*/
+
+nav {
+    font-size: 1.2em;
+}
+
+
+
+/*///////////////////*/
+/*/// Google Maps ///*/
+/*///////////////////*/
+
 #map {
     height: 750px;
     width: 100%;
+}
+
+#infoBox {
+    background-color: white;
+    bottom: 30px;
+    height: 40px;
+    padding: 10px;
+    position: absolute;
+    left: 30px;
 }
 
 input[type=checkbox] {
@@ -86,16 +127,18 @@ input[type=checkbox]#hoodMap:checked:before {
     white-space: nowrap;
 }
 
-a {
-    cursor: pointer;
+
+
+/*/////////////////////*/
+/*/// Page Specific ///*/
+/*/////////////////////*/
+
+.btn.hood-btns {
+    font-size: 1.2em;
+    font-family: 'Ek Mukta', sans-serif;
 }
 
-#infoBox {
-    background-color: white;
-    bottom: 30px;
-    height: 40px;
-    padding: 10px;
-    position: absolute;
-    left: 30px;
+.left-float {
+    float: left;
+    padding-right: 5px;
 }
-

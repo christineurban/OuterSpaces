@@ -12,8 +12,6 @@ from server_utilities import (app, get_truck_data_cached, get_popos_data_cached,
     get_art_data_cached, get_hood_data_cached, display_trucks, display_popos, 
     display_art, display_by_hood_cached)
 
-from geoalchemy2.elements import WKTElement
-
 import os           # Access OS environment variables
 import string
 
@@ -408,6 +406,15 @@ def add_art_to_favorites():
         artist_link = request.form.get("artist_link")
         lat = request.form.get("lat")
         lng = request.form.get("lng")
+
+        print title
+        print address
+        print location
+        print art_type
+        print medium
+        print artist_link
+        print lat
+        print lng
 
         art_in_db = Art.query.filter(Art.title == title, 
                                      Art.address == address).first()
