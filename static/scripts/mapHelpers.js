@@ -92,7 +92,7 @@ function mapHelpers() {
       var request = {
        origin: pos,
        destination: evt.data.position,
-       travelMode: google.maps.DirectionsTravelMode.DRIVING
+       travelMode: google.maps.DirectionsTravelMode[travel]
       };
 
       // http://stackoverflow.com/questions/18954463/
@@ -125,6 +125,7 @@ function mapHelpers() {
           nodes[n].innerHTML = title[n];
       }
         // show the panel
+        $(".warnbox-content, .warnbox-c1, .warnbox-c2").hide();
         directionsDisplay.getPanel().style.visibility="visible";
       }, 500);
 
@@ -135,9 +136,14 @@ function mapHelpers() {
   // adding-event-to-element-inside-google-maps-api-infowindow
   google.maps.event.addListener(infoWindow, 'domready', function() {
     var destination = this.marker;
-    $("#directions").on("click", destination, showDirections);
+    $("#walkingDir").on("click", function() {
+      travel = "WALKING";
+    });
+    $("#drivingDir").on("click", function() {
+      travel = "DRIVING";
+    });
+    $(".directions").on("click", destination, showDirections);
   });
-
 
 
 

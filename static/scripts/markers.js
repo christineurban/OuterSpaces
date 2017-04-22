@@ -77,7 +77,8 @@ function plotDataTrucks(data) {
   var contentString = "<div id='content'>" +
       "<p><strong>FOOD TRUCK</strong></p>" +
       "<h3>" + title + "</h3>" + 
-      "<p><button id='directions'>Directions</button> " +
+      "<p><button id='walkingDir' class='directions'>Walking Directions</button> " +
+      "<button id='drivingDir' class='directions'>Driving Directions</button> " +
       "<button id='addToFavTrucks'>Add to Favorites</button></p>" +
       "<p><strong>Address:</strong> " + address + "</p>" +
       "<p><strong>Hours:</strong> " + hours + "</p>" +
@@ -140,7 +141,8 @@ function plotDataPopos(data) {
   var contentString = "<div id='content'>" +
       "<p><strong>POPOS</strong></p>" +
       "<h3>" + title + "</h3>" +
-      "<p><button id='directions'>Directions</button> " +
+      "<p><button id='walkingDir' class='directions'>Walking Directions</button> " +
+      "<button id='drivingDir' class='directions'>Driving Directions</button> " +
       "<button id='addToFavPopos'>Add to Favorites</button></p>" +
       "<p><strong>Address:</strong> " + address + "</p>" +
       "<p><strong>Hours:</strong> " + hours + "</p>" +
@@ -208,7 +210,8 @@ function plotDataArt(data) {
   var contentString = "<div id='content'>" +
       "<p><strong>PUBLIC ART</strong></p>" +
       "<h3>" + title + "</h3>" +
-      "<p><button id='directions'>Directions</button> " +
+      "<p><button id='walkingDir' class='directions'>Walking Directions</button> " +
+      "<button id='drivingDir' class='directions'>Driving Directions</button> " +
       "<button id='addToFavArt'>Add to Favorites</button></p>" +
       "<p><strong>Address:</strong> " + address + "</p>" +
       "<p><strong>Location:</strong> " + location + "</p>" +
