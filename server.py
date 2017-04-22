@@ -343,10 +343,10 @@ def add_popos_to_favorites():
         name = request.form.get("name")
         address = request.form.get("address")
         hours = request.form.get("hours")
-        popos_type = request.form.get("popos_type")
         location = request.form.get("location")
-        description = request.form.get("description")
+        popos_type = request.form.get("popos_type")
         year = request.form.get("year")
+        description = request.form.get("description")
         lat = request.form.get("lat")
         lng = request.form.get("lng")
 
@@ -360,7 +360,7 @@ def add_popos_to_favorites():
             # check if user has already favorited popos
             if FavPopos.query.filter(FavPopos.user_id == user_id,
                                      FavPopos.popos_id == popos_id).first():
-                return "This space is already in your favorites."    
+                return "Lucky for you, this OuterSpace is already in your favorites!"    
 
         else:
             # if popos not in DB, add popos
@@ -407,15 +407,6 @@ def add_art_to_favorites():
         lat = request.form.get("lat")
         lng = request.form.get("lng")
 
-        print title
-        print address
-        print location
-        print art_type
-        print medium
-        print artist_link
-        print lat
-        print lng
-
         art_in_db = Art.query.filter(Art.title == title, 
                                      Art.address == address).first()
 
@@ -426,7 +417,7 @@ def add_art_to_favorites():
             # check if user has already favorited art
             if FavArt.query.filter(FavArt.user_id == user_id,
                                    FavArt.art_id == art_id).first():
-                return "This spot is already in your favorites."    
+                return "Lucky for you, this OuterSpace is already in your favorites!"    
 
         else:
             # if art not in DB, add art

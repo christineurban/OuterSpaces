@@ -142,3 +142,7 @@ input[type=checkbox]#hoodMap:checked:before {
     float: left;
     padding-right: 5px;
 }
+
+.clearfix {
+    clear: both;
+}

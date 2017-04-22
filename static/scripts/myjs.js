@@ -61,6 +61,48 @@ $(document).ready(function() {
     $("#pageModalHtml").html(result);
   }
 
+
+  function addToFavTrucksPage(evt) {
+    evt.preventDefault();
+
+    var formInputs = {
+      "name": this[0].value,
+      "address": this[1].value,
+      "hours": this[2].value,
+      "cuisine": this[3].value,
+      "lat": this[4].value,
+      "lng": this[5].value
+    };
+
+    $.post("/favorite-popos", 
+           formInputs,
+           addedToFavsPage
+           );
+  }
+
+
+  function addToFavPoposPage(evt) {
+    evt.preventDefault();
+
+    var formInputs = {
+      "name": this[0].value,
+      "address": this[1].value,
+      "hours": this[2].value,
+      "location": this[3].value,
+      "popos_type": this[4].value,
+      "year": this[5].value,
+      "description": this[6].value,
+      "lat": this[7].value,
+      "lng": this[8].value
+    };
+
+    $.post("/favorite-popos", 
+           formInputs,
+           addedToFavsPage
+           );
+  }
+
+
   function addToFavArtPage(evt) {
     evt.preventDefault();
 
@@ -82,6 +124,10 @@ $(document).ready(function() {
            addedToFavsPage
            );
   }
+
+  $(".truckPageForm").on("submit", addToFavTrucksPage);
+
+  $(".poposPageForm").on("submit", addToFavPoposPage);
 
   $(".artPageForm").on("submit", addToFavArtPage);
 

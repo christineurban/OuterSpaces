@@ -77,24 +77,34 @@
                   <form class="artPageForm">
                     {% if "title" in art %}
                       <input type="hidden" class="title" value="{{ art.title }}">
+                    {% else %}
+                      <input type="hidden" class="title">
                     {% endif %}
 
                     <input type="hidden" class="address" value="{{ art.name }}">
 
                     {% if "location" in art %}
                       <input type="hidden" class="location" value="{{ art.location }}">
+                    {% else %}
+                      <input type="hidden" class="location">
                     {% endif %}
 
                     {% if "type" in art %}
                       <input type="hidden" class="art_type" value="{{ art.type }}">
+                    {% else %}
+                      <input type="hidden" class="art_type">
                     {% endif %}
 
                     {% if "medium" in art %}
                       <input type="hidden" class="medium" value="{{ art.medium }}">
+                    {% else %}
+                      <input type="hidden" class="medium">
                     {% endif %}
 
                     {% if "artistlink" in art %}
                       <input type="hidden" class="artist_link" value="{{ art.artistlink }}">
+                    {% else %}
+                      <input type="hidden" class="artist_link">
                     {% endif %}
 
                     <input type="hidden" class="lat" value="{{ art.the_geom.coordinates[1] }}">
@@ -112,28 +122,6 @@
     </table>
   </div> 
 {% endfor %}
-
-
-<!-- ======================= -->
-<!-- ======== MODAL ======== -->
-<!-- ======================= -->
-
-<div class="modal fade" id="pageModal" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">OuterSpaces says...</h4>
-      </div>
-      <div class="modal-body">
-        <p id="pageModalHtml"></p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 
 {% endblock %}

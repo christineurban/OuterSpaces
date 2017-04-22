@@ -46,18 +46,49 @@
                       <strong>Hours: </strong>{{ truck.locations[0].dayshours }}<br>
                     {% endif %}
 
-                    <form action="/one" method="POST">
-                      <input type="hidden" name="lat" class="lat" 
-                      value="{{ truck.location.coordinates[1] }}">
+                    <div class="left-float">
+                      <form action="/one" method="POST">
+                        <input type="hidden" name="lat" class="lat" 
+                        value="{{ truck.location.coordinates[1] }}">
 
-                      <input type="hidden" name="lng" class="lng" 
-                      value="{{ truck.location.coordinates[0] }}">
+                        <input type="hidden" name="lng" class="lng" 
+                        value="{{ truck.location.coordinates[0] }}">
 
-                      <input type="hidden" name="identifier" value="{{ truck.applicant }}">
+                        <input type="hidden" name="identifier" value="{{ truck.applicant }}">
 
-                      <button type="submit" class="btn btn-default">show on map</button>
-                    </form>
-                    <br>
+                        <button type="submit" class="btn btn-default">show on map</button>
+                      </form>
+                    </div>
+                    <div class="left-float">
+                      <form class="truckPageForm">
+
+                        <input type="hidden" class="name" value="{{ truck.applicant }}">
+                        
+                        {% if "address" in truck %}
+                          <input type="hidden" class="address" value="{{ truck.address }}">
+                        {% else %}
+                            <input type="hidden" class="address">
+                          {% endif %}
+
+                        {% if "dayshours" in truck %}
+                          <input type="hidden" class="hours" value="{{ truck.dayshours }}">
+                        {% else %}
+                          <input type="hidden" class="hours">
+                        {% endif %}
+
+                        {% if "fooditems" in truck %}
+                          <input type="hidden" class="cuisine" value="{{ truck.fooditems }}">
+                        {% else %}
+                          <input type="hidden" class="cuisine">
+                        {% endif %}
+
+                        <input type="hidden" class="lat" value="{{ truck.location.coordinates[1] }}">
+
+                        <input type="hidden" class="lng" value="{{ truck.location.coordinates[0] }}">
+                        
+                        <button type="submit" class="btn btn-default">Add To Favorites</button>
+                      </form>
+                    </div>
                   </p>
                 {% else %}
                   <h3>{{ truck.applicant }} &mdash; 
@@ -75,19 +106,51 @@
                       {% if "dayshours" in truck %}
                         <strong>Hours: </strong>{{ truck.dayshours }}<br>
                       {% endif %}
+            
+                      <div class="left-float">
+                        <form action="/one" method="POST">
+                          <input type="hidden" name="lat" class="lat" 
+                          value="{{ truck.location.coordinates[1] }}">
 
-                      <form action="/one" method="POST">
-                        <input type="hidden" name="lat" class="lat" 
-                        value="{{ truck.location.coordinates[1] }}">
+                          <input type="hidden" name="lng" class="lng" 
+                          value="{{ truck.location.coordinates[0] }}">
 
-                        <input type="hidden" name="lng" class="lng" 
-                        value="{{ truck.location.coordinates[0] }}">
+                          <input type="hidden" name="identifier" value="{{ truck.applicant }}">
 
-                        <input type="hidden" name="identifier" value="{{ truck.applicant }}">
+                          <button type="submit" class="btn btn-default">show on map</button>
+                        </form>
+                      </div>
+                      <div class="left-float">
+                        <form class="truckPageForm">
 
-                        <button type="submit" class="btn btn-default">show on map</button>
-                      </form>
-                      <br>
+                          <input type="hidden" class="name" value="{{ truck.applicant }}">
+
+                          {% if "address" in truck %}
+                            <input type="hidden" class="address" value="{{ truck.address }}">
+                          {% else %}
+                            <input type="hidden" class="address">
+                          {% endif %}
+
+                          {% if "dayshours" in truck %}
+                            <input type="hidden" class="hours" value="{{ truck.dayshours }}">
+                          {% else %}
+                            <input type="hidden" class="hours">
+                          {% endif %}
+
+                          {% if "fooditems" in truck %}
+                            <input type="hidden" class="cuisine" value="{{ truck.fooditems }}">
+                          {% else %}
+                            <input type="hidden" class="cuisine">
+                          {% endif %}
+
+                          <input type="hidden" class="lat" value="{{ truck.location.coordinates[1] }}">
+
+                          <input type="hidden" class="lng" value="{{ truck.location.coordinates[0] }}">
+                          
+                          <button type="submit" class="btn btn-default">Add To Favorites</button>
+                        </form>
+                      </div>
+                      <div class="clearfix">&nbsp;</div>
                     </p>
                   {% endfor %}
                 {% endif %}

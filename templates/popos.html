@@ -48,19 +48,63 @@
                 {% if "desc" in popo %}
                   {{popo.desc}}<br>
                 {% endif %}
+                
+                <div class="left-float">
+                  <form action="/one" method="POST">
+                    <input type="hidden" name="lat" class="lat" 
+                    value="{{ popo.the_geom.coordinates[1] }}">
 
-                <form action="/one" method="POST">
-                  <input type="hidden" name="lat" class="lat" 
-                  value="{{ popo.the_geom.coordinates[1] }}">
+                    <input type="hidden" name="lng" class="lng" 
+                    value="{{ popo.the_geom.coordinates[0] }}">
 
-                  <input type="hidden" name="lng" class="lng" 
-                  value="{{ popo.the_geom.coordinates[0] }}">
+                    <input type="hidden" name="identifier" value="{{ popo.name }}">
 
-                  <input type="hidden" name="identifier" value="{{ popo.name }}">
+                    <button type="submit" class="btn btn-default">show on map</button>
+                  </form>
+                </div>
+                <div class="left-float">
+                  <form class="poposPageForm">
 
-                  <button type="submit" class="btn btn-default">show on map</button>
-                </form>
-                <br>
+                    <input type="hidden" class="name" value="{{ popo.name }}">
+
+                    <input type="hidden" class="address" value="{{ popo.popos_addr }}">
+
+                    {% if "hours" in popo %}
+                      <input type="hidden" class="hours" value="{{ popo.hours }}">
+                    {% else %}
+                      <input type="hidden" class="hours">
+                    {% endif %}
+
+                    {% if "location" in popo %}
+                      <input type="hidden" class="location" value="{{ popo.location }}">
+                    {% else %}
+                      <input type="hidden" class="location">
+                    {% endif %}
+
+                    {% if "type" in popo %}
+                      <input type="hidden" class="popos_type" value="{{ popo.type }}">
+                    {% else %}
+                      <input type="hidden" class="popos_type">
+                    {% endif %}
+
+                    {% if "year" in popo %}
+                      <input type="hidden" class="year" value="{{ popo.year }}">
+                    {% else %}
+                      <input type="hidden" class="year">
+                    {% endif %}
+
+                    {% if "desc" in popo %}
+                      <input type="hidden" class="description" value="{{ popo.desc }}">
+                    {% else %}
+                      <input type="hidden" class="description">
+                    {% endif %}
+
+                    <input type="hidden" class="lat" value="{{ popo.the_geom.coordinates[1] }}">
+
+                    <input type="hidden" class="lng" value="{{ popo.the_geom.coordinates[0] }}">
+                    
+                    <button type="submit" class="btn btn-default">Add To Favorites</button>
+                </div>
               </p>
             </td>
           </tr>
