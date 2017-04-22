@@ -311,4 +311,3 @@ function plotMarker() {
     }
   }
 }
-

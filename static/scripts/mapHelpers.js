@@ -396,6 +396,17 @@ function mapHelpers() {
   $("#addressForm").on("submit", showNearAddress);
 
 
+
+  ////////////////////////////////////
+  // Hide undefined in info windows //
+  ////////////////////////////////////
+
+  google.maps.event.addListener(infoWindow, 'domready', function() {
+    $("p:contains('undefined')").remove();
+    $("a:contains('undefined')").remove();
+  });
+
+
 } // end of mapHelpers()
 
 
