@@ -232,19 +232,50 @@
                   {% if "dayshours" in location %}
                     <strong>Hours: </strong>{{ location.dayshours }}<br>
                   {% endif %}
+                  
+                  <div class="left-float">
+                    <form action="/one" method="POST">
+                      <input type="hidden" name="lat" class="lat" 
+                      value="{{ location.location.coordinates[1] }}">
 
-                  <form action="/one" method="POST">
-                    <input type="hidden" name="lat" class="lat" 
-                    value="{{ location.location.coordinates[1] }}">
+                      <input type="hidden" name="lng" class="lng" 
+                      value="{{ location.location.coordinates[0] }}">
 
-                    <input type="hidden" name="lng" class="lng" 
-                    value="{{ location.location.coordinates[0] }}">
+                      <input type="hidden" name="identifier" value="{{ location.applicant }}">
 
-                    <input type="hidden" name="identifier" value="{{ location.applicant }}">
+                      <button type="submit" class="btn btn-default">show on map</button>
+                    </form>
+                  </div>
+                  <div class="left-float">
+                    <form class="truckPageForm">
 
-                    <button type="submit" class="btn btn-default">show on map</button>
-                  </form>
-                  <br>
+                      <input type="hidden" class="name" value="{{ location.applicant }}">
+
+                      {% if "address" in location %}
+                        <input type="hidden" class="address" value="{{ location.address }}">
+                      {% else %}
+                        <input type="hidden" class="address">
+                      {% endif %}
+
+                      {% if "dayshours" in location %}
+                        <input type="hidden" class="hours" value="{{ location.dayshours }}">
+                      {% else %}
+                        <input type="hidden" class="hours">
+                      {% endif %}
+
+                      {% if "fooditems" in location %}
+                        <input type="hidden" class="cuisine" value="{{ location.fooditems }}">
+                      {% else %}
+                        <input type="hidden" class="cuisine">
+                      {% endif %}
+
+                      <input type="hidden" class="lat" value="{{ location.location.coordinates[1] }}">
+
+                      <input type="hidden" class="lng" value="{{ location.location.coordinates[0] }}">
+                      
+                      <button type="submit" class="btn btn-default">Add To Favorites</button>
+                    </form>
+                  </div>
                 </p>
               {% endif %}
 
@@ -277,18 +308,62 @@
                     {{location.desc}}<br>
                   {% endif %}
 
-                  <form action="/one" method="POST">
-                    <input type="hidden" name="lat" class="lat" 
-                    value="{{ location.the_geom.coordinates[1] }}">
+                  <div class="left-float">
+                    <form action="/one" method="POST">
+                      <input type="hidden" name="lat" class="lat" 
+                      value="{{ location.the_geom.coordinates[1] }}">
 
-                    <input type="hidden" name="lng" class="lng" 
-                    value="{{ location.the_geom.coordinates[0] }}">
+                      <input type="hidden" name="lng" class="lng" 
+                      value="{{ location.the_geom.coordinates[0] }}">
 
-                    <input type="hidden" name="identifier" value="{{ location.name }}">
+                      <input type="hidden" name="identifier" value="{{ location.name }}">
 
-                    <button type="submit" class="btn btn-default">show on map</button>
-                  </form>
-                  <br>
+                      <button type="submit" class="btn btn-default">show on map</button>
+                    </form>
+                  </div>
+                  <div class="left-float">
+                    <form class="poposPageForm">
+
+                      <input type="hidden" class="name" value="{{ location.name }}">
+
+                      <input type="hidden" class="address" value="{{ location.popos_addr }}">
+
+                      {% if "hours" in location %}
+                        <input type="hidden" class="hours" value="{{ location.hours }}">
+                      {% else %}
+                        <input type="hidden" class="hours">
+                      {% endif %}
+
+                      {% if "location" in location %}
+                        <input type="hidden" class="location" value="{{ location.location }}">
+                      {% else %}
+                        <input type="hidden" class="location">
+                      {% endif %}
+
+                      {% if "type" in location %}
+                        <input type="hidden" class="popos_type" value="{{ location.type }}">
+                      {% else %}
+                        <input type="hidden" class="popos_type">
+                      {% endif %}
+
+                      {% if "year" in location %}
+                        <input type="hidden" class="year" value="{{ location.year }}">
+                      {% else %}
+                        <input type="hidden" class="year">
+                      {% endif %}
+
+                      {% if "desc" in location %}
+                        <input type="hidden" class="description" value="{{ location.desc }}">
+                      {% else %}
+                        <input type="hidden" class="description">
+                      {% endif %}
+
+                      <input type="hidden" class="lat" value="{{ location.the_geom.coordinates[1] }}">
+
+                      <input type="hidden" class="lng" value="{{ location.the_geom.coordinates[0] }}">
+                      
+                      <button type="submit" class="btn btn-default">Add To Favorites</button>
+                  </div>
                 </p>
               {% endif %}
 
@@ -322,18 +397,60 @@
                     href="{{location.artistlink}}">{{ location.artistlink }}</a><br>
                   {% endif %}
 
-                  <form action="/one" method="POST">
-                    <input type="hidden" name="lat" class="lat" 
-                    value="{{ location.the_geom.coordinates[1] }}">
+                  <div class="left-float">
+                    <form action="/one" method="POST">
+                      <input type="hidden" name="lat" class="lat" 
+                      value="{{ location.the_geom.coordinates[1] }}">
 
-                    <input type="hidden" name="lng" class="lng" 
-                    value="{{ location.the_geom.coordinates[0] }}">
+                      <input type="hidden" name="lng" class="lng" 
+                      value="{{ location.the_geom.coordinates[0] }}">
 
-                    <input type="hidden" name="identifier" value="{{ location.main_name }}">
-                    
-                    <button type="submit" class="btn btn-default">show on map</button>
-                  </form>
-                  <br>
+                      <input type="hidden" name="identifier" value="{{ location.main_name }}">
+                      
+                      <button type="submit" class="btn btn-default">show on map</button>
+                    </form>
+                  </div>
+                  <div class="left-float">
+                    <form class="artPageForm">
+                      {% if "title" in location %}
+                        <input type="hidden" class="title" value="{{ location.title }}">
+                      {% else %}
+                        <input type="hidden" class="title">
+                      {% endif %}
+
+                      <input type="hidden" class="address" value="{{ location.name }}">
+
+                      {% if "location" in location %}
+                        <input type="hidden" class="location" value="{{ location.location }}">
+                      {% else %}
+                        <input type="hidden" class="location">
+                      {% endif %}
+
+                      {% if "type" in location %}
+                        <input type="hidden" class="art_type" value="{{ location.type }}">
+                      {% else %}
+                        <input type="hidden" class="art_type">
+                      {% endif %}
+
+                      {% if "medium" in location %}
+                        <input type="hidden" class="medium" value="{{ location.medium }}">
+                      {% else %}
+                        <input type="hidden" class="medium">
+                      {% endif %}
+
+                      {% if "artistlink" in location %}
+                        <input type="hidden" class="artist_link" value="{{ location.artistlink }}">
+                      {% else %}
+                        <input type="hidden" class="artist_link">
+                      {% endif %}
+
+                      <input type="hidden" class="lat" value="{{ location.the_geom.coordinates[1] }}">
+
+                      <input type="hidden" class="lng" value="{{ location.the_geom.coordinates[0] }}">
+                      
+                      <button type="submit" class="btn btn-default">Add To Favorites</button>
+                    </form>
+                  </div>
                 </p>
               {% endif %}
             </td>
