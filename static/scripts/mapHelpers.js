@@ -557,7 +557,7 @@ function planMyTrip() {
           closest Public Art.",
         "You have arrived to:<div style='font-weight:bold'>" + 
           closestArt.marker.title + " on " + closestArt.marker.address + 
-          "</div>Enjoy, you Space Cadet you!"
+          "</div>Enjoy, you Space cadet you!"
       ]
 
       setTimeout(function(){

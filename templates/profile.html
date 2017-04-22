@@ -37,7 +37,7 @@
               <strong>Hours: </strong>{{ fav.truck.hours }}<br>
               <strong>Cuisine: </strong>{{ fav.truck.cuisine }}<br>
               <div class="left-float">
-                <form action="/one" class="favOnMapForm" method="POST">
+                <form action="/one" method="POST">
                   <input type="hidden" name="lat" class="lat" value="{{ fav.truck.lat }}">
                   <input type="hidden" name="lng" class="lng" value="{{ fav.truck.lng }}">
                   <input type="hidden" name="identifier" value="{{ fav.truck.name }}">
@@ -45,7 +45,7 @@
                 </form>
               </div>
               <div class="left-float">
-                <form action="/delete-fav-truck" class="deleteFavTruckForm" method="POST">
+                <form action="/delete-fav-truck" method="POST">
                   <input type="hidden" name="fav_truck_id" value="{{ fav.fav_truck_id }}">
                   <input type="hidden" name="name" value="{{ fav.truck.name }}">
                   <input type="hidden" name="address" value="{{ fav.truck.address }}">
@@ -78,7 +78,7 @@
               <strong>Year: </strong>{{ fav.popos.year }}<br>
               {{ fav.popos.description }}<br>
               <div class="left-float">
-                <form action="/one" class="favOnMapForm" method="POST">
+                <form action="/one" method="POST">
                   <input type="hidden" name="lat" class="lat" value="{{ fav.popos.lat }}">
                   <input type="hidden" name="lng" class="lng" value="{{ fav.popos.lng }}">
                   <input type="hidden" name="identifier" value="{{ fav.popos.name }}">
@@ -86,8 +86,9 @@
                 </form>
               </div>
               <div class="left-float">
-                <form class="deleteFavPoposForm">
-                  <input type="hidden" class="fav_popos_id" value="{{ fav.fav_popos_id }}">
+                <form action="/delete-fav-popos" method="POST">
+                  <input type="hidden" name="fav_popos_id" value="{{ fav.fav_popos_id }}">
+                  <input type="hidden" name="name" value="{{ fav.popos.name }}">
                   <button type="submit" class="btn btn-default">Delete Favorite</button>
                 </form>
               </div>              
@@ -116,7 +117,7 @@
               <strong>Medium: </strong>{{ fav.art.medium }}<br>
               <a target="_blank" href="{{ fav.art.artist_link }}">{{ fav.art.artist_link }}</a><br>
               <div class="left-float">
-                <form action="/one" class="favOnMapForm" method="POST">
+                <form action="/one" method="POST">
                   <input type="hidden" name="lat" class="lat" value="{{ fav.art.lat }}">
                   <input type="hidden" name="lng" class="lng" value="{{ fav.art.lng }}">
                   <input type="hidden" name="identifier" value="{{ fav.art.title }}">
@@ -124,8 +125,9 @@
                 </form>
               </div>
               <div class="left-float">
-                <form class="deleteFavArtForm">
-                  <input type="hidden" class="fav_art_id" value="{{ fav.fav_art_id }}">
+                <form action="/delete-fav-art" method="POST">
+                  <input type="hidden" name="fav_art_id" value="{{ fav.fav_art_id }}">
+                  <input type="hidden" name="name" value="{{ fav.art.title }}">
                   <button type="submit" class="btn btn-default">Delete Favorite</button>
                 </form>
               </div> 

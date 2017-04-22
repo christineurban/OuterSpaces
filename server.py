@@ -181,7 +181,7 @@ def log_in():
             session["email"] = user.email
             session["first_name"] = user.first_name
             session["last_name"] = user.last_name
-            flash("Welcome back " + user.first_name + "!")
+            flash("Welcome back {}!".format(user.first_name))
             return redirect("/profile")
 
     except:
@@ -217,7 +217,10 @@ def sign_up():
         session["first_name"] = user.first_name
         session["last_name"] = user.last_name
 
-        flash("Thank you for registering!")
+        flash("Thank you for registering, {}, and welcome to OuterSpaces! \
+            You can now add favorites to your profile from any page or the map.\
+            Have fun, you Space cadet, you!".format(
+            user.first_name))
         return redirect("/profile")
 
 
@@ -231,7 +234,7 @@ def sign_out():
         del session["first_name"] 
         del session["last_name"]
 
-        flash("You have successfully signed out.")
+        flash("You have successfully signed out. See you next time!")
         return redirect("/")
 
 
@@ -305,7 +308,8 @@ def add_truck_to_favorites():
             # check if user has already favorited truck
             if FavTruck.query.filter(FavTruck.user_id == user_id,
                                      FavTruck.truck_id == truck_id).first():
-                return "Lucky for you, this OuterSpace is already in your favorites!"    
+                return "Lucky for you, {} ({}) is already in your favorites!".format(
+                       name, address)    
 
         else:
             # if truck not in DB, add truck
@@ -327,7 +331,7 @@ def add_truck_to_favorites():
 
         db.session.add(fav_truck)
         db.session.commit()
-        return "Added to favorites!"
+        return "Added {} ({}) to favorites!".format(name, address)
 
     except:
         return "Oops! You must be logged in to save a favorite."
@@ -360,7 +364,8 @@ def add_popos_to_favorites():
             # check if user has already favorited popos
             if FavPopos.query.filter(FavPopos.user_id == user_id,
                                      FavPopos.popos_id == popos_id).first():
-                return "Lucky for you, this OuterSpace is already in your favorites!"    
+                return "Lucky for you, {} is already in your favorites!".format(
+                       name)   
 
         else:
             # if popos not in DB, add popos
@@ -385,7 +390,7 @@ def add_popos_to_favorites():
 
         db.session.add(fav_popos)
         db.session.commit()
-        return "Added to favorites!"
+        return "Added {} to favorites!".format(name)
 
     except:
         return "Oops! You must be logged in to save a favorite."
@@ -417,7 +422,8 @@ def add_art_to_favorites():
             # check if user has already favorited art
             if FavArt.query.filter(FavArt.user_id == user_id,
                                    FavArt.art_id == art_id).first():
-                return "Lucky for you, this OuterSpace is already in your favorites!"    
+                return "Lucky for you, {} is already in your favorites!".format(
+                       title)   
 
         else:
             # if art not in DB, add art
@@ -441,7 +447,7 @@ def add_art_to_favorites():
 
         db.session.add(fav_art)
         db.session.commit()
-        return "Added to favorites!"
+        return "Added {} to favorites!".format(title)
 
     except:
         return "Oops! You must be logged in to save a favorite."
@@ -460,11 +466,46 @@ def delete_fav_truck():
                                 FavTruck.fav_truck_id == fav_truck_id).first()
 
     db.session.delete(fav)
-
     db.session.commit()
 
     flash("You have successfully deleted {} ({}) from your favorites.".format(
           name, address))
+    return redirect("/profile")
+
+
+@app.route("/delete-fav-popos", methods=["POST"])
+def delete_fav_popos():
+    """Delete favorite POPOS from profile page."""
+
+    user_id = session["user_id"]
+    fav_popos_id = request.form.get("fav_popos_id")
+    name = request.form.get("name")
+
+    fav = FavPopos.query.filter(FavPopos.user_id == user_id,
+                                FavPopos.fav_popos_id == fav_popos_id).first()
+
+    db.session.delete(fav)
+    db.session.commit()
+
+    flash("You have successfully deleted {} from your favorites.".format(name))
+    return redirect("/profile")
+
+
+@app.route("/delete-fav-art", methods=["POST"])
+def delete_fav_art():
+    """Delete favorite art from profile page."""
+
+    user_id = session["user_id"]
+    fav_art_id = request.form.get("fav_art_id")
+    name = request.form.get("name")
+
+    fav = FavArt.query.filter(FavArt.user_id == user_id,
+                                FavArt.fav_art_id == fav_art_id).first()
+
+    db.session.delete(fav)
+    db.session.commit()
+
+    flash("You have successfully deleted {} from your favorites.".format(name))
     return redirect("/profile")
 
 
