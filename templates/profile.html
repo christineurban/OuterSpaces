@@ -2,30 +2,6 @@
 {% block title %}Profile | OuterSpaces{% endblock %}
 {% block body %}
 
-  <div class="modal fade" id="deleteModal" role="dialog">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">OuterSpaces says...</h4>
-        </div>
-        <div class="modal-body">
-          <p>Are you sure you wish to delete your account?</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary"
-          data-dismiss="modal" id="deleteBtnModal">Yes I'm Sure</button>
-          <button type="button" class="btn btn-secondary" 
-          data-dismiss="modal">No Way!</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <form action="/delete_account" method="POST" id="deleteBtnHidden" hidden>
-    <input type="submit">
-  </form>
-
   <h1>Profile</h1>
 
   <div class="col-sm-6">
@@ -113,5 +89,35 @@
       </p>
     {% endfor %}
   {% endif %}
+
+
+  <!-- ======================= -->
+  <!-- ======== MODAL ======== -->
+  <!-- ======================= -->
+
+  <div class="modal fade" id="deleteModal" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">OuterSpaces says...</h4>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you wish to delete your account?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary"
+          data-dismiss="modal" id="deleteBtnModal">Yes I'm Sure</button>
+          <button type="button" class="btn btn-secondary" 
+          data-dismiss="modal">No Way!</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- hidden delete button -->
+  <form action="/delete_account" method="POST" id="deleteBtnHidden" hidden>
+    <input type="submit">
+  </form>
 
 {% endblock %}
