@@ -244,13 +244,28 @@ def change_password():
 
     user_id = session["user_id"]
     new_password = request.form.get("new_password")
-    print new_password
     user = User.query.get(user_id)
 
     user.password = new_password
     db.session.commit()
 
     flash("You have successfully changed your password.")
+    return redirect("/profile")
+
+
+@app.route("/change_email", methods=["POST"])
+def change_email():
+    """Change user password."""
+
+    user_id = session["user_id"]
+    new_email = request.form.get("new_email")
+    user = User.query.get(user_id)
+
+    user.email = new_email
+    session["email"] = new_email
+    db.session.commit()
+
+    flash("You have successfully changed your email address.")
     return redirect("/profile")
 
 
