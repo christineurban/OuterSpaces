@@ -74,7 +74,7 @@ $(document).ready(function() {
       "lng": this[5].value
     };
 
-    $.post("/favorite-popos", 
+    $.post("/favorite-truck", 
            formInputs,
            addedToFavsPage
            );
@@ -130,7 +130,6 @@ $(document).ready(function() {
   $(".poposPageForm").on("submit", addToFavPoposPage);
 
   $(".artPageForm").on("submit", addToFavArtPage);
-
 
 
 }); // end of $(document).ready

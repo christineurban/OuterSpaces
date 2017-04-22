@@ -2,122 +2,170 @@
 {% block title %}Profile | OuterSpaces{% endblock %}
 {% block body %}
 
-  <h1>Profile</h1>
+<h1>Profile</h1>
 
-  <div class="col-sm-6">
-    <p><strong>Name:</strong> {{ session["first_name"] }} {{ session["last_name"] }}</p>
-    <p><strong>Email:</strong> {{ session["email"] }}</p>
-  </div>
-  
-  <div class="col-sm-6">
-    <form action="/change_password" method="POST">
-        <div class="form-group">
-          <input type="password" class="form-control" name="new_password" 
-          placeholder="new password">
-        </div>
-        <button type="submit" class="btn btn-default">change password</button>
-    </form>
-    <button type="button" id="deleteAcct" class="btn btn-default">delete account</button>
-  </div>
+<div class="col-sm-6">
+  <p><strong>Name:</strong> {{ session["first_name"] }} {{ session["last_name"] }}</p>
+  <p><strong>Email:</strong> {{ session["email"] }}</p>
+</div>
+
+<div class="col-sm-6">
+  <form action="/change_password" method="POST">
+      <div class="form-group">
+        <input type="password" class="form-control" name="new_password" 
+        placeholder="new password">
+      </div>
+      <button type="submit" class="btn btn-default">change password</button>
+  </form>
+  <button type="button" id="deleteAcct" class="btn btn-default">delete account</button>
+</div>
 
 
-  
-  <br><br>
-  
-  {% if fav_trucks %}
-  <h2><u>Favorite Food Trucks</u></h2>
-    {% for fav in fav_trucks %}
-      <h3>{{ fav.truck.name }}</h3>
-      <p>
-        <strong>Address: </strong>{{ fav.truck.address }}<br>
-        <strong>Hours: </strong>{{ fav.truck.hours }}<br>
-        <strong>Cuisine: </strong>{{ fav.truck.cuisine }}<br>
-        <form action="/one" class="favOnMapForm" method="POST">
-          <input type="hidden" name="lat" class="lat" value="{{ fav.truck.lat }}">
-          <input type="hidden" name="lng" class="lng" value="{{ fav.truck.lng }}">
-          <input type="hidden" name="identifier" value="{{ fav.truck.name }}">
-          <input type="submit" value="show on map">
-        </form>
-        <br>
-      <p>
-    {% endfor %}
-  {% endif %}
 
-  <br><br>
+<br><br>
 
-  {% if fav_popos %}  
-  <h2><u>Favorite POPOS</u></h2>    
+{% if fav_trucks %}
+<h2>Favorite Food Trucks</h2>
+  <table class="table table-striped">
+    <tbody>
+      {% for fav in fav_trucks %}
+        <tr>
+          <td>
+            <h3>{{ fav.truck.name }}</h3>
+            <p>
+              <strong>Address: </strong>{{ fav.truck.address }}<br>
+              <strong>Hours: </strong>{{ fav.truck.hours }}<br>
+              <strong>Cuisine: </strong>{{ fav.truck.cuisine }}<br>
+              <div class="left-float">
+                <form action="/one" class="favOnMapForm" method="POST">
+                  <input type="hidden" name="lat" class="lat" value="{{ fav.truck.lat }}">
+                  <input type="hidden" name="lng" class="lng" value="{{ fav.truck.lng }}">
+                  <input type="hidden" name="identifier" value="{{ fav.truck.name }}">
+                  <button type="submit" class="btn btn-default">Show on Map</button>
+                </form>
+              </div>
+              <div class="left-float">
+                <form action="/delete-fav-truck" class="deleteFavTruckForm" method="POST">
+                  <input type="hidden" name="fav_truck_id" value="{{ fav.fav_truck_id }}">
+                  <input type="hidden" name="name" value="{{ fav.truck.name }}">
+                  <input type="hidden" name="address" value="{{ fav.truck.address }}">
+                  <button type="submit" class="btn btn-default">Delete Favorite</button>
+                </form>
+              </div>
+            </p>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
+
+<br><br>
+
+{% if fav_popos %}  
+<h2>Favorite POPOS</h2>
+  <table class="table table-striped">
+    <tbody>  
       {% for fav in fav_popos %}
-      <h3>{{ fav.popos.name }}</h3>
-      <p>
-        <strong>Address: </strong>{{ fav.popos.address }}<br>
-        <strong>Hours: </strong>{{ fav.popos.hours }}<br>
-        <strong>Type: </strong>{{ fav.popos.popos_type }}<br>
-        <strong>Location: </strong>{{ fav.popos.location }}<br>
-        <strong>Year: </strong>{{ fav.popos.year }}<br>
-        {{ fav.popos.description }}<br>
-        <form action="/one" class="favOnMapForm" method="POST">
-          <input type="hidden" name="lat" class="lat" value="{{ fav.popos.lat }}">
-          <input type="hidden" name="lng" class="lng" value="{{ fav.popos.lng }}">
-          <input type="hidden" name="identifier" value="{{ fav.popos.name }}">
-          <input type="submit" value="show on map">
-        </form>
-        <br>
-      <p>
-    {% endfor %}
-  {% endif %}
+        <tr>
+          <td>
+            <h3>{{ fav.popos.name }}</h3>
+            <p>
+              <strong>Address: </strong>{{ fav.popos.address }}<br>
+              <strong>Hours: </strong>{{ fav.popos.hours }}<br>
+              <strong>Type: </strong>{{ fav.popos.popos_type }}<br>
+              <strong>Location: </strong>{{ fav.popos.location }}<br>
+              <strong>Year: </strong>{{ fav.popos.year }}<br>
+              {{ fav.popos.description }}<br>
+              <div class="left-float">
+                <form action="/one" class="favOnMapForm" method="POST">
+                  <input type="hidden" name="lat" class="lat" value="{{ fav.popos.lat }}">
+                  <input type="hidden" name="lng" class="lng" value="{{ fav.popos.lng }}">
+                  <input type="hidden" name="identifier" value="{{ fav.popos.name }}">
+                  <button type="submit" class="btn btn-default">Show on Map</button>
+                </form>
+              </div>
+              <div class="left-float">
+                <form class="deleteFavPoposForm">
+                  <input type="hidden" class="fav_popos_id" value="{{ fav.fav_popos_id }}">
+                  <button type="submit" class="btn btn-default">Delete Favorite</button>
+                </form>
+              </div>              
+            </p>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
 
-  <br><br>
+<br><br>
 
-  {% if fav_art %}
-  <h2><u>Favorite Public Art</u></h2>    
+{% if fav_art %}
+<h2>Favorite Public Art</h2>
+  <table class="table table-striped">
+    <tbody>
       {% for fav in fav_art %}
-      <h3>{{ fav.art.title }}</h3>
-      <p>
-        <strong>Address: </strong>{{ fav.art.address }}<br>
-        <strong>Location: </strong>{{ fav.art.location }}<br>
-        <strong>Type: </strong>{{ fav.art.art_type }}<br>
-        <strong>Medium: </strong>{{ fav.art.medium }}<br>
-        <a target="_blank" href="{{ fav.art.artist_link }}">{{ fav.art.artist_link }}</a><br>
-        <form action="/one" class="favOnMapForm" method="POST">
-          <input type="hidden" name="lat" class="lat" value="{{ fav.art.lat }}">
-          <input type="hidden" name="lng" class="lng" value="{{ fav.art.lng }}">
-          <input type="hidden" name="identifier" value="{{ fav.art.title }}">
-          <input type="submit" value="show on map">
-        </form>
-        <br>
-      </p>
-    {% endfor %}
-  {% endif %}
+        <tr>
+          <td>
+            <h3>{{ fav.art.title }}</h3>
+            <p>
+              <strong>Address: </strong>{{ fav.art.address }}<br>
+              <strong>Location: </strong>{{ fav.art.location }}<br>
+              <strong>Type: </strong>{{ fav.art.art_type }}<br>
+              <strong>Medium: </strong>{{ fav.art.medium }}<br>
+              <a target="_blank" href="{{ fav.art.artist_link }}">{{ fav.art.artist_link }}</a><br>
+              <div class="left-float">
+                <form action="/one" class="favOnMapForm" method="POST">
+                  <input type="hidden" name="lat" class="lat" value="{{ fav.art.lat }}">
+                  <input type="hidden" name="lng" class="lng" value="{{ fav.art.lng }}">
+                  <input type="hidden" name="identifier" value="{{ fav.art.title }}">
+                  <button type="submit" class="btn btn-default">Show on Map</button>
+                </form>
+              </div>
+              <div class="left-float">
+                <form class="deleteFavArtForm">
+                  <input type="hidden" class="fav_art_id" value="{{ fav.fav_art_id }}">
+                  <button type="submit" class="btn btn-default">Delete Favorite</button>
+                </form>
+              </div> 
+              <br>
+            </p>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
 
 
-  <!-- ======================= -->
-  <!-- ======== MODAL ======== -->
-  <!-- ======================= -->
+<!-- ======================= -->
+<!-- ======== MODAL ======== -->
+<!-- ======================= -->
 
-  <div class="modal fade" id="deleteModal" role="dialog">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">OuterSpaces says...</h4>
-        </div>
-        <div class="modal-body">
-          <p>Are you sure you wish to delete your account?</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary"
-          data-dismiss="modal" id="deleteBtnModal">Yes I'm Sure</button>
-          <button type="button" class="btn btn-secondary" 
-          data-dismiss="modal">No Way!</button>
-        </div>
+<div class="modal fade" id="deleteModal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">OuterSpaces says...</h4>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you wish to delete your account?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary"
+        data-dismiss="modal" id="deleteBtnModal">Yes I'm Sure</button>
+        <button type="button" class="btn btn-secondary" 
+        data-dismiss="modal">No Way!</button>
       </div>
     </div>
   </div>
+</div>
 
-  <!-- hidden delete button -->
-  <form action="/delete_account" method="POST" id="deleteBtnHidden" hidden>
-    <input type="submit">
-  </form>
+<!-- hidden delete button -->
+<form action="/delete_account" method="POST" id="deleteBtnHidden" hidden>
+  <input type="submit">
+</form>
 
 {% endblock %}

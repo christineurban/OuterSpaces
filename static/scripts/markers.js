@@ -79,7 +79,7 @@ function plotDataTrucks(data) {
       "<h3>" + title + "</h3>" + 
       "<p><button type='button' id='walkingDir' class='directions btn btn-default btn-sm'>Walking Directions</button> " +
       "<button type='button' id='drivingDir' class='directions btn btn-default btn-sm'>Driving Directions</button> " +
-      "<button type='button' class='btn btn-default btn-sm' id='addToFavTrucks'>Add to Favorites</button></p>" +
+      "<button type='button' class='btn btn-default btn-sm' id='addToFavTrucks'>Add To Favorites</button></p>" +
       "<p><strong>Address:</strong> " + address + "</p>" +
       "<p><strong>Hours:</strong> " + hours + "</p>" +
       "<p><strong>Cuisine:</strong> " + cuisine + "</p>" +
@@ -147,7 +147,7 @@ function plotDataPopos(data) {
       "<h3>" + title + "</h3>" +
       "<p><button type='button' id='walkingDir' class='directions btn btn-default btn-sm'>Walking Directions</button> " +
       "<button type='button' id='drivingDir' class='directions btn btn-default btn-sm'>Driving Directions</button> " +
-      "<button type='button' class='btn btn-default btn-sm' id='addToFavPopos'>Add to Favorites</button></p>" +
+      "<button type='button' class='btn btn-default btn-sm' id='addToFavPopos'>Add To Favorites</button></p>" +
       "<p><strong>Address:</strong> " + address + "</p>" +
       "<p><strong>Hours:</strong> " + hours + "</p>" +
       "<p><strong>Type:</strong> " + type + "</p>" +
@@ -216,7 +216,7 @@ function plotDataArt(data) {
       "<h3>" + title + "</h3>" +
       "<p><button type='button' id='walkingDir' class='directions btn btn-default btn-sm'>Walking Directions</button> " +
       "<button type='button' id='drivingDir' class='directions btn btn-default btn-sm'>Driving Directions</button> " +
-      "<button type='button' class='btn btn-default btn-sm' id='addToFavArt'>Add to Favorites</button></p>" +
+      "<button type='button' class='btn btn-default btn-sm' id='addToFavArt'>Add To Favorites</button></p>" +
       "<p><strong>Address:</strong> " + address + "</p>" +
       "<p><strong>Location:</strong> " + location + "</p>" +
       "<p><strong>Type:</strong> " + type + "</p>" +

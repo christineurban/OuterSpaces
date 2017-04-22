@@ -279,7 +279,7 @@ def delete_account():
 
 
 ################################################################################
-# Add to favorites
+# Add/delete favorites
 
 @app.route("/favorite-truck", methods=["POST"])
 def add_truck_to_favorites():
@@ -445,6 +445,27 @@ def add_art_to_favorites():
 
     except:
         return "Oops! You must be logged in to save a favorite."
+
+
+@app.route("/delete-fav-truck", methods=["POST"])
+def delete_fav_truck():
+    """Delete favorite truck from profile page."""
+
+    user_id = session["user_id"]
+    fav_truck_id = request.form.get("fav_truck_id")
+    name = request.form.get("name")
+    address = request.form.get("address")
+
+    fav = FavTruck.query.filter(FavTruck.user_id == user_id,
+                                FavTruck.fav_truck_id == fav_truck_id).first()
+
+    db.session.delete(fav)
+
+    db.session.commit()
+
+    flash("You have successfully deleted {} ({}) from your favorites.".format(
+          name, address))
+    return redirect("/profile")
 
 
 ################################################################################
