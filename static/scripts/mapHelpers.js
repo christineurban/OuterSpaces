@@ -402,11 +402,19 @@ function planMyTrip() {
 
     $("#driving").on("click", function() {
       travel = "DRIVING";
+      $("#driving").removeClass("btn-default");
+      $("#driving").addClass("btn-primary");
+      $("#walking").removeClass("btn-primary");
+      $("#walking").addClass("btn-default");    
       planMyTrip();
     });
 
     $("#walking").on("click", function() {
       travel = "WALKING";
+      $("#walking").removeClass("btn-default");
+      $("#walking").addClass("btn-primary"); 
+      $("#driving").removeClass("btn-primary");
+      $("#driving").addClass("btn-default");   
       planMyTrip();
     });
 

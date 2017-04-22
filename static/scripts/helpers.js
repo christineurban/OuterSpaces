@@ -8,7 +8,7 @@ var truckMarkers = [];
 var artMarkers = [];
 var poposMarkers = [];
 
-var travel = "DRIVING";
+var travel = "WALKING";
 
 var mapOptions = {
   // https://snazzymaps.com/style/25/blue-water
