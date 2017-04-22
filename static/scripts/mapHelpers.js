@@ -393,13 +393,22 @@ function mapHelpers() {
 } // end of mapHelpers()
 
 
-
 //////////////////
 // Plan My Trip //
 //////////////////
 
 function planMyTrip() {
   if (document.getElementById("plan_trip")) {
+
+    $("#driving").on("click", function() {
+      travel = "DRIVING";
+      planMyTrip();
+    });
+
+    $("#walking").on("click", function() {
+      travel = "WALKING";
+      planMyTrip();
+    });
 
     map.data.setStyle({visible: false});
 
@@ -495,7 +504,7 @@ function planMyTrip() {
           {location: p2, stopover: true}, 
           {location: p3, stopover: true}
            ],
-        travelMode: google.maps.DirectionsTravelMode.WALKING
+        travelMode: google.maps.DirectionsTravelMode[travel]
       };
 
       // first hide the panel
