@@ -335,8 +335,8 @@ class OuterSpacesTestsDatabase(unittest.TestCase):
         self.assertIn("Lucky for you", result.data)
 
 
-    def test_favorite_truck_in_database(self):
-        """Test if favorite truck is already in database."""
+    def test_favorite_truck_not_in_database(self):
+        """Test if favorite truck is not already in database."""
 
         result = self.client.post("/favorite-truck",
                                   data={"name": "name",
@@ -349,8 +349,8 @@ class OuterSpacesTestsDatabase(unittest.TestCase):
         self.assertIn("Added", result.data)
 
 
-    def test_favorite_popos_in_database(self):
-        """Test if favorite POPOS is already in database."""
+    def test_favorite_popos_not_in_database(self):
+        """Test if favorite POPOS is not already in database."""
 
         result = self.client.post("/favorite-popos",
                                   data={"name": "name",
@@ -368,8 +368,8 @@ class OuterSpacesTestsDatabase(unittest.TestCase):
 
 
 
-    def test_favorite_art_in_database(self):
-        """Test if favorite art is already in database."""
+    def test_favorite_art_not_in_database(self):
+        """Test if favorite art is not already in database."""
 
         result = self.client.post("/favorite-art",
                                   data={"address": "address",

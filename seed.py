@@ -49,18 +49,15 @@ def example_data():
 def example_data_favs():
     """Create more sample data."""
 
-    fav_truck = FavTruck(fav_truck_id=1,
-                         user_id=1,
+    fav_truck = FavTruck(user_id=1,
                          truck_id=1)
 
 
-    fav_popos = FavPopos(fav_popos_id=1,
-                         user_id=1,
+    fav_popos = FavPopos(user_id=1,
                          popos_id=1)
 
 
-    fav_art = FavArt(fav_art_id=1,
-                     user_id=1,
+    fav_art = FavArt(user_id=1,
                      art_id=1)
 
 

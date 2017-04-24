@@ -398,9 +398,9 @@ def add_popos_to_favorites():
             # update popos id with just added popos
             popos_id = new_popos.popos_id
 
-
         fav_popos = FavPopos(user_id=user_id,
                              popos_id=popos_id)
+
 
         db.session.add(fav_popos)
         db.session.commit()

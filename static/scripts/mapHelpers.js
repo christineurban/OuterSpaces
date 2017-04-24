@@ -15,14 +15,19 @@ function mapHelpers() {
 
       var search = $(".searchMap").val().toLowerCase();
       var allMarkers = truckMarkers.concat((poposMarkers.concat(artMarkers)));
+      var counter = 0
 
       for (var marker of allMarkers) {
         if (String(marker.searchDetails).includes(search)) {
           marker.setVisible(true);
+          counter++;
         } else {
           marker.setVisible(false);
         }
-      } 
+      }
+
+      $("#numLocationsSearch").html(counter + " OuterSpaces that match your \
+                                              search criteria");
   }
 
   $("#searchForm").on("submit", submitSearch);
@@ -374,7 +379,7 @@ function mapHelpers() {
       }
     }
 
-    $("#numLocationsAddress").html(counter + " OuterSpaces within half a mile");
+    $("#numLocationsSearch").html(counter + " OuterSpaces within half a mile");
   }
 
 
