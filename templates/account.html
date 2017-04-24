@@ -3,40 +3,55 @@
 {% block body %}
 
 
+<div class="col-xs-12 col-md-offset-4 col-md-4">
+
   <h1>Log In Or Sign Up</h1>
 
-  <button id="logInBtn" disabled>Log In</button>&nbsp;
-  <button id="signUpBtn">Sign Up</button>
+  <button id="logInBtn" class="btn btn-default" disabled>Log In</button>&nbsp;
+  <button id="signUpBtn" class="btn btn-default">Sign Up</button>
   <br><br>
 
   <!--=============-->
   <!-- LOG IN FORM -->
   <!--=============-->
+
   <form action="/log_in" method="POST" id="logInForm">
-    <input type="email" placeholder="Email" name="emailLogIn" id="emailLogIn">
-    <br><br>
-    <input type="password" placeholder="Password" name="pwLogIn" id="pwLogIn">
-    <br><br>
-    <input type="submit" value="Log In" id="submitLogIn">
+    <div class="form-group">
+      <input class="form-control" type="email" placeholder="Email" name="emailLogIn" id="emailLogIn" required>
+    </div>
+    <div class="form-group">
+      <input class="form-control" type="password" placeholder="Password" name="pwLogIn" id="pwLogIn" required>
+    </div>
+    <input type="submit" class="btn btn-default" id="submitLogIn" value="Log In">
   </form>
 
 
   <!--==============-->
   <!-- SIGN UP FORM -->
   <!--==============-->
+
   <div id="hideSignUpForm">
     <form action="/sign_up" method="POST" id="signUpForm">
-      <input type="hidden" placeholder="First Name" name="fNameSignUp" id="fNameSignUp">
-      <br><br>
-      <input type="hidden" placeholder="Last Name" name="lNameSignUp" id="lNameSignUp">
-      <br><br>
-      <input type="hidden" placeholder="Email" name="emailSignUp" id="emailSignUp">
-      <br><br>
-      <input type="hidden" placeholder="Password" name="pwSignUp" id="pwSignUp">
-      <br><br>
-      <input type="hidden" value="Sign Up" id="submitSignUp">
+      <div class="form-group">
+        <input class="form-control" type="hidden" placeholder="First Name" name="fNameSignUp" id="fNameSignUp" required>
+      </div>
+      <div class="form-group">
+        <input class="form-control" type="hidden" placeholder="Last Name" name="lNameSignUp" id="lNameSignUp" required>
+      </div>
+      <div class="form-group">
+        <input class="form-control" type="hidden" placeholder="Email" name="emailSignUp" id="emailSignUp" required>
+      </div>
+      <div class="form-group">
+        <input class="form-control" type="hidden" placeholder="Password" name="pwSignUp" id="pwSignUp" required>
+      </div>
+      <div class="form-group">
+        <input class="form-control" type="hidden" placeholder="Confirm Password" name="pwConfirmSignUp" id="pwConfirmSignUp" required>
+      </div>
+      <div id="pwWarning"></div>
+      <input type="hidden" class="btn btn-default" id="submitSignUp" value="Sign Up">
     </form>
   </div>
+</div>
 
 
 {% endblock %}

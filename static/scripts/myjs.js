@@ -10,7 +10,7 @@ $(document).ready(function() {
       $("#logInForm").hide();
       $("#fNameSignUp, #lNameSignUp").attr("type", "text");
       $("#emailSignUp").attr("type", "email");
-      $("#pwSignUp").attr("type", "password");
+      $("#pwSignUp, #pwConfirmSignUp").attr("type", "password");
       $("#submitSignUp").attr("type", "submit");
       $("#signUpBtn").prop("disabled");
       $("#logInBtn").prop("disabled", false);
@@ -18,11 +18,33 @@ $(document).ready(function() {
 
 
   $("#logInBtn").on("click", function(){
-      $("#fNameSignUp, #lNameSignUp, #emailSignUp, #pwSignUp, #submitSignUp").attr("type", "hidden");
+      $("#fNameSignUp, #lNameSignUp, #emailSignUp, #pwSignUp, #submitSignUp, #pwConfirmSignUp").attr("type", "hidden");
       $("#logInForm").show();
       $("#logInBtn").prop("disabled");
       $("#signUpBtn").prop("disabled", false);
   });
+
+
+
+  /////////////////////////////////////////
+  // Check if passwords match on sign up //
+  /////////////////////////////////////////
+
+  $("#pwConfirmSignUp").on("blur", function() {
+    if ($("#pwConfirmSignUp").val() != $("#pwSignUp").val()) {
+      $("#pwConfirmSignUp, #pwSignUp").css("border", "1px solid red");
+      $("#pwWarning").html("Your passwords do not match, please re-enter.");
+    } else {
+      $("#pwConfirmSignUp, #pwSignUp").css("border-color", "");
+      $("#pwWarning").empty();
+    }
+  });
+
+  $("#pwSignUp").on("focus", function() {
+    $("#pwConfirmSignUp, #pwSignUp").css("border-color", "");
+    $("#pwWarning").empty();
+  });
+
 
 
   //////////////////
