@@ -152,8 +152,8 @@ function mapHelpers() {
   //////////////////////
 
   function addedToFavorites(result) {
-    $("#mapModal").modal();
-    $("#mapModalHtml").html(result);
+    $("#pageModal").modal();
+    $("#pageModalHtml").html(result);
   }
 
 

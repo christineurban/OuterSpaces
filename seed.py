@@ -1,4 +1,5 @@
-from model import User, Truck, Popos, Art, db, connect_to_db
+from model import (User, Truck, Popos, Art, FavTruck, FavPopos, FavArt,
+                   db, connect_to_db)
 
 
 def example_data():
@@ -9,8 +10,7 @@ def example_data():
                 first_name="Jane",
                 last_name="Doe")
 
-    swell = Truck(truck_id=931094,
-                  name="Swell Cream & Coffee",
+    swell = Truck(name="Swell Cream & Coffee",
                   address="2450 TARAVAL ST",
                   cuisine="Ice cream: coffee: pastries",
                   lat="37.7425503735592",
@@ -22,13 +22,12 @@ def example_data():
                     location="Western side of Building, street level.",
                     popos_type="Plaza",
                     hours="Open at all times",
-                    
                     description="This large plaza has several art and \
                     landscaping features. It is located in front of 555 \
                     Mission Streets and runs along the west side of the \
                     building. There are several distinct sitting areas with \
                     different styles of seating.",
-                    year="2008",
+                    year=2008,
                     lat="-122.39891",
                     lng="37.7884")
 
@@ -45,6 +44,29 @@ def example_data():
 
     db.session.add_all([swell, mission, sansome, jane])
     db.session.commit()
+
+
+def example_data_favs():
+    """Create more sample data."""
+
+    fav_truck = FavTruck(fav_truck_id=1,
+                         user_id=1,
+                         truck_id=1)
+
+
+    fav_popos = FavPopos(fav_popos_id=1,
+                         user_id=1,
+                         popos_id=1)
+
+
+    fav_art = FavArt(fav_art_id=1,
+                     user_id=1,
+                     art_id=1)
+
+
+    db.session.add_all([fav_truck, fav_popos, fav_art])
+    db.session.commit()
+
 
 
 if __name__ == "__main__":

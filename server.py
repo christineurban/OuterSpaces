@@ -174,8 +174,8 @@ def log_in():
     email = request.form.get("emailLogIn")
     password = request.form.get("pwLogIn")
 
-    try:
-        user = User.query.filter_by(email = email).one()
+    if User.query.filter_by(email = email).first():
+        user = User.query.filter_by(email = email).first()
         if user.password == password:
             session["user_id"] = user.user_id
             session["email"] = user.email
@@ -184,10 +184,9 @@ def log_in():
             flash("Welcome back {}!".format(user.first_name))
             return redirect("/profile")
 
-    except:
-        flash("Sorry, that combination does not match our records." + \
-              " Please check your spelling and try again.")
-        return redirect("/account")
+    flash("Sorry, that combination does not match our records." + \
+          " Please check your spelling and try again.")
+    return redirect("/account")
 
 
 @app.route("/sign_up", methods=["POST"])
@@ -586,7 +585,5 @@ if __name__ == "__main__":
     import sys
     if sys.argv[-1] == "jstest":
         JS_TESTING_MODE = True
-
-
 
     app.run(port=5000, host='0.0.0.0', threaded=True)
