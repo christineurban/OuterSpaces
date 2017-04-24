@@ -13,7 +13,12 @@
   <div class="col-xs-12 col-sm-6 col-md-6">
     <form action="/change_password" class="form-inline" method="POST">
         <div class="form-group">
-          <label class="sr-only" for="inlineFormInput">Change Password</label>
+          <label class="sr-only" for="inlineFormInput">Old Password</label>
+          <input type="password" class="form-control  mb-2 mr-sm-2 mb-sm-0" 
+          name="old_password" placeholder="old password">
+        </div>
+        <div class="form-group">
+          <label class="sr-only" for="inlineFormInput">New Password</label>
           <input type="password" class="form-control  mb-2 mr-sm-2 mb-sm-0" 
           name="new_password" placeholder="new password">
         </div>

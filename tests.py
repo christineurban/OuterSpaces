@@ -222,10 +222,22 @@ class OuterSpacesTestsDatabase(unittest.TestCase):
         """Test change password route."""
 
         result = self.client.post("/change_password",
-                                  data={"new_password": "abcdefg"},
+                                  data={"old_password": "abc",
+                                        "new_password": "abcdefg"},
                                   follow_redirects=True)
         self.assertEqual(result.status_code, 200)
         self.assertIn("You have successfully changed your password.", result.data)
+
+
+    def test_change_wrong_password(self):
+        """Test change wrong assword route."""
+
+        result = self.client.post("/change_password",
+                                  data={"old_password": "123",
+                                        "new_password": "abcdefg"},
+                                  follow_redirects=True)
+        self.assertEqual(result.status_code, 200)
+        self.assertIn("Sorry, that password does not match our records.", result.data)
 
 
     def test_change_email(self):

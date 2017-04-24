@@ -184,8 +184,8 @@ def log_in():
             flash("Welcome back {}!".format(user.first_name))
             return redirect("/profile")
 
-    flash("Sorry, that combination does not match our records." + \
-          " Please check your spelling and try again.")
+    flash("Sorry, that combination does not match our records. \
+          Please check your spelling and try again.")
     return redirect("/account")
 
 
@@ -242,14 +242,21 @@ def change_password():
     """Change user password."""
 
     user_id = session["user_id"]
+    old_password = request.form.get("old_password")
     new_password = request.form.get("new_password")
     user = User.query.get(user_id)
 
-    user.password = new_password
-    db.session.commit()
+    if user.password == old_password:
+        user.password = new_password
+        db.session.commit()
 
-    flash("You have successfully changed your password.")
-    return redirect("/profile")
+        flash("You have successfully changed your password.")
+        return redirect("/profile")
+
+    else:
+        flash("Sorry, that password does not match our records. \
+              Please check your spelling and try again.")
+        return redirect("/profile")
 
 
 @app.route("/change_email", methods=["POST"])
