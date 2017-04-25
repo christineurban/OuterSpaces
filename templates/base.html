@@ -12,6 +12,7 @@
   <script src="https://www.google.com/jsapi"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   {% block script %}{% endblock %}
+  <script src="https://use.fontawesome.com/e318ea203c.js"></script>
   <script src="/static/scripts/myJS.js"></script>
   <link rel="stylesheet" href="/static/styles/mystyles.css">
 </head>
@@ -59,8 +60,9 @@
     </div><!-- /.container-fluid -->
   </nav>
 
-  <div class="container">
+  <div class="container-fluid" id="maindiv">
     <div class="row">
+        {% block body %} BODY GOES HERE {% endblock %}
 
     <!-- //////////
     //// Modal ////
@@ -110,12 +112,23 @@
           </div>
         </div>
       </div>
-
-      {% block body %} BODY GOES HERE {% endblock %}
-
-      
-    </div>
   </div>
+</div>
+
+
+<!-- ///////////
+//// Footer ////
+//////////// -->
+
+<footer class="footer">
+  <div class="container credit">
+      <i class="fa fa-copyright"></i> 
+      <script>document.write(new Date().getFullYear())</script> 
+      <a href="http://christineurban.net/" target="_blank">Christine Urban</a>. All Rights Reserved.
+  </div>
+</footer>
+
+     
 
   <script>
 

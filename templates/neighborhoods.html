@@ -1,8 +1,17 @@
 {% extends "base.html" %}
 {% block title %}Neighborhoods | OuterSpaces{% endblock %}
 {% block body %}
-      
+
+<div class="col-xs-12">  
 <h1>San Francisco &mdash; {{ total_hoods }} Neighborhoods</h1>
+
+<figure>
+  <blockquote cite="http://wikitravel.org/en/San_Francisco, http://www.visitcalifornia.com/region/discover-san-francisco-bay-area">
+     San Francisco is a major city in California, the centerpiece of the Bay Area, well-known for its liberal community, hilly terrain, scenic beauty, summer fog, and great ethnic and cultural diversity. These are only a few of the aspects of the city that make San Francisco one of the most visited cities in the world. Although huge in terms of offerings, San Francisco is physically quite compact. It is located on a seven-by-seven mile (11 x 11km) square of land at the tip of a peninsula between the San Francisco Bay and the Pacific coast. A crimson bridge, cable cars, a sparkling bay, and streets lined with elegant Victorian homes&mdash;San Francisco is undeniably one of the world's great cities.
+  </blockquote>
+
+  <figcaption>Retrieved from <a href="http://wikitravel.org/en/San_Francisco" target="_blank">http://wikitravel.org/en/San_Francisco</a> and <a href="http://www.visitcalifornia.com/region/discover-san-francisco-bay-area" target="_blank">http://www.visitcalifornia.com/region/discover-san-francisco-bay-area</a></figcaption>
+</figure><br>
 
 <div class="btn-group">
   <button type="button" class="btn btn-default dropdown-toggle hood-btns" 
@@ -363,7 +372,8 @@
                       <input type="hidden" class="lng" value="{{ location.the_geom.coordinates[0] }}">
                       
                       <button type="submit" class="btn btn-default">Add To Favorites</button>
-                  </div>
+                    </form>
+                </div>
                 </p>
               {% endif %}
 
@@ -461,4 +471,5 @@
   </table>
   </div> 
 {% endfor %}
+</div>
 {% endblock %}

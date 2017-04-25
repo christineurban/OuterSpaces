@@ -12,18 +12,18 @@
 
 {% block body %}
 
-  {% if id == "plan_trip" %}
-    <h3 class="text-center">Your OuterSpace trip has been created! Read the 
-      directions to get to each location.</h3>
-  {% endif %}
+  <div class="col-xs-12 col-sm-9" id="{{ id }}">
 
-  <div class="col-xs-12 col-sm-8" id="{{ id }}">
-
-    {% if id != "plan_trip" %}
-      <h3 class="text-center">Click on an OuterSpace marker to see detailed 
+    {% if id == "plan_trip" %}
+      <h3 class="text-center">Your OuterSpace trip has been created! Read the 
+        directions to get to each location.</h3>
+    {% else %}
+      <h3 class="text-center">Click on a marker on the map to see detailed 
       information, get directions, show nearby locations, or add to your favorites. 
-      Click in a neighborhood to show OuterSpaces in that neighborhood.</h3>
-    {% endif %}      
+      <br>Click in a neighborhood to show OuterSpaces in that neighborhood.</h3>
+    {% endif %}
+
+
 
     <div id="map"></div>
     <h3 id="infoBox"></h3>
@@ -31,7 +31,7 @@
 
   </div>
 
-  <div class="col-xs-12 col-sm-4 text-center">
+  <div class="col-xs-12 col-sm-3 text-center">
 
     {% if id != "view_map" %}
       <form>
@@ -43,7 +43,7 @@
 
     {% if id != "plan_trip" %}
     
-      <h4>Show / Hide:</h4>
+      <p id="showhide">Show / Hide:</p>
         
       <span class="nobreak">
         <input type="checkbox" name="space" value="truck" class="checkbox-circle" 
@@ -84,22 +84,18 @@
         </div>
         <button type="submit" class="btn btn-default">Near Address</button>
       </form>
-      </div>
-
       <div id="numLocationsAddress" class="text-center"></div>
-      <div id="textDirections"></div>
 
     {% else %}
-
-    <button type="button" id="walking" class="btn btn-primary">Walking</button>
-    <button type="button" id="driving" class="btn btn-default">Driving</button>
-    <a href="/map"><button type="button" id="resetMap" class="btn btn-default">See All OuterSpaces</button></a>
-
-    <div id="textDirections"></div>
-
+      <button type="button" id="walking" class="btn btn-default">Walking</button>
+      <button type="button" id="driving" class="btn btn-default">Driving</button>
+      <a href="/map"><button type="button" id="resetMap" class="btn btn-default">See All OuterSpaces</button></a>
+      <div id="displayTravelMode" class="text-center">Walking Directions</div>
     {% endif %}
 
+    <div id="textDirections"></div>
   </div>
+</div>
   
 
 {% endblock %}

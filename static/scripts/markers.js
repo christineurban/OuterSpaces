@@ -74,20 +74,20 @@ function plotDataTrucks(data) {
   var searchDetails = (title + address + cuisine).toLowerCase();
 
   // custom info window string
-  var contentString = "<div id='content'>" +
+  var contentString = "<head><link rel='stylesheet' href='/static/styles/mystyles.css'/></head><body><div id='content'>" +
       "<p><strong>FOOD TRUCK</strong></p>" +
       "<h3>" + title + "</h3>" + 
-      "<p><button type='button' id='walkingDir' class='directions btn btn-default btn-sm'>Walking Directions</button> " +
-      "<button type='button' id='drivingDir' class='directions btn btn-default btn-sm'>Driving Directions</button> " +
-      "<button type='button' class='btn btn-default btn-sm' id='addToFavTrucks'>Add To Favorites</button></p>" +
+      "<p><button type='button' id='walkingDir' class='directions btn btn-default'>Walking Directions</button> " +
+      "<button type='button' id='drivingDir' class='directions btn btn-default'>Driving Directions</button> " +
+      "<button type='button' class='btn btn-default' id='addToFavTrucks'>Add To Favorites</button></p>" +
       "<p><strong>Address:</strong> " + address + "</p>" +
       "<p><strong>Hours:</strong> " + hours + "</p>" +
       "<p><strong>Cuisine:</strong> " + cuisine + "</p>" +
-      "<p><button type='button' class='btn btn-default btn-sm' id='nearbyTrucks'>Nearby Food Trucks</button> " +
-      "<button type='button' class='btn btn-default btn-sm' id='nearbyPopos'>Nearby POPOS</button> " +
-      "<button type='button' class='btn btn-default btn-sm' id='nearbyArt'>Nearby Art</button></p>" +
+      "<p><button type='button' class='btn btn-default' id='nearbyTrucks'>Nearby Food Trucks</button> " +
+      "<button type='button' class='btn btn-default' id='nearbyPopos'>Nearby POPOS</button> " +
+      "<button type='button' class='btn btn-default' id='nearbyArt'>Nearby Art</button></p>" +
       "<div id='numLocations'></div>" + 
-      "</div>";
+      "</div></body>";
 
   // exclude test data
   if (title != "BSM - TEST1") {
@@ -142,23 +142,23 @@ function plotDataPopos(data) {
     location + type + desc).toLowerCase();
 
   // custom info window string
-  var contentString = "<div id='content'>" +
+  var contentString = "<head><link rel='stylesheet' href='/static/styles/mystyles.css'/></head><body><div id='content'>" +
       "<p><strong>POPOS</strong></p>" +
       "<h3>" + title + "</h3>" +
-      "<p><button type='button' id='walkingDir' class='directions btn btn-default btn-sm'>Walking Directions</button> " +
-      "<button type='button' id='drivingDir' class='directions btn btn-default btn-sm'>Driving Directions</button> " +
-      "<button type='button' class='btn btn-default btn-sm' id='addToFavPopos'>Add To Favorites</button></p>" +
+      "<p><button type='button' id='walkingDir' class='directions btn btn-default'>Walking Directions</button> " +
+      "<button type='button' id='drivingDir' class='directions btn btn-default'>Driving Directions</button> " +
+      "<button type='button' class='btn btn-default' id='addToFavPopos'>Add To Favorites</button></p>" +
       "<p><strong>Address:</strong> " + address + "</p>" +
       "<p><strong>Hours:</strong> " + hours + "</p>" +
       "<p><strong>Type:</strong> " + type + "</p>" +
       "<p><strong>Location:</strong> " + location + "</p>" +
       "<p><strong>Year:</strong> " + year + "</p>" +
       "<p>" + desc + "</p>" +
-      "<p><button type='button' class='btn btn-default btn-sm' id='nearbyTrucks'>Nearby Food Trucks</button> " +
-      "<button type='button' class='btn btn-default btn-sm' id='nearbyPopos'>Nearby Popos</button> " +
-      "<button type='button' class='btn btn-default btn-sm' id='nearbyArt'>Nearby Art</button></p>" +
+      "<p><button type='button' class='btn btn-default' id='nearbyTrucks'>Nearby Food Trucks</button> " +
+      "<button type='button' class='btn btn-default' id='nearbyPopos'>Nearby Popos</button> " +
+      "<button type='button' class='btn btn-default' id='nearbyArt'>Nearby Art</button></p>" +
       "<div id='numLocations'></div>" + 
-      "</div>";
+      "</div></body>";
 
   // create marker
   var marker = new google.maps.Marker({
@@ -211,22 +211,22 @@ function plotDataArt(data) {
     type + medium + link).toLowerCase();
 
   // custom info window string
-  var contentString = "<div id='content'>" +
+  var contentString = "<head><link rel='stylesheet' href='/static/styles/mystyles.css'/></head><body><div id='content'>" +
       "<p><strong>PUBLIC ART</strong></p>" +
       "<h3>" + title + "</h3>" +
-      "<p><button type='button' id='walkingDir' class='directions btn btn-default btn-sm'>Walking Directions</button> " +
-      "<button type='button' id='drivingDir' class='directions btn btn-default btn-sm'>Driving Directions</button> " +
-      "<button type='button' class='btn btn-default btn-sm' id='addToFavArt'>Add To Favorites</button></p>" +
+      "<p><button type='button' id='walkingDir' class='directions btn btn-default'>Walking Directions</button> " +
+      "<button type='button' id='drivingDir' class='directions btn btn-default'>Driving Directions</button> " +
+      "<button type='button' class='btn btn-default' id='addToFavArt'>Add To Favorites</button></p>" +
       "<p><strong>Address:</strong> " + address + "</p>" +
       "<p><strong>Location:</strong> " + location + "</p>" +
       "<p><strong>Type:</strong> " + type + "</p>" +
       "<p><strong>Medium:</strong> " + medium + "</p>" +
       "<p><a target='_blank' href='" + link + "'>" + link + "</a></p>" +
-      "<p><button type='button' class='btn btn-default btn-sm' id='nearbyTrucks'>Nearby Food Trucks</button> " +
-      "<button type='button' class='btn btn-default btn-sm' id='nearbyPopos'>Nearby POPOS</button> " +
-      "<button type='button' class='btn btn-default btn-sm' id='nearbyArt'>Nearby Art</button></p>" +
+      "<p><button type='button' class='btn btn-default' id='nearbyTrucks'>Nearby Food Trucks</button> " +
+      "<button type='button' class='btn btn-default' id='nearbyPopos'>Nearby POPOS</button> " +
+      "<button type='button' class='btn btn-default' id='nearbyArt'>Nearby Art</button></p>" +
       "<div id='numLocations'></div>" + 
-      "</div>";
+      "</div></body>";
 
   // create marker
   var marker = new google.maps.Marker({

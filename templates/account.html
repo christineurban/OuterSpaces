@@ -3,7 +3,7 @@
 {% block body %}
 
 
-<div class="col-xs-12 col-md-offset-4 col-md-4 text-center">
+<div class="col-xs-12 col-md-offset-4 col-md-4 text-center" id="account">
 
   <h1>Log In Or Sign Up</h1>
 
@@ -22,7 +22,7 @@
     <div class="form-group">
       <input class="form-control" type="password" placeholder="Password" name="pwLogIn" id="pwLogIn" required>
     </div>
-    <input type="submit" class="btn btn-default" id="submitLogIn" value="Log In">
+    <input type="submit" class="btn btn-default btn-block" id="submitLogIn" value="Log In">
   </form>
 
 
@@ -48,7 +48,7 @@
         <input class="form-control" type="hidden" placeholder="Confirm Password" name="pwConfirmSignUp" id="pwConfirmSignUp" required>
       </div>
       <div id="pwWarning"></div>
-      <input type="hidden" class="btn btn-default" id="submitSignUp" value="Sign Up">
+      <input type="hidden" class="btn btn-default btn-block" id="submitSignUp" value="Sign Up">
     </form>
   </div>
 </div>

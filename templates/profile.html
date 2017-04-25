@@ -2,15 +2,17 @@
 {% block title %}Profile | OuterSpaces{% endblock %}
 {% block body %}
 
-<h1>Profile</h1>
 
-<div class="row">
-  <div class="col-xs-12 col-sm-6 col-md-3">
+<div class="col-xs-12">
+  <h1>Profile</h1>
+</div>
+
+<div class="col-xs-12 col-sm-6 col-md-4">
     <p><strong>Name:</strong> {{ session["first_name"] }} {{ session["last_name"] }}</p>
     <p><strong>Email:</strong> {{ session["email"] }}</p>
   </div>
 
-  <div class="col-xs-12 col-sm-6 col-md-7">
+  <div class="col-xs-12 col-sm-6 col-md-6">
     <form action="/change_password" class="form-inline" method="POST">
         <div class="form-group">
           <label class="sr-only" for="inlineFormInput">Old Password</label>
@@ -24,7 +26,6 @@
         </div>
         <button type="submit" class="btn btn-default">Change Password</button>
     </form>
-    <br>
     <form action="/change_email" class="form-inline" method="POST">
         <div class="form-group">
           <label class="sr-only" for="inlineFormInput">Change Email</label>
@@ -38,11 +39,8 @@
   <div class="col-xs-12 col-sm-6 col-md-2">
     <button type="button" id="deleteAcct" class="btn btn-default">Delete Account</button>
   </div>
-</div>
 
-<div class="row">
 <div class="col-xs-12">
-
     {% if fav_trucks %}
     <h2>Favorite Food Trucks</h2>
       <table class="table table-striped">
@@ -159,7 +157,6 @@
       </table>
     {% endif %}
   </div>
-</div>
 
 <!-- //////////
 //// Modal ////

@@ -105,6 +105,8 @@ function mapHelpers() {
       //modifying-google-maps-default-directions-title
       // first hide the panel
       directionsDisplay.getPanel().style.visibility="hidden";
+      $("#numLocationsSearch").empty();
+      $("#numLocationsAddress").empty();
 
       // set the directions
       directionsService.route(request, function (response, status) {
@@ -264,9 +266,8 @@ function mapHelpers() {
         counter++;
       }
 
-      $("#numLocations").html(counter + " nearby " + evt.data.type + 
+      $("#numLocationsAddress").html(counter + " nearby " + evt.data.type + 
                               " within half a mile");
-      $("#numLocationsSearch").empty();
     }
   }
 
@@ -382,6 +383,7 @@ function mapHelpers() {
     }
 
     $("#numLocationsAddress").html(counter + " OuterSpaces within half a mile");
+    $("#numLocationsSearch").empty();
   }
 
 
@@ -426,19 +428,13 @@ function planMyTrip() {
 
     $("#driving").on("click", function() {
       travel = "DRIVING";
-      $("#driving").removeClass("btn-default");
-      $("#driving").addClass("btn-primary");
-      $("#walking").removeClass("btn-primary");
-      $("#walking").addClass("btn-default");    
+      $("#displayTravelMode").html("Driving Directions")
       planMyTrip();
     });
 
     $("#walking").on("click", function() {
       travel = "WALKING";
-      $("#walking").removeClass("btn-default");
-      $("#walking").addClass("btn-primary"); 
-      $("#driving").removeClass("btn-primary");
-      $("#driving").addClass("btn-default");   
+      $("#displayTravelMode").html("Walking Directions")  
       planMyTrip();
     });
 
@@ -454,17 +450,12 @@ function planMyTrip() {
       navigator.geolocation.getCurrentPosition(function(position) {
       var p1 = new google.maps.LatLng(position.coords.latitude,
                                       position.coords.longitude);
-      var currentMarker = new google.maps.Marker({
-        position: p1,
-        map: map
-      });
       
       // hide all markers
       var allMarkers = truckMarkers.concat((poposMarkers.concat(artMarkers)));
       for (var marker of allMarkers) {
         marker.setVisible(false);
       }
-
 
 
       ////////////////////////
@@ -549,6 +540,7 @@ function planMyTrip() {
 
       // first hide the panel
       directionsDisplay.getPanel().style.visibility="hidden";
+      $(".warnbox-content, .warnbox-c1, .warnbox-c2").hide();
 
       // set the directions
       directionsService.route(request, function (response, status) {
@@ -585,7 +577,6 @@ function planMyTrip() {
           nodes[n].innerHTML = title[n];
       }
         // show the panel
-        $(".warnbox-content, .warnbox-c1, .warnbox-c2").hide();
         directionsDisplay.getPanel().style.visibility="visible";
       }, 500);
 

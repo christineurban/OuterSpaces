@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% block title %}POPOS | OuterSpaces{% endblock %}
 {% block body %}
-      
+
+<div class="col-xs-12">
 <h1>Privately Owned Public Open Spaces (POPOS) &mdash; {{ total_popos }} Locations</h1>
 
 <figure>
@@ -11,7 +12,7 @@
 
   <figcaption>Retrieved from <a href="http://sf-planning.org/privately-owned-public-open-space-and-public-art-popos" target="_blank">http://sf-planning.org/privately-owned-public-open-space-and-public-art-popos</a></figcaption>
 </figure>
-
+<br>
 <h3>
   <a class="alpha">Atrium</a>&nbsp; &bull; &nbsp;<a class="alpha">Greenhouse</a>&nbsp; &bull; &nbsp;<a class="alpha">Indoor Park</a>&nbsp; &bull; &nbsp;<a class="alpha">Lobby</a>&nbsp; &bull; &nbsp;<a class="alpha">Plaza</a>&nbsp; &bull; &nbsp;<a class="alpha">Pedestrian</a>&nbsp; &bull; &nbsp;<a class="alpha">Sitting Area</a>&nbsp; &bull; &nbsp;<a class="alpha">Snippet</a>&nbsp; &bull; &nbsp;<a class="alpha">Sun Terrace</a>&nbsp; &bull; &nbsp;<a class="alpha">Garden</a>&nbsp; &bull; &nbsp;<a class="alpha">Urban Park</a>&nbsp; &bull; &nbsp;<a class="alpha">View Terrace</a>&nbsp; &bull; &nbsp;<a class="alpha">Other</a>
 </h3><br>
@@ -104,13 +105,15 @@
                     <input type="hidden" class="lng" value="{{ popo.the_geom.coordinates[0] }}">
                     
                     <button type="submit" class="btn btn-default">Add To Favorites</button>
-                </div>
-              </p>
-            </td>
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div> 
+                </form>
+              </div>
+            </p>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div> 
 {% endfor %}
+</div>
 {% endblock %}
