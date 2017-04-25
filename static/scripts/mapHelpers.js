@@ -26,8 +26,9 @@ function mapHelpers() {
         }
       }
 
-      $("#numLocationsSearch").html(counter + " OuterSpaces that match your \
+      $("#numLocationsSearch").html(counter + " OuterSpaces match your \
                                               search criteria");
+      $("#numLocationsAddress").empty();
   }
 
   $("#searchForm").on("submit", submitSearch);
@@ -265,6 +266,7 @@ function mapHelpers() {
 
       $("#numLocations").html(counter + " nearby " + evt.data.type + 
                               " within half a mile");
+      $("#numLocationsSearch").empty();
     }
   }
 
@@ -379,7 +381,7 @@ function mapHelpers() {
       }
     }
 
-    $("#numLocationsSearch").html(counter + " OuterSpaces within half a mile");
+    $("#numLocationsAddress").html(counter + " OuterSpaces within half a mile");
   }
 
 
@@ -419,6 +421,7 @@ function mapHelpers() {
 //////////////////
 
 function planMyTrip() {
+
   if (document.getElementById("plan_trip")) {
 
     $("#driving").on("click", function() {
@@ -442,7 +445,13 @@ function planMyTrip() {
     map.data.setStyle({visible: false});
 
     // get current location
-    navigator.geolocation.getCurrentPosition(function(position) {
+    // navigator.geolocation.getCurrentPosition(function(position) {
+      // var p1 = new google.maps.LatLng(position.coords.latitude,
+      //                                 position.coords.longitude);
+          // var p1 = new google.maps.LatLng(37.7589,
+          //                             -122.433558);
+
+      navigator.geolocation.getCurrentPosition(function(position) {
       var p1 = new google.maps.LatLng(position.coords.latitude,
                                       position.coords.longitude);
       var currentMarker = new google.maps.Marker({
@@ -455,6 +464,8 @@ function planMyTrip() {
       for (var marker of allMarkers) {
         marker.setVisible(false);
       }
+
+
 
       ////////////////////////
       // plot nearest truck //

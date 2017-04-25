@@ -27,6 +27,7 @@
 
     <div id="map"></div>
     <h3 id="infoBox"></h3>
+    <div id="here"><img src="/static/images/map-pin.png"> your location</div>
 
   </div>
 
@@ -64,7 +65,6 @@
         id="hoodMap" checked>
         <label for="hoodMap">&nbsp;Neighborhoods&nbsp;&nbsp;</label>
         <a href="/map"><button type="button" id="resetMap" class="btn btn-default">Reset Map</button></a>
-        <br><br>
       </span>
 
       <form class="form-inline" id="searchForm">
@@ -75,7 +75,7 @@
         </div>
         <button type="submit" class="btn btn-default">Search</button>
       </form>
-    <br>
+    <div id="numLocationsSearch" class="text-center"></div>
       <form class="form-inline" id="addressForm">
         <div class="form-group">
           <label class="sr-only" for="inlineFormInput">Search By Address</label>
@@ -84,24 +84,18 @@
         </div>
         <button type="submit" class="btn btn-default">Near Address</button>
       </form>
-      <br>
       </div>
 
-      <div id="numLocationsSearch"></div>
+      <div id="numLocationsAddress" class="text-center"></div>
       <div id="textDirections"></div>
 
     {% else %}
 
     <button type="button" id="walking" class="btn btn-primary">Walking</button>
     <button type="button" id="driving" class="btn btn-default">Driving</button>
+    <a href="/map"><button type="button" id="resetMap" class="btn btn-default">See All OuterSpaces</button></a>
 
     <div id="textDirections"></div>
-
-      <div class="row">
-        <div class="col-xs-12 text-center">
-          <a href="/map"><button type="button" id="resetMap" class="btn btn-default">Reset</button></a>
-        </div>
-      </div>
 
     {% endif %}
 

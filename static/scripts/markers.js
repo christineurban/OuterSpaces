@@ -103,7 +103,7 @@ function plotDataTrucks(data) {
       lat: coords[1],
       lng: coords[0],
       searchDetails: searchDetails,
-      icon: "/static/images/green-dot.png"
+      icon: "/static/images/truck-dot.png"
       });
 
     // hide all markers if map_one or plan_trip
@@ -174,7 +174,7 @@ function plotDataPopos(data) {
     lat: coords[1],
     lng: coords[0],
     searchDetails: searchDetails,
-    icon: "/static/images/blue-dot.png"
+    icon: "/static/images/popos-dot.png"
   });
 
   // hide all markers if map_one or plan_trip
@@ -241,7 +241,7 @@ function plotDataArt(data) {
     lat: coords[1],
     lng: coords[0],
     searchDetails: searchDetails,
-    icon: "/static/images/pink-dot.png"
+    icon: "/static/images/art-dot.png"
   });
 
   // hide all markers if map_one or plan_trip

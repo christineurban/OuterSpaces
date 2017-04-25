@@ -1,54 +1,67 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>OuterSpaces</title>
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Muli:300|Ek+Mukta|Open+Sans|Paytone+One" rel="stylesheet">
+  <script
+  src="https://code.jquery.com/jquery-2.2.4.js"
+  integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+  crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src="/static/scripts/myJS.js"></script>
+  <link rel="stylesheet" href="/static/styles/mystyles.css">
+</head>
+<body id="index">
 
-{% block title %}OuterSpaces{% endblock %}
+<div class="container vertical-center">
+  <div class="row">
 
-{% block body %}
+    <div class="col-xs-12 text-center">
+      <h1 id="heading">OuterSpaces</h1>
+        <h2 id="subheading">Outside places to eat,<br>sit, and look at art.</h2>
+          <div class="container">
+            <div class="row">
+              <div class="col-xs-12 col-md-offset-2 col-md-8">
+              <hr>
+                <h2>Want to see San Francisco from a view terrace?</h2>
+                <p class="lead">
+                  <a class="btn btn-default btn-lg index-btn" href="/map" 
+                    role="button">Find an OuterSpace &raquo;</a>
+                </p>
+                <h2>Want to go to lunch from your current location?</h2>
+                <p class="lead">
+                  <a class="btn btn-default btn-lg index-btn" href="/plan"
+                    role="button">Plan My Trip &raquo;</a>
+                  </p>
+              </div>
+            </div>
+          </div>
+    </div>
 
-  <div class="col-xs-12">
-    <img class="img-responsive" src="/static/images/OuterSpaces_logo_blk.png">
-    <p class="lead">An app to find outside places to eat, sit, and look at art.</p>
-    <hr class="my-4">
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12 col-sm-6">
-          <p>Want to see San Francisco from a view terrace?</p>
-          <p class="lead">
-            <a class="btn btn-default btn-lg" href="/map" 
-              role="button">Find an OuterSpace &raquo;</a>
-          </p>
-        </div>
-        <div class="col-xs-12 col-sm-6">
-          <p>Want to go to lunch from your current location?</p>
-          <p class="lead">
-            <a class="btn btn-default btn-lg" href="/plan"
-              role="button">Plan My Trip &raquo;</a>
-            </p>
+
+    <!-- //////////
+    //// Modal ////
+    /////////// -->
+
+    <div class="modal fade" id="deletedModal" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">OuterSpaces says...</h4>
+          </div>
+          <div class="modal-body">
+            <p>We are sorry to see you go ='[</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
         </div>
       </div>
     </div>
   </div>
-
-
-  <!-- ======================= -->
-  <!-- ======== MODAL ======== -->
-  <!-- ======================= -->
-
-  <div class="modal fade" id="deletedModal" role="dialog">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">OuterSpaces says...</h4>
-        </div>
-        <div class="modal-body">
-          <p>We are sorry to see you go ='[</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-{% endblock %}
+</div>
+</body>
+</html>
