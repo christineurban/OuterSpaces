@@ -188,9 +188,8 @@ div.btn-group.open>.btn.hood-btns, .btn.hood-btns:focus {
 /* Index Page
 ----------------------------------------------------------------------------- */
 
-
 #index {
-    background:url(/static/images/caseys_pizza_blur.jpg) no-repeat center;
+    background:url(/static/images/caseys_pizza_blur.jpg) no-repeat bottom;
     background-size: cover;
     color: #fff;
     text-shadow: 0 0 8px #555;
