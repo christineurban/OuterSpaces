@@ -1,6 +1,6 @@
 # OuterSpaces
 OuterSpaces helps users find outside places to eat, sit, and see public art in San Francisco. An OuterSpace is a food truck, a privately-owned public open space, also known as POPOS, or public art, as part of the 1% Art Program. Users can view all locations on a map within San Francisco neighborhood boundaries, or have a trip created for them according to their current geolocation. A user can also get detailed information on each location, get walking or driving directions, find other nearby locations, search by name or keyword, and see locations near an address. In addition, users can sign up for an account and save/delete favorite OuterSpaces on their profile, as well as update their personal information.
-![OuterSpaces Homepage](/static/images/OuterSpaces_screenshot_splash.png)
+![OuterSpaces Homepage](/static/images/OuterSpaces_screenshot_splash.PNG?raw=true)
 
 
 ## Table of Contents
@@ -21,13 +21,13 @@ __APIs:__ Google Maps JavaScript, Geolocation, and Geocoding APIs; Socrata Open 
 ## <a name="#features"></a>Features
 
 See all OuterSpaces on the map at once, or search for by name, cuisine, type, keyword, address or location in San Francisco. User account registration not required.
-![OuterSpaces Map](/static/images/OuterSpaces_screenshot_map.png)
+![OuterSpaces Map](/static/images/OuterSpaces_screenshot_map.PNG?raw=true)
  
 Register for an account to add and remove favorite OuterSpaces.
-![OuterSpaces Profile](/static/images/OuterSpaces_screenshot_profile.png)
+![OuterSpaces Profile](/static/images/OuterSpaces_screenshot_profile.PNG?raw=true)
  
 Look at OuterSpaces by category.
-![OuterSpaces POPOS](/static/images/OuterSpaces_screenshot_popos.png)
+![OuterSpaces POPOS](/static/images/OuterSpaces_screenshot_popos.PNG?raw=true)
 
 
 ## <a name="#installation"></a>Setup/Installation
