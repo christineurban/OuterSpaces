@@ -20,13 +20,16 @@ __APIs:__ Google Maps JavaScript, Geolocation, and Geocoding APIs; Socrata Open 
 
 ## <a name="#features"></a>Features
 
-See all OuterSpaces on the map at once, or search for by name, cuisine, type, keyword, address or location in San Francisco. User account registration not required.
+See all OuterSpaces on the map at once, or search for by name, cuisine, type, keyword, address or location in San Francisco. User account registration not required:
+
 ![OuterSpaces Map](/static/images/OuterSpaces_screenshot_map.PNG?raw=true)
  
-Register for an account to add and remove favorite OuterSpaces.
+Register for an account to add and remove favorite OuterSpaces:
+
 ![OuterSpaces Profile](/static/images/OuterSpaces_screenshot_profile.PNG?raw=true)
  
-Look at OuterSpaces by category.
+Look at OuterSpaces by category:
+
 ![OuterSpaces POPOS](/static/images/OuterSpaces_screenshot_popos.PNG?raw=true)
 
 
@@ -50,7 +53,7 @@ Install dependencies:
 ```
 $ pip install -r requirements.txt
 ```
-Get your own keys for [SF OpenData](https://data.sfgov.org/developers) and [Google Maps](https://developers.google.com/maps/), and create your own secret key for Flask. Save them to a file `secrets.py`. Your file should look something like this:
+Get your own keys for [SF OpenData](https://data.sfgov.org/developers) and [Google Maps](https://developers.google.com/maps/), and create your own secret key for Flask. Save them to a file named `secrets.py`. Your file should look something like this:
 ```
 export FLASK_SECRET_KEY="abc"
 export SF_DATA_APP_TOKEN="abc"
@@ -68,7 +71,7 @@ Now, quit interactive mode. Start up the flask server:
 ```
 python server.py
 ```
-Go to localhost:5000 with an active internet connection to use the web app
+Go to localhost:5000 with an active internet connection to use the web app.
 
 ## <a name="future"></a>TODO
 * Add ability to text name and address
