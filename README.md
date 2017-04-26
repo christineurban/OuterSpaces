@@ -11,8 +11,10 @@ OuterSpaces helps users find outside places to eat, sit, and see public art in S
 * [Features](#features)
 * [Setup/Installation](#installation)
 * [To-Do](#future)
-* [Author](#author)
 * [License](#license)
+* [Attribution](#attribution)
+* [Author](#author)
+
 <br />
 
 ## <a name="tech-stack"></a>Tech Stack
@@ -82,8 +84,6 @@ Go to localhost:5000 with an active internet connection to use the web app.
 * Directions from entered address
 * OAuth with Facebook / connect with FB friends
 
-## <a name="author"></a>Author
-OuterSpaces is a web app created by San Francisco Bay Area native and software engineer Christine Urban. Christine's heart is in the front end because she loves building upon the web's beauty and utility. Therefore, OuterSpace's heavy use of Google Maps and Javascript came naturally to Christine. This repository is the result of several weeks' work and uses current San Francisco data for a better user experience. Visit [christineurban.net](http://christineurban.net/) to see Christine's full professional portfolio.
 
 ## <a name="license"></a>License
 
@@ -96,3 +96,12 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+## <a name="attribution"></a>Attribution
+Splash page image credit: [edwardhblake](https://www.flickr.com/photos/eblake/8451299209/in/photolist-dSP7Pk)
+_edits: added blur and filter_
+
+
+## <a name="author"></a>Author
+OuterSpaces is a web app created by San Francisco Bay Area native and software engineer Christine Urban. Christine's heart is in the front end because she loves building upon the web's beauty and utility. Therefore, OuterSpace's heavy use of Google Maps and Javascript came naturally to Christine. This repository is the result of several weeks' work and uses current San Francisco data for a better user experience. Visit [christineurban.net](http://christineurban.net/) to see Christine's full professional portfolio.
