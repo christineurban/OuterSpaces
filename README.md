@@ -19,8 +19,8 @@ OuterSpaces helps users find outside places to eat, sit, and see public art in S
 
 ## <a name="tech-stack"></a>Tech Stack
 
-__Front End:__ JavaScript (AJAX, JSON), jQuery, Jinja2, Bootstrap, CSS, HTML
-__Back End:__ Python, Flask, PostgreSQL, SQLAlchemy, Shapely, Flask-Cache
+__Front End:__ JavaScript (AJAX, JSON), jQuery, Jinja2, Bootstrap, CSS, HTML<br />
+__Back End:__ Python, Flask, PostgreSQL, SQLAlchemy, Shapely, Flask-Cache<br />
 __APIs:__ Google Maps JavaScript, Geolocation, and Geocoding APIs; Socrata Open Data API
 
 ## <a name="#features"></a>Features
@@ -99,7 +99,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 
 ## <a name="attribution"></a>Attribution
-Splash page image credit: [edwardhblake](https://www.flickr.com/photos/eblake/8451299209/in/photolist-dSP7Pk)
+Splash page image credit: [edwardhblake](https://www.flickr.com/photos/eblake/8451299209/in/photolist-dSP7Pk)<br />
 _edits: added blur and filter_
 
 
