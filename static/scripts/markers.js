@@ -75,7 +75,7 @@ function plotDataTrucks(data) {
 
   // custom info window string
   var contentString = "<head><link rel='stylesheet' href='/static/styles/mystyles.css'/></head><body><div id='content'>" +
-      "<p><strong>FOOD TRUCK</strong></p>" +
+      "<p>FOOD TRUCK</p>" +
       "<h3>" + title + "</h3>" + 
       "<p><button type='button' id='walkingDir' class='directions btn btn-default'>Walking Directions</button> " +
       "<button type='button' id='drivingDir' class='directions btn btn-default'>Driving Directions</button> " +
@@ -143,7 +143,7 @@ function plotDataPopos(data) {
 
   // custom info window string
   var contentString = "<head><link rel='stylesheet' href='/static/styles/mystyles.css'/></head><body><div id='content'>" +
-      "<p><strong>POPOS</strong></p>" +
+      "<p>POPOS</p>" +
       "<h3>" + title + "</h3>" +
       "<p><button type='button' id='walkingDir' class='directions btn btn-default'>Walking Directions</button> " +
       "<button type='button' id='drivingDir' class='directions btn btn-default'>Driving Directions</button> " +
@@ -212,7 +212,7 @@ function plotDataArt(data) {
 
   // custom info window string
   var contentString = "<head><link rel='stylesheet' href='/static/styles/mystyles.css'/></head><body><div id='content'>" +
-      "<p><strong>PUBLIC ART</strong></p>" +
+      "<p>PUBLIC ART</p>" +
       "<h3>" + title + "</h3>" +
       "<p><button type='button' id='walkingDir' class='directions btn btn-default'>Walking Directions</button> " +
       "<button type='button' id='drivingDir' class='directions btn btn-default'>Driving Directions</button> " +

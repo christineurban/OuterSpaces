@@ -51,7 +51,7 @@ a {
             transition: all ease .7s;
 }
 
-a:hover {
+a:hover, a:focus {
     color: #296152;
     text-decoration: none;
 }
@@ -116,7 +116,7 @@ div.btn-group.open>.btn.hood-btns, .btn.hood-btns:focus {
 
 .navbar-default .navbar-nav>li>a {
     font-weight: normal;
-    font-size: 20px;
+    font-size: 18px;
     font-family: 'Ek Mukta', sans-serif;
     color: #fff;
     line-height: 50px;
@@ -190,7 +190,7 @@ div.btn-group.open>.btn.hood-btns, .btn.hood-btns:focus {
 
 
 #index {
-    background:url(/static/images/caseys_pizza_blur2.jpg) no-repeat center;
+    background:url(/static/images/caseys_pizza_blur.jpg) no-repeat center;
     background-size: cover;
     color: #fff;
     text-shadow: 0 0 8px #555;
@@ -205,7 +205,10 @@ div.btn-group.open>.btn.hood-btns, .btn.hood-btns:focus {
     font-size: 55px;
 }
 
-
+#index #flashModal, #index #deletedModal, #index #pageModal {
+    color: #47505e;
+    text-shadow: none;
+}
 
 
 /* Data Pages
