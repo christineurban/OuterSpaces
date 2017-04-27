@@ -79,6 +79,7 @@ python server.py
 Go to localhost:5000 with an active internet connection to use the web app.
 
 ## <a name="future"></a>TODO
+* Search by cuisine
 * Add ability to text name and address
 * Add rating system for OuterSpaces
 * Directions from entered address
