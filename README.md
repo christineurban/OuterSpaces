@@ -21,7 +21,8 @@ OuterSpaces helps users find outside places to eat, sit, and see public art in S
 
 __Front End:__ JavaScript (AJAX, JSON), jQuery, Jinja2, Bootstrap, CSS, HTML<br />
 __Back End:__ Python, Flask, PostgreSQL, SQLAlchemy, Shapely, Flask-Cache<br />
-__APIs:__ Google Maps JavaScript, Geolocation, and Geocoding APIs; Socrata Open Data API
+__APIs:__ Google Maps JavaScript, Geolocation, and Geocoding APIs; Socrata Open Data API<br />
+__Testing Methodologies:__ Jasmine, Python unittest -- achieved 97% Python test coverage
 
 ## <a name="#features"></a>Features
 
