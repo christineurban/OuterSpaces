@@ -355,7 +355,8 @@ def add_truck_to_favorites():
         return "Added {} ({}) to favorites!".format(name, address)
 
     except:
-        return "Oops! You must be logged in to save a favorite."
+        return "Oops! You must be logged in to save a favorite. \
+                <a href='/account'>Log in or sign up &raquo;</a>"
 
 
 @app.route("/favorite-popos", methods=["POST"])

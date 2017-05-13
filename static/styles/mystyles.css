@@ -355,9 +355,24 @@ input[type=checkbox]#hoodMap:checked:before {
   background-color: #47505e;
   color: #fff;
   text-align: center;
+  margin-top: 10px;
 }
 
 .footer a {
     color: #fff;
     font-weight: normal;
+}
+
+
+/* Mobile styles
+----------------------------------------------------------------------------- */
+
+@media screen and (max-width: 767px) {
+  #map {
+      height: 400px;
+  }
+
+  .map-header {
+    font-size: 16px;
+  }
 }

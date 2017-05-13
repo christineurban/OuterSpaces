@@ -15,10 +15,10 @@
   <div class="col-xs-12 col-sm-9" id="{{ id }}">
 
     {% if id == "plan_trip" %}
-      <h3 class="text-center">Your OuterSpace trip has been created! Read the 
+      <h3 class="text-center map-header">Your OuterSpace trip has been created! Read the 
         directions to get to each location.</h3>
     {% else %}
-      <h3 class="text-center">Click on a marker on the map to see detailed 
+      <h3 class="text-center map-header">Click on a marker on the map to see detailed 
       information, get directions, show nearby locations, or add to your favorites. 
       <br>Click in a neighborhood to show OuterSpaces in that neighborhood.</h3>
     {% endif %}
@@ -27,7 +27,7 @@
 
     <div id="map"></div>
     <h3 id="infoBox"></h3>
-    <div id="here"><img src="/static/images/map-pin.png"> your location</div>
+    <!-- <div id="here"><img src="/static/images/map-pin.png"> your location</div> -->
 
   </div>
 

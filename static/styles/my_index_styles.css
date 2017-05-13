@@ -30,10 +30,10 @@ h1 {
 /* xxs < 413 */
 @media screen and (max-width: 413px) {
   h1 {
-      font-size: 40px;
+      font-size: 50px;
   }
   #subheading {
-      font-size: 22px;
+      font-size: 25px;
   }
   .prompt {
       font-size: 20px;
@@ -43,13 +43,13 @@ h1 {
 /* xs */
 @media screen and (min-width: 414px) {
   h1 {
-      font-size: 56px;
+      font-size: 60px;
   }
   #subheading {
-      font-size: 26px;
+      font-size: 30px;
   }
   .prompt {
-      font-size: 21px;
+      font-size: 22px;
   }
 }
 
