@@ -193,6 +193,10 @@ div.btn-group.open>.btn.hood-btns, .btn.hood-btns:focus {
     margin: 0 auto;
 }
 
+#hoodSpacer {
+  height: 400px;
+}
+
 
 
 /* Google Maps
