@@ -29,6 +29,10 @@ h3 {
     margin-top: 5px;
 }
 
+.spacer {
+  height: 10px;
+}
+
 /* Anchor
 ----------------------------------------------------------------------------- */
 
@@ -355,7 +359,6 @@ input[type=checkbox]#hoodMap:checked:before {
   background-color: #47505e;
   color: #fff;
   text-align: center;
-  margin-top: 10px;
 }
 
 .footer a {
