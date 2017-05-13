@@ -581,7 +581,7 @@ def get_gkey():
 if __name__ == "__main__":
     
     # app.debug = True # for DebugToolbarExtension
-    # app.jinja_env.auto_reload = app.debug  # make sure templates, etc. are not cached in debug mode
+    app.jinja_env.auto_reload = app.debug  # make sure templates, etc. are not cached in debug mode
 
     connect_to_db(app)
 

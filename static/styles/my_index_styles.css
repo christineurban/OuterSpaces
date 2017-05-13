@@ -1,0 +1,93 @@
+/* Index Page
+----------------------------------------------------------------------------- */
+body {
+  background:url(/static/images/caseys_pizza_blur.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  color: #fff;
+  text-shadow: 0 0 8px #555;
+}
+
+.vertical-center {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  height: 70%;
+  width: 80%;
+}
+
+h1 {
+    font-family: 'Paytone One', sans-serif;
+}
+
+#index #flashModal, #index #deletedModal, #index #pageModal {
+    color: #47505e;
+    text-shadow: none;
+}
+
+/* xxs < 413 */
+@media screen and (max-width: 413px) {
+  h1 {
+      font-size: 40px;
+  }
+  #subheading {
+      font-size: 22px;
+  }
+  .prompt {
+      font-size: 20px;
+  }
+}
+
+/* xs */
+@media screen and (min-width: 414px) {
+  h1 {
+      font-size: 56px;
+  }
+  #subheading {
+      font-size: 26px;
+  }
+  .prompt {
+      font-size: 21px;
+  }
+}
+
+/* sm */
+@media screen and (min-width: 768px) {
+  h1 {
+      font-size: 70px;
+  }
+  #subheading {
+      font-size: 32px;
+  }
+  .prompt {
+      font-size: 25px;
+  }
+}
+
+/* md */
+@media screen and (min-width: 992px) {
+  h1 {
+      font-size: 80px;
+  }
+  #subheading {
+      font-size: 40px;
+  }
+  .prompt {
+      font-size: 30px;
+  }
+}
+
+/* lg */
+@media screen and (min-width: 1200px) {
+  h1 {
+      font-size: 80px;
+  }
+  #subheading {
+      font-size: 45px;
+  }
+  .prompt {
+      font-size: 30px;
+  }
+}

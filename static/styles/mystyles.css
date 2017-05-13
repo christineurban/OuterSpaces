@@ -1,8 +1,6 @@
 /* Global 
 ----------------------------------------------------------------------------- */
 
-/*https://designschool.canva.com/blog/100-color-combinations/*/
-
 html {
     position: relative;
     min-height: 100%;
@@ -29,13 +27,6 @@ h1, h2, h3, h4 {
 
 h3 {
     margin-top: 5px;
-}
-
-.vertical-center {
-  min-height: 100%;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
 }
 
 /* Anchor
@@ -182,31 +173,6 @@ div.btn-group.open>.btn.hood-btns, .btn.hood-btns:focus {
   .collapse.in{
       display:block !important;
   }
-}
-
-
-/* Index Page
------------------------------------------------------------------------------ */
-
-#index {
-    background:url(/static/images/caseys_pizza_blur.jpg) no-repeat bottom;
-    background-size: cover;
-    color: #fff;
-    text-shadow: 0 0 8px #555;
-}
-
-#heading {
-    font-size: 110px;
-    font-family: 'Paytone One', sans-serif;
-}
-
-#subheading {
-    font-size: 55px;
-}
-
-#index #flashModal, #index #deletedModal, #index #pageModal {
-    color: #47505e;
-    text-shadow: none;
 }
 
 
