@@ -40,6 +40,7 @@ a {
        -moz-transition: all ease .7s;
          -o-transition: all ease .7s;
             transition: all ease .7s;
+    word-wrap: break-word;
 }
 
 a:hover, a:focus {
