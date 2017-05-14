@@ -7,6 +7,7 @@ var sanFrancisco = {lat: 37.7589, lng: -122.433558};
 var truckMarkers = [];
 var artMarkers = [];
 var poposMarkers = [];
+var addressMarkers = [];
 
 var travel = "WALKING";
 

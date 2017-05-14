@@ -381,6 +381,10 @@ function mapHelpers() {
 
 
   function geocodeResponse(data) {
+    for (var addressMarker of addressMarkers) {
+      addressMarker.setVisible(false);
+    }
+
     var coords = data.results[0].geometry.location;
     var p1 = new google.maps.LatLng(coords.lat, coords.lng);
 
@@ -388,6 +392,9 @@ function mapHelpers() {
       position: p1,
       map: map
     });
+
+    marker.setVisible(true);
+    addressMarkers.unshift(marker);
 
     map.setCenter(coords);
     map.setZoom(15);
