@@ -27,6 +27,8 @@ __Back End:__ Python, Flask, PostgreSQL, SQLAlchemy, Shapely, Flask-Cache<br />
 __APIs:__ Google Maps JavaScript and Geocoding APIs; Socrata Open Data API<br />
 __Testing Methodologies:__ Jasmine, Python unittest -- achieved 97% Python test coverage
 
+<br />
+
 ## <a name="#features"></a>Features
 
 See all OuterSpaces on the map at once, or search for by name, cuisine, type, keyword, address or location in San Francisco. User account registration not required:
@@ -41,6 +43,7 @@ Look at OuterSpaces by category:
 
 ![OuterSpaces POPOS](/static/images/OuterSpaces_screenshot_popos.PNG?raw=true)
 
+<br />
 
 ## <a name="#installation"></a>Setup/Installation
 
@@ -82,16 +85,17 @@ python server.py
 ```
 Go to localhost:5000 with an active internet connection to use the web app.
 
+<br />
+
 ## <a name="future"></a>TODO
 * Search by cuisine
 * Add ability to text name and address
 * Add rating system for OuterSpaces
 * OAuth with Facebook / connect with FB friends
 
+<br />
 
 ## <a name="license"></a>License
-
-MIT License
 
 Copyright &copy; 2017 Christine Urban
 
@@ -101,11 +105,13 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+<br />
 
 ## <a name="attribution"></a>Attribution
 Splash page image credit: [edwardhblake](https://www.flickr.com/photos/eblake/8451299209/in/photolist-dSP7Pk)<br />
 _edits: added blur and filter_
 
+<br />
 
 ## <a name="author"></a>Author
 OuterSpaces is a web app created by San Francisco Bay Area native and software engineer Christine Urban. Christine's heart is in the front end because she loves building upon the web's beauty and utility. Therefore, OuterSpace's heavy use of Google Maps and Javascript came naturally to Christine. This repository is the result of several weeks' work and uses current San Francisco data for a better user experience. Visit [christineurban.net](http://christineurban.net/) to see Christine's full professional portfolio.
