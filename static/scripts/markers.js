@@ -83,9 +83,9 @@ function plotDataTrucks(data) {
       "<p><strong>Address:</strong> " + address + "</p>" +
       "<p><strong>Hours:</strong> " + hours + "</p>" +
       "<p><strong>Cuisine:</strong> " + cuisine + "</p>" +
-      "<p><button type='button' class='btn btn-default' id='nearbyTrucks hidden-xs'>Nearby Food Trucks</button> " +
-      "<button type='button' class='btn btn-default' id='nearbyPopos hidden-xs'>Nearby POPOS</button> " +
-      "<button type='button' class='btn btn-default' id='nearbyArt hidden-xs'>Nearby Art</button></p>" +
+      "<p><button type='button' class='btn btn-default hidden-xs' id='nearbyTrucks'>Nearby Food Trucks</button> " +
+      "<button type='button' class='btn btn-default hidden-xs' id='nearbyPopos'>Nearby POPOS</button> " +
+      "<button type='button' class='btn btn-default hidden-xs' id='nearbyArt'>Nearby Art</button></p>" +
       "<p><button type='button' id='walkingDir' class='directions btn btn-default visible-xs hidden-sm hidden-md hidden-lg'>Walking Directions</button> " +
       "<button type='button' id='drivingDir' class='directions btn btn-default visible-xs hidden-sm hidden-md hidden-lg'>Driving Directions</button> " +
       "<button type='button' class='btn btn-default visible-xs hidden-sm hidden-md hidden-lg' id='addToFavTrucks'>Add To Favorites</button></p>"

@@ -72,8 +72,7 @@ a:hover, a:focus {
 }
 
 .btn, .form-control {
-    margin-top: 5px;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
 }
 
 .btn-default.index-btn {
@@ -209,6 +208,7 @@ div.btn-group.open>.btn.hood-btns, .btn.hood-btns:focus {
 #map {
     height: 750px;
     width: 100%;
+    margin-bottom: 15px;
 }
 
 #infoBox {
@@ -372,7 +372,7 @@ input[type=checkbox]#hoodMap:checked:before {
 
 @media screen and (max-width: 767px) {
   #map {
-      height: 400px;
+      height: 300px;
   }
 
   .map-header {

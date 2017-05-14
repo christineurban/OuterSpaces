@@ -87,58 +87,85 @@ function mapHelpers() {
   // Directions //
   ////////////////
 
-  function showDirections(evt) {
 
-    navigator.geolocation.getCurrentPosition(function(position) {
-      var pos = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      };
-      map.setCenter(pos);
-      var request = {
-       origin: pos,
-       destination: evt.data.position,
-       travelMode: google.maps.DirectionsTravelMode[travel]
-      };
+  function geocodeRequestAddress(data) {
+    var addressFrom = $("#directionsFromAddress").val();
+    var position = $("#directionsPosition").val();
+    var title = $("#directionsTitle").val();
+    var addressTo = $("#directionsAddress").val();
+    
+    var request = {
+     origin: addressFrom,
+     destination: addressTo + " san francisco",
+     travelMode: google.maps.DirectionsTravelMode[travel]
+    };
 
-      // http://stackoverflow.com/questions/18954463/
-      //modifying-google-maps-default-directions-title
-      // first hide the panel
-      directionsDisplay.getPanel().style.visibility="hidden";
-      $("#numLocationsSearch").empty();
-      $("#numLocationsAddress").empty();
+    // http://stackoverflow.com/questions/18954463/
+    //modifying-google-maps-default-directions-title
+    // first hide the panel
+    directionsDisplay.getPanel().style.visibility="hidden";
+    $("#numLocationsSearch").empty();
+    $("#numLocationsAddress").empty();
 
-      // set the directions
-      directionsService.route(request, function (response, status) {
-        if (status == google.maps.DirectionsStatus.OK) {
-          directionsDisplay.setDirections(response);
-        } else {
-          window.alert("Directions request failed due to " + status);
-        }
-       });
-
-      // custom titles for directions panel
-      var title = [
-        "<div style='font-weight:bold'>YOU ARE HERE</div>Get me to OuterSpace!",
-        "<div style='font-weight:bold'>" + evt.data.title + "</div>" + 
-          evt.data.address
-      ]
-
-      setTimeout(function(){
-        // fetch the elements
-        var nodes = 
-            directionsDisplay.getPanel().querySelectorAll("td.adp-text");
-        for (var n = 0; n < nodes.length; ++n) {
-          // assign the text-content of the element to the innerHTML-property
-          nodes[n].innerHTML = title[n];
+    // set the directions
+    directionsService.route(request, function (response, status) {
+      if (status == google.maps.DirectionsStatus.OK) {
+        directionsDisplay.setDirections(response);
+      } else {
+        window.alert("Directions request failed due to " + status);
       }
-        // show the panel
-        $(".warnbox-content, .warnbox-c1, .warnbox-c2").hide();
-        directionsDisplay.getPanel().style.visibility="visible";
-      }, 500);
+     });
 
-    });
+    // custom titles for directions panel
+    var title = [
+      "<div style='font-weight:bold'>" + addressFrom + "</div>Get me to OuterSpace!",
+      "<div style='font-weight:bold'>" + title + "</div>" + addressTo
+    ]
+
+    setTimeout(function(){
+      console.log("settimeout");
+      // fetch the elements
+      var nodes = 
+          directionsDisplay.getPanel().querySelectorAll("td.adp-text");
+      for (var n = 0; n < nodes.length; ++n) {
+        // assign the text-content of the element to the innerHTML-property
+        nodes[n].innerHTML = title[n];
+    }
+      // show the panel
+      $(".warnbox-content, .warnbox-c1, .warnbox-c2").hide();
+      directionsDisplay.getPanel().style.visibility="visible";
+    }, 500);
   }
+
+  function directionsAddress(evt) {
+    evt.preventDefault();
+    infoWindow.close();
+    $("#pageModal").modal("hide");
+
+    $.get("/data/gkey", geocodeRequestAddress);
+  } 
+
+  $(document).on("submit", "#directionsForm", directionsAddress);
+
+  function directionsModal(evt) {
+    var position = evt.data.position;
+    var title = evt.data.title;
+    var address = evt.data.address;
+    $("#pageModal").modal();
+    $("#pageModalHtml").html(
+      'Enter an address:<br>' +
+      '<form id="directionsForm">' +
+        '<div class="form-group">' +
+          '<label class="sr-only" for="inlineFormInput">directionsFromAddress</label>' +
+          '<input type="text" class="form-control" id="directionsFromAddress"' +
+          'name="directionsFromAddress" placeholder="450 Sutter, San Francisco">' +
+          '<input type="hidden" id="directionsLocation" value="' + position + '">' +
+          '<input type="hidden" id="directionsTitle" value="' + title + '">' +
+          '<input type="hidden" id="directionsAddress" value="' + address + '">' +
+        '</div><button type="submit" class="btn btn-default">Get Directions</button></form>'
+      );
+  }
+
 
   // http://stackoverflow.com/questions/6378007/
   // adding-event-to-element-inside-google-maps-api-infowindow
@@ -150,7 +177,7 @@ function mapHelpers() {
     $("#drivingDir").on("click", function() {
       travel = "DRIVING";
     });
-    $(".directions").on("click", destination, showDirections);
+    $(".directions").on("click", destination, directionsModal);
   });
 
 
