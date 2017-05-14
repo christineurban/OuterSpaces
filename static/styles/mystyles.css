@@ -71,8 +71,12 @@ a:hover, a:focus {
     color: #fff;
 }
 
-.btn, .form-control {
-    margin-bottom: 10px;
+.form-control {
+    margin-bottom: 3px;
+}
+
+.btn {
+  margin-bottom: 10px;
 }
 
 .btn.hood-btns {
@@ -362,16 +366,19 @@ input[type=checkbox]#hoodMap:checked:before {
 /* Mobile styles
 ----------------------------------------------------------------------------- */
 
-@media screen and (max-width: 767px) {
-  #map {
-      height: 300px;
-  }
-
+@media screen and (max-width: 413px) {
   .map-header {
     font-size: 16px;
   }
 
   .navbar-default .navbar-brand {
       font-size: 25px;
+  }
+}
+
+
+@media screen and (min-width: 414px) and (max-width: 767px) {
+  #map {
+      height: 500px;
   }
 }

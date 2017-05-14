@@ -27,7 +27,7 @@ function mapHelpers() {
       }
 
       $("#numLocationsSearch").html(counter + " OuterSpaces match your \
-                                              search criteria");
+                                              search criteria<br><br>");
       $("#numLocationsAddress").empty();
   }
 
@@ -290,7 +290,7 @@ function mapHelpers() {
       }
 
       $("#numLocationsAddress").html(counter + " nearby " + evt.data.type + 
-                              " within half a mile");
+                              " within half a mile<br><br>");
     }
   }
 
@@ -383,6 +383,11 @@ function mapHelpers() {
   function geocodeResponse(data) {
     var coords = data.results[0].geometry.location;
     var p1 = new google.maps.LatLng(coords.lat, coords.lng);
+
+    var marker = new google.maps.Marker({
+      position: p1,
+      map: map
+    });
 
     map.setCenter(coords);
     map.setZoom(15);
