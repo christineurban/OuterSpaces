@@ -12,6 +12,8 @@ from server_utilities import (app, get_truck_data_cached, get_popos_data_cached,
     get_art_data_cached, get_hood_data_cached, display_trucks, display_popos, 
     display_art, display_by_hood_cached)
 
+from passlib.hash import pbkdf2_sha256
+
 import os           # Access OS environment variables
 import string
 
@@ -177,7 +179,7 @@ def log_in():
 
     if User.query.filter_by(email = email).first():
         user = User.query.filter_by(email = email).first()
-        if user.password == password:
+        if pbkdf2_sha256.verify(password, user.password):
             session["user_id"] = user.user_id
             session["email"] = user.email
             session["first_name"] = user.first_name
@@ -199,6 +201,8 @@ def sign_up():
     email = request.form.get("emailSignUp")
     password = request.form.get("pwSignUp")
 
+    pw_hash = pbkdf2_sha256.hash(password)
+
     if User.query.filter_by(email = email).first():
         flash("This email address is already registered.")
         return redirect("/account")
@@ -207,7 +211,7 @@ def sign_up():
         user = User(first_name=first_name,
                     last_name=last_name,
                     email=email,
-                    password=password)
+                    password=pw_hash)
 
         db.session.add(user)
         db.session.commit()
@@ -247,8 +251,9 @@ def change_password():
     new_password = request.form.get("new_password")
     user = User.query.get(user_id)
 
-    if user.password == old_password:
-        user.password = new_password
+    if pbkdf2_sha256.verify(old_password, user.password):
+        pw_hash = pbkdf2_sha256.hash(new_password)
+        user.password = pw_hash
         db.session.commit()
 
         flash("You have successfully changed your password.")
@@ -262,7 +267,7 @@ def change_password():
 
 @app.route("/change_email", methods=["POST"])
 def change_email():
-    """Change user password."""
+    """Change user email address."""
 
     user_id = session["user_id"]
     new_email = request.form.get("new_email")

@@ -96,7 +96,9 @@ class OuterSpacesTests(unittest.TestCase):
     def test_plan(self):
         """Test plan route."""
 
-        result = self.client.get("/plan")
+        result = self.client.post("/plan",
+                                  data={"identifier": "450 sutter san francisco"},
+                                  follow_redirects=True)
         self.assertEqual(result.status_code, 200)
         self.assertIn('id="plan_trip"', result.data)
 
@@ -230,7 +232,7 @@ class OuterSpacesTestsDatabase(unittest.TestCase):
 
 
     def test_change_wrong_password(self):
-        """Test change wrong assword route."""
+        """Test change wrong password route."""
 
         result = self.client.post("/change_password",
                                   data={"old_password": "123",
