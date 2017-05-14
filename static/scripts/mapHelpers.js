@@ -88,7 +88,11 @@ function mapHelpers() {
   ////////////////
 
 
-  function geocodeRequestAddress(data) {
+  function showDirections(evt) {
+    evt.preventDefault();
+    infoWindow.close();
+    $("#pageModal").modal("hide");
+
     var addressFrom = $("#directionsFromAddress").val();
     var position = $("#directionsPosition").val();
     var title = $("#directionsTitle").val();
@@ -123,7 +127,6 @@ function mapHelpers() {
     ]
 
     setTimeout(function(){
-      console.log("settimeout");
       // fetch the elements
       var nodes = 
           directionsDisplay.getPanel().querySelectorAll("td.adp-text");
@@ -137,18 +140,11 @@ function mapHelpers() {
     }, 500);
   }
 
-  function directionsAddress(evt) {
-    evt.preventDefault();
-    infoWindow.close();
-    $("#pageModal").modal("hide");
 
-    $.get("/data/gkey", geocodeRequestAddress);
-  } 
-
-  $(document).on("submit", "#directionsForm", directionsAddress);
+  $(document).on("submit", "#directionsForm", showDirections);
 
   function directionsModal(evt) {
-    var position = evt.data.position;
+    var position = evt.evt.position;
     var title = evt.data.title;
     var address = evt.data.address;
     $("#pageModal").modal();
@@ -465,148 +461,150 @@ function planMyTrip() {
       planMyTrip();
     });
 
-    map.data.setStyle({visible: false});
+    $.get("/data/gkey", function(data) {
 
-    // get current location
-    // navigator.geolocation.getCurrentPosition(function(position) {
-      // var p1 = new google.maps.LatLng(position.coords.latitude,
-      //                                 position.coords.longitude);
-          // var p1 = new google.maps.LatLng(37.7589,
-          //                             -122.433558);
-
-      navigator.geolocation.getCurrentPosition(function(position) {
-      var p1 = new google.maps.LatLng(position.coords.latitude,
-                                      position.coords.longitude);
+      var address = $("#identifier").val().toLowerCase().replace(/\s+/g, "+");
       
-      // hide all markers
-      var allMarkers = truckMarkers.concat((poposMarkers.concat(artMarkers)));
-      for (var marker of allMarkers) {
-        marker.setVisible(false);
-      }
+      $.get("https://maps.googleapis.com/maps/api/geocode/json?address=" 
+      + address + "&key=" + data, function(data) {
+
+        var coords = data.results[0].geometry.location;
+        var p1 = new google.maps.LatLng(coords.lat, coords.lng);
+    
+
+        map.data.setStyle({visible: false});
+      
+        // hide all markers
+        var allMarkers = truckMarkers.concat((poposMarkers.concat(artMarkers)));
+        for (var marker of allMarkers) {
+          marker.setVisible(false);
+        }
 
 
-      ////////////////////////
-      // plot nearest truck //
-      ////////////////////////
+        ////////////////////////
+        // plot nearest truck //
+        ////////////////////////
 
-      var closestTruck;
+        var closestTruck;
 
-      for (var marker of truckMarkers) {
-        var p2 = new google.maps.LatLng(marker.lat, marker.lng);
-        var distance = 
-            (google.maps.geometry.spherical.computeDistanceBetween(p1, p2));
-        if (!closestTruck || closestTruck.distance > distance) {
-          closestTruck = {
-            marker: marker,
-            distance: distance
+        for (var marker of truckMarkers) {
+          var p2 = new google.maps.LatLng(marker.lat, marker.lng);
+          var distance = 
+              (google.maps.geometry.spherical.computeDistanceBetween(p1, p2));
+          if (!closestTruck || closestTruck.distance > distance) {
+            closestTruck = {
+              marker: marker,
+              distance: distance
+            }
           }
         }
-      }
-      closestTruck.marker.setVisible(true);
-      p2 = new google.maps.LatLng(closestTruck.marker.lat,
-                                  closestTruck.marker.lng);
+        closestTruck.marker.setVisible(true);
+        p2 = new google.maps.LatLng(closestTruck.marker.lat,
+                                    closestTruck.marker.lng);
 
 
-      ////////////////////////
-      // plot nearest POPOS //
-      ////////////////////////
+        ////////////////////////
+        // plot nearest POPOS //
+        ////////////////////////
 
-      var closestPopos;
+        var closestPopos;
 
-      for (var marker of poposMarkers) {
-        var p3 = new google.maps.LatLng(marker.lat, marker.lng);
-        var distance = 
-            (google.maps.geometry.spherical.computeDistanceBetween(p2, p3));
-        if (!closestPopos || closestPopos.distance > distance) {
-          closestPopos = {
-            marker: marker,
-            distance: distance
+        for (var marker of poposMarkers) {
+          var p3 = new google.maps.LatLng(marker.lat, marker.lng);
+          var distance = 
+              (google.maps.geometry.spherical.computeDistanceBetween(p2, p3));
+          if (!closestPopos || closestPopos.distance > distance) {
+            closestPopos = {
+              marker: marker,
+              distance: distance
+            }
           }
         }
-      }
-      closestPopos.marker.setVisible(true);
-      p3 = new google.maps.LatLng(closestPopos.marker.lat, 
-                                  closestPopos.marker.lng);
+        closestPopos.marker.setVisible(true);
+        p3 = new google.maps.LatLng(closestPopos.marker.lat, 
+                                    closestPopos.marker.lng);
 
 
-      //////////////////////
-      // plot nearest art //
-      //////////////////////
+        //////////////////////
+        // plot nearest art //
+        //////////////////////
 
-      var closestArt;
+        var closestArt;
 
-      for (var marker of artMarkers) {
-        var p4 = new google.maps.LatLng(marker.lat, marker.lng);
-        var distance = 
-            (google.maps.geometry.spherical.computeDistanceBetween(p3, p4));
-        if (!closestArt || closestArt.distance > distance) {
-          closestArt = {
-            marker: marker,
-            distance: distance
+        for (var marker of artMarkers) {
+          var p4 = new google.maps.LatLng(marker.lat, marker.lng);
+          var distance = 
+              (google.maps.geometry.spherical.computeDistanceBetween(p3, p4));
+          if (!closestArt || closestArt.distance > distance) {
+            closestArt = {
+              marker: marker,
+              distance: distance
+            }
           }
         }
-      }
-      closestArt.marker.setVisible(true);
-      p4 = new google.maps.LatLng(closestArt.marker.lat, 
-                                  closestArt.marker.lng);
+        closestArt.marker.setVisible(true);
+        p4 = new google.maps.LatLng(closestArt.marker.lat, 
+                                    closestArt.marker.lng);
 
 
-      ///////////////////////////////
-      // directions between points //
-      ///////////////////////////////
+        ///////////////////////////////
+        // directions between points //
+        ///////////////////////////////
 
-      var request = {
-        origin: p1,
-        destination: p4,
-        waypoints: [
-          {location: p2, stopover: true}, 
-          {location: p3, stopover: true}
-           ],
-        travelMode: google.maps.DirectionsTravelMode[travel]
-      };
+        var request = {
+          origin: p1,
+          destination: p4,
+          waypoints: [
+            {location: p2, stopover: true}, 
+            {location: p3, stopover: true}
+             ],
+          travelMode: google.maps.DirectionsTravelMode[travel]
+        };
 
-      // first hide the panel
-      directionsDisplay.getPanel().style.visibility="hidden";
-      $(".warnbox-content, .warnbox-c1, .warnbox-c2").hide();
+        // first hide the panel
+        directionsDisplay.getPanel().style.visibility="hidden";
+        $(".warnbox-content, .warnbox-c1, .warnbox-c2").hide();
 
-      // set the directions
-      directionsService.route(request, function (response, status) {
-        if (status == google.maps.DirectionsStatus.OK) {
-          directionsDisplay.setDirections(response);
-        } else {
-          window.alert("Directions request failed due to " + status);
+        // set the directions
+        directionsService.route(request, function (response, status) {
+          if (status == google.maps.DirectionsStatus.OK) {
+            directionsDisplay.setDirections(response);
+          } else {
+            window.alert("Directions request failed due to " + status);
+          }
+         });
+
+        var displayAddress =  $("#identifier").val();
+
+        // custom titles for directions panel
+        var title = [
+          "<div style='font-weight:bold;'>" + displayAddress + "</div>First, \
+          Food!<br>Follow the directions below to get to the food truck nearest you.",
+          "You have arrived to:<div style='font-weight:bold'>" + 
+            closestTruck.marker.title + " on " + closestTruck.marker.address + 
+            "</div>Next, bring your food to the nearest POPOS by following the \
+            directions below.",
+          "You have arrived to:<div style='font-weight:bold'>" + 
+            closestPopos.marker.title + " on " + closestPopos.marker.address + 
+            "</div>Lastly, follow the next set of directions to get to the \
+            closest Public Art.",
+          "You have arrived to:<div style='font-weight:bold'>" + 
+            closestArt.marker.title + " on " + closestArt.marker.address + 
+            "</div>Enjoy, you Space cadet you!"
+        ]
+
+        setTimeout(function(){
+          // fetch the elements
+          var nodes = 
+              directionsDisplay.getPanel().querySelectorAll("td.adp-text");
+          for (var n = 0; n < nodes.length; ++n) {
+            // assign the text-content of the element to the innerHTML-property
+            nodes[n].innerHTML = title[n];
         }
-       });
-
-      // custom titles for directions panel
-      var title = [
-        "First, Food!<br>Follow the directions below to get to the food truck \
-          nearest you.",
-        "You have arrived to:<div style='font-weight:bold'>" + 
-          closestTruck.marker.title + " on " + closestTruck.marker.address + 
-          "</div>Next, bring your food to the nearest POPOS by following the \
-          directions below.",
-        "You have arrived to:<div style='font-weight:bold'>" + 
-          closestPopos.marker.title + " on " + closestPopos.marker.address + 
-          "</div>Lastly, follow the next set of directions to get to the \
-          closest Public Art.",
-        "You have arrived to:<div style='font-weight:bold'>" + 
-          closestArt.marker.title + " on " + closestArt.marker.address + 
-          "</div>Enjoy, you Space cadet you!"
-      ]
-
-      setTimeout(function(){
-        // fetch the elements
-        var nodes = 
-            directionsDisplay.getPanel().querySelectorAll("td.adp-text");
-        for (var n = 0; n < nodes.length; ++n) {
-          // assign the text-content of the element to the innerHTML-property
-          nodes[n].innerHTML = title[n];
-      }
-        // show the panel
-        directionsDisplay.getPanel().style.visibility="visible";
-      }, 500);
-
+          // show the panel
+          directionsDisplay.getPanel().style.visibility="visible";
+        }, 500);
+      });
     });
   }
 }

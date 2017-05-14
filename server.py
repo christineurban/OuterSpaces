@@ -72,18 +72,19 @@ def map_one():
                            identifier=identifier)
 
 
-@app.route("/plan")
+@app.route("/plan", methods=["POST"])
 def plan_trip():
     """Plan trip based on current location."""
 
     id = "plan_trip"
+    identifier = request.form.get("plan_my_trip")
 
     return render_template("map.html",
                            key=google_maps_key,
                            id=id,
                            lat=None,
                            lng=None,
-                           identifier=None)
+                           identifier=identifier)
 
 
 @app.route("/account")

@@ -12,7 +12,7 @@ body {
     color: #47505e;
     /* Margin bottom by footer height */
     margin-bottom: 60px;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 #maindiv {
@@ -75,13 +75,6 @@ a:hover, a:focus {
     margin-bottom: 10px;
 }
 
-.btn-default.index-btn {
-    background: rgba(255, 255, 255, 0.60);
-    color: #333;
-    text-shadow: none;
-    border-color: #ccc;
-}
-
 .btn.hood-btns {
     font-size: 18px;
     font-family: 'Ek Mukta', sans-serif;
@@ -140,7 +133,7 @@ div.btn-group.open>.btn.hood-btns, .btn.hood-btns:focus {
 
 
 /*Collapse navbar at custom screen dimension*/
-@media (max-width: 1270px) {
+@media (max-width: 1070px) {
   .navbar-header {
       float: none;
   }
@@ -238,7 +231,7 @@ div.btn-group.open>.btn.hood-btns, .btn.hood-btns:focus {
 }
 
 #content {
-    font-size:15px;
+    font-size:14px;
 }
 
 #textDirections {
@@ -259,7 +252,6 @@ div.btn-group.open>.btn.hood-btns, .btn.hood-btns:focus {
 
 #showhide {
     font-weight: bold;
-    font-size:
 }
 
 input[type=checkbox] {
@@ -377,5 +369,9 @@ input[type=checkbox]#hoodMap:checked:before {
 
   .map-header {
     font-size: 16px;
+  }
+
+  .navbar-default .navbar-brand {
+      font-size: 25px;
   }
 }

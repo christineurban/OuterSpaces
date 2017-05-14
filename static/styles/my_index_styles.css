@@ -14,7 +14,7 @@ body {
   position: absolute;
   top: 50%; left: 50%;
   transform: translate(-50%,-50%);
-  height: 70%;
+  height: 80%;
   width: 80%;
 }
 
@@ -25,6 +25,42 @@ h1 {
 #index #flashModal, #index #deletedModal, #index #pageModal {
     color: #47505e;
     text-shadow: none;
+}
+
+input[type="text"] {
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  background: rgba(255, 255, 255, 0.60);
+  align: center;
+}
+
+input[type="text"]::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #333;
+  text-align: center;
+  font-style: italic;
+}
+input[type="text"]::-moz-placeholder { /* Firefox 19+ */
+  color: #333;
+  text-align: center;
+  font-style: italic;
+}
+input[type="text"]:-ms-input-placeholder { /* IE 10+ */
+  color: #333;
+  text-align: center;
+  font-style: italic;
+}
+input[type="text"]:-moz-placeholder { /* Firefox 18- */
+  color: #333;
+  text-align: center;
+  font-style: italic;
+}
+
+.btn-default.index-btn {
+    background: rgba(255, 255, 255, 0.60);
+    color: #333;
+    text-shadow: none;
+    border-color: #ccc;
 }
 
 /* xxs < 413 */
