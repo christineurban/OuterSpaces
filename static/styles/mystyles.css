@@ -367,6 +367,10 @@ input[type=checkbox]#hoodMap:checked:before {
 ----------------------------------------------------------------------------- */
 
 @media screen and (max-width: 413px) {
+    #map {
+      height: 250px;
+  }
+
   .map-header {
     font-size: 16px;
   }
