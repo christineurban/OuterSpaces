@@ -1,5 +1,7 @@
 # OuterSpaces
-OuterSpaces helps users find outside places to eat, sit, and see public art in San Francisco. An OuterSpace is a food truck, a privately-owned public open space, also known as POPOS, or public art, as part of the 1% Art Program. Users can view all locations on a map within San Francisco neighborhood boundaries, or have a trip created for them according to their current geolocation. A user can also get detailed information on each location, get walking or driving directions, find other nearby locations, search by name or keyword, and see locations near an address. In addition, users can sign up for an account and save/delete favorite OuterSpaces on their profile, as well as update their personal information.
+http://www.outerspacessf.com/
+<br />
+OuterSpaces helps users find outside places to eat, sit, and see public art in San Francisco. An OuterSpace is a food truck, a privately-owned public open space, also known as POPOS, or public art, as part of the 1% Art Program. Users can view all locations on a map within San Francisco neighborhood boundaries, or have a trip created for them according to an entered address. A user can also get detailed information on each location, get walking or driving directions, find other nearby locations, search by name or keyword, and see locations near an address. In addition, users can sign up for an account and save/delete favorite OuterSpaces on their profile, as well as update their personal information.
 
 ![OuterSpaces Homepage](/static/images/OuterSpaces_screenshot_splash.jpg?raw=true)
 
@@ -21,7 +23,7 @@ OuterSpaces helps users find outside places to eat, sit, and see public art in S
 
 __Front End:__ JavaScript (AJAX, JSON), jQuery, Jinja2, Bootstrap, CSS, HTML<br />
 __Back End:__ Python, Flask, PostgreSQL, SQLAlchemy, Shapely, Flask-Cache<br />
-__APIs:__ Google Maps JavaScript, Geolocation, and Geocoding APIs; Socrata Open Data API<br />
+__APIs:__ Google Maps JavaScript and Geocoding APIs; Socrata Open Data API<br />
 __Testing Methodologies:__ Jasmine, Python unittest -- achieved 97% Python test coverage
 
 ## <a name="#features"></a>Features
@@ -83,7 +85,6 @@ Go to localhost:5000 with an active internet connection to use the web app.
 * Search by cuisine
 * Add ability to text name and address
 * Add rating system for OuterSpaces
-* Directions from entered address
 * OAuth with Facebook / connect with FB friends
 
 
