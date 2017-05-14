@@ -26,7 +26,7 @@ function mapHelpers() {
         }
       }
 
-      $("#numLocationsSearch").html("<br>" + counter + " OuterSpaces match your \
+      $("#numLocationsSearch").html(counter + " OuterSpaces match your \
                                               search criteria");
       $("#numLocationsAddress").empty();
   }
@@ -289,7 +289,7 @@ function mapHelpers() {
         counter++;
       }
 
-      $("#numLocationsAddress").html("<br>" + counter + " nearby " + evt.data.type + 
+      $("#numLocationsAddress").html(counter + " nearby " + evt.data.type + 
                               " within half a mile");
     }
   }
@@ -417,7 +417,7 @@ function mapHelpers() {
       }
     }
 
-    $("#numLocationsAddress").html("<br>" + counter + " OuterSpaces within half a mile");
+    $("#numLocationsAddress").html(counter + " OuterSpaces within half a mile");
     $("#numLocationsSearch").empty();
   }
 
