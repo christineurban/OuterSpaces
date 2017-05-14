@@ -233,6 +233,7 @@ div.btn-group.open>.btn.hood-btns, .btn.hood-btns:focus {
 #content {
     font-size:14px;
     max-width: 350px;
+    font-family: 'Muli', sans-serif;
 }
 
 #textDirections {
@@ -389,6 +390,14 @@ input[type=checkbox]#hoodMap:checked:before {
 
   .navbar-toggle {
       margin-top: 8px;
+  }
+
+  .navbar-collapse.in {
+      overflow-y: visible;
+  }
+
+  .navbar-default .navbar-collapse, .navbar-default .navbar-form {
+      border-color: #47505e; 
   }
 }
 

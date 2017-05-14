@@ -241,17 +241,17 @@ function mapHelpers() {
 
   google.maps.event.addListener(infoWindow, 'domready', function() {
     var favorite = this.marker;
-    $("#addToFavTrucks").on("click", favorite, addToFavTrucks);
+    $(".addToFavTrucks").on("click", favorite, addToFavTrucks);
   });  
 
   google.maps.event.addListener(infoWindow, 'domready', function() {
     var favorite = this.marker;
-    $("#addToFavPopos").on("click", favorite, addToFavPopos);
+    $(".addToFavPopos").on("click", favorite, addToFavPopos);
   });  
 
   google.maps.event.addListener(infoWindow, 'domready', function() { 
     var favorite = this.marker;
-    $("#addToFavArt").on("click", favorite, addToFavArt);
+    $(".addToFavArt").on("click", favorite, addToFavArt);
   });
 
 
