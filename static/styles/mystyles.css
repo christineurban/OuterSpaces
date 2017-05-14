@@ -75,7 +75,10 @@ a:hover, a:focus {
     color: #fff;
 }
 
-.form-inline .form-control, .form-inline .btn {
+.form-control, .btn {
+    margin-bottom: 5px;
+
+}.form-inline .form-control, .form-inline .btn {
     margin-bottom: -5px;
 }
 
