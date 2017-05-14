@@ -26,6 +26,16 @@ function initMap() {
     map.setCenter(sanFrancisco);
   }
 
+  // if map_one, center on that location
+  if (document.getElementById("lat")) {
+    map.setCenter({
+      lat: parseFloat(document.getElementById("lat").value),
+      lng: parseFloat(document.getElementById("lng").value)
+    });
+  } else {
+    map.setCenter(sanFrancisco);
+  }
+
 
   ///////////////////////////
   // Try HTML5 geolocation //
@@ -42,16 +52,6 @@ function initMap() {
   //       map: map,
   //       icon:  "/static/images/map-pin.png"
   //     });
-
-  //     // if map_one, center on that location
-  //     if (document.getElementById("lat")) {
-  //       map.setCenter({
-  //         lat: parseFloat(document.getElementById("lat").value),
-  //         lng: parseFloat(document.getElementById("lng").value)
-  //       });
-  //     } else {
-  //       map.setCenter(sanFrancisco);
-  //     }
 
   //   }, function() {
   //     handleLocationError(true, infoWindow, map.getCenter());

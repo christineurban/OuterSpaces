@@ -11,6 +11,7 @@ var poposMarkers = [];
 var travel = "WALKING";
 
 var mapOptions = {
+  mapTypeControl: false,
   styles: [
     {
         "featureType": "administrative",

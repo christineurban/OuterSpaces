@@ -71,12 +71,8 @@ a:hover, a:focus {
     color: #fff;
 }
 
-.form-control {
-    margin-bottom: 3px;
-}
-
-.btn {
-  margin-bottom: 10px;
+.form-control, .btn {
+    margin-bottom: 5px;
 }
 
 .btn.hood-btns {
@@ -236,11 +232,18 @@ div.btn-group.open>.btn.hood-btns, .btn.hood-btns:focus {
 
 #content {
     font-size:14px;
+    max-width: 350px;
 }
 
 #textDirections {
     max-width: 400px;
     margin: 0 auto;
+}
+
+#btnCenter button {
+    margin-left: auto;
+    margin-right: auto;
+    display:block;
 }
 
 
@@ -368,7 +371,7 @@ input[type=checkbox]#hoodMap:checked:before {
 
 @media screen and (max-width: 413px) {
     #map {
-      height: 250px;
+      height: 300px;
   }
 
   .map-header {

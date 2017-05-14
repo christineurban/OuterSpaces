@@ -416,7 +416,8 @@ def add_popos_to_favorites():
         return "Added {} to favorites!".format(name)
 
     except:
-        return "Oops! You must be logged in to save a favorite."
+        return "Oops! You must be logged in to save a favorite. \
+  360                  <a href='/account'>Log in or sign up &raquo;</a>"
 
 
 @app.route("/favorite-art", methods=["POST"])
@@ -473,7 +474,8 @@ def add_art_to_favorites():
         return "Added {} to favorites!".format(title)
 
     except:
-        return "Oops! You must be logged in to save a favorite."
+        return "Oops! You must be logged in to save a favorite. \
+  360                  <a href='/account'>Log in or sign up &raquo;</a>"
 
 
 @app.route("/delete-fav-truck", methods=["POST"])

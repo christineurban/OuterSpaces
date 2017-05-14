@@ -77,18 +77,18 @@ function plotDataTrucks(data) {
   var contentString = "<head><link rel='stylesheet' href='/static/styles/mystyles.css'/></head><body><div id='content'>" +
       "<p>FOOD TRUCK</p>" +
       "<h3>" + title + "</h3>" + 
-      "<p><button type='button' id='walkingDir' class='directions btn btn-default hidden-xs'>Walking Directions</button> " +
-      "<button type='button' id='drivingDir' class='directions btn btn-default hidden-xs'>Driving Directions</button> " +
-      "<button type='button' class='btn btn-default hidden-xs' id='addToFavTrucks'>Add To Favorites</button></p>" +
+      "<p><button type='button' class='directions walkingDir btn btn-default btn-sm hidden-xs'>Walking Directions</button> " +
+      "<button type='button' class='directions drivingDir btn btn-default btn-sm hidden-xs'>Driving Directions</button> " +
+      "<button type='button' class='btn btn-default btn-sm hidden-xs' id='addToFavTrucks'>Add To Favorites</button></p>" +
       "<p><strong>Address:</strong> " + address + "</p>" +
       "<p><strong>Hours:</strong> " + hours + "</p>" +
       "<p><strong>Cuisine:</strong> " + cuisine + "</p>" +
-      "<p><button type='button' class='btn btn-default hidden-xs' id='nearbyTrucks'>Nearby Food Trucks</button> " +
-      "<button type='button' class='btn btn-default hidden-xs' id='nearbyPopos'>Nearby POPOS</button> " +
-      "<button type='button' class='btn btn-default hidden-xs' id='nearbyArt'>Nearby Art</button></p>" +
-      "<p><button type='button' id='walkingDir' class='directions btn btn-default visible-xs hidden-sm hidden-md hidden-lg'>Walking Directions</button> " +
-      "<button type='button' id='drivingDir' class='directions btn btn-default visible-xs hidden-sm hidden-md hidden-lg'>Driving Directions</button> " +
-      "<button type='button' class='btn btn-default visible-xs hidden-sm hidden-md hidden-lg' id='addToFavTrucks'>Add To Favorites</button></p>"
+      "<p><button type='button' class='btn btn-default btn-sm hidden-xs' id='nearbyTrucks'>Nearby Food Trucks</button> " +
+      "<button type='button' class='btn btn-default btn-sm hidden-xs' id='nearbyPopos'>Nearby POPOS</button> " +
+      "<button type='button' class='btn btn-default btn-sm hidden-xs' id='nearbyArt'>Nearby Art</button></p>" +
+      "<p id='btnCenter'><button type='button' class='directions walkingDir btn btn-default btn-sm visible-xs hidden-sm hidden-md hidden-lg'>Walking Directions</button> " +
+      "<button type='button' class='directions drivingDir btn btn-default btn-sm visible-xs hidden-sm hidden-md hidden-lg'>Driving Directions</button> " +
+      "<button type='button' class='btn btn-default btn-sm visible-xs hidden-sm hidden-md hidden-lg' id='addToFavTrucks'>Add To Favorites</button></p>"
       "<div id='numLocations'></div>" + 
       "</div></body>";
 
@@ -148,21 +148,21 @@ function plotDataPopos(data) {
   var contentString = "<head><link rel='stylesheet' href='/static/styles/mystyles.css'/></head><body><div id='content'>" +
       "<p>POPOS</p>" +
       "<h3>" + title + "</h3>" +
-      "<p><button type='button' id='walkingDir' class='directions btn btn-default hidden-xs'>Walking Directions</button> " +
-      "<button type='button' id='drivingDir' class='directions btn btn-default hidden-xs'>Driving Directions</button> " +
-      "<button type='button' class='btn btn-default hidden-xs' id='addToFavPopos'>Add To Favorites</button></p>" +
+      "<p><button type='button' class='directions walkingDir btn btn-default btn-sm hidden-xs'>Walking Directions</button> " +
+      "<button type='button' class='directions drivingDir btn btn-default btn-sm hidden-xs'>Driving Directions</button> " +
+      "<button type='button' class='btn btn-default btn-sm hidden-xs' id='addToFavPopos'>Add To Favorites</button></p>" +
       "<p><strong>Address:</strong> " + address + "</p>" +
       "<p><strong>Hours:</strong> " + hours + "</p>" +
       "<p><strong>Type:</strong> " + type + "</p>" +
       "<p><strong>Location:</strong> " + location + "</p>" +
       "<p><strong>Year:</strong> " + year + "</p>" +
       "<p>" + desc + "</p>" +
-      "<p><button type='button' class='btn btn-default hidden-xs' id='nearbyTrucks'>Nearby Food Trucks</button> " +
-      "<button type='button' class='btn btn-default hidden-xs' id='nearbyPopos'>Nearby Popos</button> " +
-      "<button type='button' class='btn btn-default hidden-xs' id='nearbyArt'>Nearby Art</button></p>" +
-      "<p><button type='button' id='walkingDir' class='directions btn btn-default visible-xs hidden-sm hidden-md hidden-lg'>Walking Directions</button> " +
-      "<button type='button' id='drivingDir' class='directions btn btn-default visible-xs hidden-sm hidden-md hidden-lg'>Driving Directions</button> " +
-      "<button type='button' class='btn btn-default visible-xs hidden-sm hidden-md hidden-lg' id='addToFavPopos'>Add To Favorites</button></p>" +
+      "<p><button type='button' class='btn btn-default btn-sm hidden-xs' id='nearbyTrucks'>Nearby Food Trucks</button> " +
+      "<button type='button' class='btn btn-default btn-sm hidden-xs' id='nearbyPopos'>Nearby Popos</button> " +
+      "<button type='button' class='btn btn-default btn-sm hidden-xs' id='nearbyArt'>Nearby Art</button></p>" +
+      "<p id='btnCenter'><button type='button' class='directions walkingDir btn btn-default btn-sm visible-xs hidden-sm hidden-md hidden-lg'>Walking Directions</button> " +
+      "<button type='button' class='directions drivingDir btn btn-default btn-sm visible-xs hidden-sm hidden-md hidden-lg'>Driving Directions</button> " +
+      "<button type='button' class='btn btn-default btn-sm visible-xs hidden-sm hidden-md hidden-lg' id='addToFavPopos'>Add To Favorites</button></p>" +
       "<div id='numLocations'></div>" + 
       "</div></body>";
 
@@ -220,20 +220,20 @@ function plotDataArt(data) {
   var contentString = "<head><link rel='stylesheet' href='/static/styles/mystyles.css'/></head><body><div id='content'>" +
       "<p>PUBLIC ART</p>" +
       "<h3>" + title + "</h3>" +
-      "<p><button type='button' id='walkingDir' class='directions btn btn-default hidden-xs'>Walking Directions</button> " +
-      "<button type='button' id='drivingDir' class='directions btn btn-default hidden-xs'>Driving Directions</button> " +
-      "<button type='button' class='btn btn-default hidden-xs' id='addToFavArt'>Add To Favorites</button></p>" +
+      "<p><button type='button' class='directions walkingDir btn btn-default btn-sm hidden-xs'>Walking Directions</button> " +
+      "<button type='button' class='directions drivingDir btn btn-default btn-sm hidden-xs'>Driving Directions</button> " +
+      "<button type='button' class='btn btn-default btn-sm hidden-xs' id='addToFavArt'>Add To Favorites</button></p>" +
       "<p><strong>Address:</strong> " + address + "</p>" +
       "<p><strong>Location:</strong> " + location + "</p>" +
       "<p><strong>Type:</strong> " + type + "</p>" +
       "<p><strong>Medium:</strong> " + medium + "</p>" +
       "<p><a target='_blank' href='" + link + "'>" + link + "</a></p>" +
-      "<p><button type='button' class='btn btn-default hidden-xs' id='nearbyTrucks'>Nearby Food Trucks</button> " +
-      "<button type='button' class='btn btn-default hidden-xs' id='nearbyPopos'>Nearby POPOS</button> " +
-      "<button type='button' class='btn btn-default hidden-xs' id='nearbyArt'>Nearby Art</button></p>" +
-      "<p><button type='button' id='walkingDir' class='directions btn btn-default visible-xs hidden-sm hidden-md hidden-lg'>Walking Directions</button> " +
-      "<button type='button' id='drivingDir' class='directions btn btn-default visible-xs hidden-sm hidden-md hidden-lg'>Driving Directions</button> " +
-      "<button type='button' class='btn btn-default visible-xs hidden-sm hidden-md hidden-lg' id='addToFavArt'>Add To Favorites</button></p>" +
+      "<p><button type='button' class='btn btn-default btn-sm hidden-xs' id='nearbyTrucks'>Nearby Food Trucks</button> " +
+      "<button type='button' class='btn btn-default btn-sm hidden-xs' id='nearbyPopos'>Nearby POPOS</button> " +
+      "<button type='button' class='btn btn-default btn-sm hidden-xs' id='nearbyArt'>Nearby Art</button></p>" +
+      "<p id='btnCenter'><button type='button' class='directions walkingDir btn btn-default btn-sm visible-xs hidden-sm hidden-md hidden-lg'>Walking Directions</button> " +
+      "<button type='button' class='directions drivingDir btn btn-default btn-sm visible-xs hidden-sm hidden-md hidden-lg'>Driving Directions</button> " +
+      "<button type='button' class='btn btn-default btn-sm visible-xs hidden-sm hidden-md hidden-lg' id='addToFavArt'>Add To Favorites</button></p>" +
       "<div id='numLocations'></div>" + 
       "</div></body>";
 

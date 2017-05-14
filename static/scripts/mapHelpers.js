@@ -27,7 +27,7 @@ function mapHelpers() {
       }
 
       $("#numLocationsSearch").html(counter + " OuterSpaces match your \
-                                              search criteria<br><br>");
+                                              search criteria");
       $("#numLocationsAddress").empty();
   }
 
@@ -121,7 +121,7 @@ function mapHelpers() {
      });
 
     // custom titles for directions panel
-    var title = [
+    var panelTitle = [
       "<div style='font-weight:bold'>" + addressFrom + "</div>Get me to OuterSpace!",
       "<div style='font-weight:bold'>" + title + "</div>" + addressTo
     ]
@@ -130,21 +130,21 @@ function mapHelpers() {
       // fetch the elements
       var nodes = 
           directionsDisplay.getPanel().querySelectorAll("td.adp-text");
-      for (var n = 0; n < nodes.length; ++n) {
+      for (var i = 0; i < nodes.length; i++) {
         // assign the text-content of the element to the innerHTML-property
-        nodes[n].innerHTML = title[n];
+        nodes[i].innerHTML = panelTitle[i];
     }
       // show the panel
       $(".warnbox-content, .warnbox-c1, .warnbox-c2").hide();
       directionsDisplay.getPanel().style.visibility="visible";
-    }, 500);
+    }, 1000);
   }
 
 
   $(document).on("submit", "#directionsForm", showDirections);
 
   function directionsModal(evt) {
-    var position = evt.evt.position;
+    var position = evt.data.position;
     var title = evt.data.title;
     var address = evt.data.address;
     $("#pageModal").modal();
@@ -167,10 +167,10 @@ function mapHelpers() {
   // adding-event-to-element-inside-google-maps-api-infowindow
   google.maps.event.addListener(infoWindow, 'domready', function() {
     var destination = this.marker;
-    $("#walkingDir").on("click", function() {
+    $(".walkingDir").on("click", function() {
       travel = "WALKING";
     });
-    $("#drivingDir").on("click", function() {
+    $(".drivingDir").on("click", function() {
       travel = "DRIVING";
     });
     $(".directions").on("click", destination, directionsModal);
@@ -290,7 +290,7 @@ function mapHelpers() {
       }
 
       $("#numLocationsAddress").html(counter + " nearby " + evt.data.type + 
-                              " within half a mile<br><br>");
+                              " within half a mile");
     }
   }
 
