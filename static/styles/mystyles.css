@@ -33,6 +33,10 @@ h3 {
   height: 10px;
 }
 
+.spacer2 {
+  height: 17px;
+}
+
 /* Anchor
 ----------------------------------------------------------------------------- */
 
@@ -71,8 +75,29 @@ a:hover, a:focus {
     color: #fff;
 }
 
-.form-control, .btn {
-    margin-bottom: 5px;
+.form-inline .form-control, .form-inline .btn {
+    margin-bottom: -5px;
+}
+
+input[type="password"]::-webkit-input-placeholder,
+input[type="email"]::-webkit-input-placeholder,
+input[type="text"]::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  text-align: center;
+}
+input[type="password"]::-moz-placeholder,
+input[type="email"]::-moz-placeholder,
+input[type="text"]::-moz-placeholder { /* Firefox 19+ */
+  text-align: center;
+}
+input[type="password"]:-ms-input-placeholder,
+input[type="email"]:-ms-input-placeholder,
+input[type="text"]:-ms-input-placeholder { /* IE 10+ */
+  text-align: center;
+}
+input[type="password"]:-moz-placeholder,
+input[type="email"]:-moz-placeholder,
+input[type="text"]:-moz-placeholder { /* Firefox 18- */
+  text-align: center;
 }
 
 .btn.hood-btns {
@@ -392,7 +417,7 @@ input[type=checkbox]#hoodMap:checked:before {
       margin-top: 8px;
   }
 
-  .navbar-collapse.in {
+  .navbar-collapse.in, .navbar-collapse.out, .collapsing {
       overflow-y: visible;
   }
 

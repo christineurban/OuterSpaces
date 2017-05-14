@@ -417,7 +417,7 @@ def add_popos_to_favorites():
 
     except:
         return "Oops! You must be logged in to save a favorite. \
-  360                  <a href='/account'>Log in or sign up &raquo;</a>"
+               <a href='/account'>Log in or sign up &raquo;</a>"
 
 
 @app.route("/favorite-art", methods=["POST"])
@@ -475,7 +475,7 @@ def add_art_to_favorites():
 
     except:
         return "Oops! You must be logged in to save a favorite. \
-  360                  <a href='/account'>Log in or sign up &raquo;</a>"
+               <a href='/account'>Log in or sign up &raquo;</a>"
 
 
 @app.route("/delete-fav-truck", methods=["POST"])

@@ -7,7 +7,7 @@ body {
   -o-background-size: cover;
   background-size: cover;
   color: #fff;
-  text-shadow: 0 0 8px #555;
+  text-shadow: 0 0 10px #000;
 }
 
 .vertical-center {
@@ -131,4 +131,9 @@ input[type="text"]:-moz-placeholder { /* Firefox 18- */
   .prompt {
       font-size: 30px;
   }
+}
+
+body.modal-open {
+  text-shadow: none;
+  color: #333;
 }
