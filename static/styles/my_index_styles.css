@@ -77,7 +77,7 @@ input[type="text"]:-moz-placeholder { /* Firefox 18- */
 
   .vertical-center {
     height: 90%;
-    width: 90%;
+    width: 100%;
 }
 }
 

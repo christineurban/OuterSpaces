@@ -370,16 +370,21 @@ input[type=checkbox]#hoodMap:checked:before {
 ----------------------------------------------------------------------------- */
 
 @media screen and (max-width: 413px) {
-    #map {
+  #map {
       height: 300px;
   }
 
   .map-header {
     font-size: 16px;
+    line-height: 16px;
   }
 
   .navbar-default .navbar-brand {
       font-size: 25px;
+  }
+
+  .navbar-header {
+      height: 50px;
   }
 }
 
