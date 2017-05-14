@@ -410,7 +410,7 @@ function mapHelpers() {
       }
     }
 
-    $("#numLocationsAddress").html(counter + " OuterSpaces within half a mile");
+    $("#numLocationsAddress").html("<br>" + counter + " OuterSpaces within half a mile");
     $("#numLocationsSearch").empty();
   }
 
