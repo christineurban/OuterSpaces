@@ -92,6 +92,9 @@ input[type="text"]:-moz-placeholder { /* Firefox 18- */
   .prompt {
       font-size: 22px;
   }
+  .vertical-center {
+      width: 100%;
+  }
 }
 
 /* sm */
